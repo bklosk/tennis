@@ -22,25 +22,33 @@ class SegmentTracks:
     players: dict = field(default_factory=dict)  # side -> (n, 4) bbox, NaN if missing
     player_kps: dict = field(default_factory=dict)  # side -> (n, 17, 3)
     court_ok: float = 0.0
+    ball_weights: str = ""
 
 
 class BallTracker:
-    """TrackNet ball detector on MPS (PyTorch) or the Neural Engine (Core ML).
+    """TrackNet ball detector on MPS/CUDA (PyTorch) or the Neural Engine (Core ML).
 
     The Core ML backend's process memory grows with repeated predictions (~15 GB over a few
-    minutes of footage), so it is only suitable for short runs.
+    minutes of footage), so it is only suitable for short runs. It is a conversion of the
+    pretrained weights only.
     """
 
-    def __init__(self, dev: torch.device, backend: str = "mps"):
+    def __init__(self, dev: torch.device, backend: str = "mps", weights: str | None = None):
         self.dev = dev
         self.backend = backend
         if backend == "coreml":
             import coremltools as ct
 
-            self.model = ct.models.MLModel(str(WEIGHTS / "tracknet_512.mlpackage"),
-                                           compute_units=ct.ComputeUnit.CPU_AND_NE)
+            if weights or tracknet.ball_weights() != tracknet.PRETRAINED_BALL:
+                raise ValueError("the Core ML backend only has the pretrained ball weights; use --ball-backend mps")
+            path = WEIGHTS / "tracknet_512.mlpackage"
+            self.model = ct.models.MLModel(str(path), compute_units=ct.ComputeUnit.CPU_AND_NE)
+            self.tag = f"coreml:{tracknet.weights_tag(tracknet.PRETRAINED_BALL)}"
         else:
-            self.model = tracknet.load("ball", dev).half().to(memory_format=torch.channels_last)
+            path = tracknet.ball_weights(weights)
+            self.dtype = torch.float32 if dev.type == "cpu" else torch.float16
+            self.model = tracknet.load("ball", dev, path).to(self.dtype).to(memory_format=torch.channels_last)
+            self.tag = tracknet.weights_tag(path)
 
     def _heat(self, small: np.ndarray, batch: int = 8):
         n = len(small)
@@ -50,7 +58,7 @@ class BallTracker:
                 x = np.concatenate([F[s], F[s - 1], F[s - 2]], 0)[None]
                 yield s, next(iter(self.model.predict({"x": x}).values()))[0].astype(np.uint8)
             return
-        F = torch.from_numpy(small).to(self.dev).permute(0, 3, 1, 2).half() / 255
+        F = torch.from_numpy(small).to(self.dev).permute(0, 3, 1, 2).to(self.dtype) / 255
         with torch.no_grad():
             for s in range(2, n, batch):
                 idx = torch.arange(s, min(s + batch, n), device=self.dev)
@@ -181,6 +189,7 @@ def track_segment(frames: np.ndarray, t0: float, court_det: CourtDetector, ball:
         tracks.calibs[f] = good[int(np.argmin(np.abs(anchors - f)))][1]
 
     tracks.ball = ball(frames)
+    tracks.ball_weights = ball.tag
 
     for side in ("near", "far"):
         tracks.players[side] = np.full((n, 4), np.nan)

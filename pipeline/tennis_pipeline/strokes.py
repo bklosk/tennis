@@ -17,7 +17,9 @@ import pandas as pd
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import cross_val_predict
 
+from .align import video_match
 from .court import SERVICE_LINE
+from .gold import era_of
 from .paths import CACHE, match_dir
 
 LABELS_PATH = CACHE / "stroke_labels.jsonl"
@@ -151,8 +153,12 @@ def run(video_ids: list[str], vlm: bool = False) -> dict:
         gold = pd.read_csv(gold_path).merge(shots, on=["video_id", "hit_id"], suffixes=("_gold", ""))
         report["gold_n"] = int(len(gold))
         report["rule_accuracy_vs_gold"] = float((gold.stroke_gold == gold.stroke).mean()) if len(gold) else None
-        report["rule_accuracy_by_side"] = gold.groupby("side").apply(
-            lambda d: float((d.stroke_gold == d.stroke).mean()), include_groups=False).to_dict()
+        gold["era"] = gold.video_id.map(lambda v: era_of(int(video_match(v)["year"])))
+        gold["labeler_kind"] = np.where(gold.labeler.astype(str).str.startswith("qwen"), "qwen3-vl", "visual-review")
+        for col in ("side", "hand", "era", "labeler_kind"):
+            report[f"rule_accuracy_by_{col}"] = gold.groupby(col).apply(
+                lambda d: {"n": int(len(d)), "acc": round(float((d.stroke_gold == d.stroke).mean()), 3)},
+                include_groups=False).to_dict()
         for col in ("stroke_vlm", "stroke_model"):
             if col in gold:
                 g = gold[gold[col].notna()]

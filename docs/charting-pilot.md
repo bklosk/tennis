@@ -84,6 +84,57 @@ assumption, not yet measured. Measured locally: 11–12 fps on the M3 Pro, which
 5. Expand the gold set to ~200 strokes across eras, especially near-court players and
    left-handers.
 
+## Next-step tooling (built, not yet run on footage)
+
+Steps 2–5 are implemented and covered by synthetic-data tests (`pipeline/tests/`); none has been
+run on real broadcasts yet, so the pilot numbers above are unchanged.
+
+**2. TrackNet fine-tune.** `balllabels --action sample` picks ~2,000 frames spread evenly over the
+given matches, weighted toward where the pretrained model fails: 35% in-rally misses, 20% around
+serves, 15% bounces, 15% far-court, 15% random (between-point negatives). Each frame is pre-labeled
+from the cached track (detection, interpolation, or a quadratic fit across the gap), so review is
+mostly accept/nudge. Matches with scene segments but no tracks contribute unlabeled frames, which is
+how older eras get in. Labels are versioned in `pipeline/eval/ball_labels.csv`; the split is by camera
+segment (or whole match with `--holdout`). `balltrain` fine-tunes from the pretrained weights with
+the same input and 256-class heatmap target, then writes `.cache/weights/tracknet_ft.pt` and a report
+comparing pretrained and fine-tuned precision/recall at 5 and 10 px, per bucket, on the held-out
+split. Tracking picks up the fine-tuned weights automatically; cached chunks tracked with other
+weights get only the ball re-run (court and players are reused).
+
+**3. Serve detector.** `serve.py` finds serves from the server's body rather than the ball: settled
+stance behind the baseline, the person box growing upward as the arms go above the head (contact at
+its tallest point), and no opponent shot in the previous 2 s. It also needs one piece of ball or
+sound evidence (tracked toss, racket onset in the audio, ball leaving toward the opponent, a return,
+or a raw hit at contact). Accepted serves are flagged on or inserted among the hits, and the server's
+pre-serve ball bounces are dropped (a likely source of the 0–1 shot overcount). All candidates,
+with the reason for any rejection, go to `serve_candidates.parquet`. `eval/serve_eval.py` re-runs
+events and alignment from cached tracks with and without the detector, sweeps the threshold, and
+lists why each missed serve was rejected. The Sinner–Fritz final is the match to tune on.
+
+**4. OCR for matches without official data.** Official point-by-point data exists only from 2011, and
+is also missing for AO 2024 and all 2025+ events. `ocr` locates the score bug (rows starting with a
+player's surname, plus its number columns) and the speed graphic on ~160 sampled frames, then reads
+them once per second. Score cells are recognised one by one because text detectors drop isolated
+"0"s. Reads are debounced into score states, and tennis rules (`score.py`: deuce, tiebreaks, and
+final-set formats by tournament and year) expand them into points in the official schema, including
+server and winner. Points the broadcast never showed are inferred and flagged. Each speed readout
+attaches to its point (a second readout means a second serve). `align` falls back to
+`ocr_points.csv` automatically and uses the score-change times as an extra constraint. One limitation: the video alone
+cannot distinguish "player 1 starts far and player 2 serves first" from "player 1 starts near and
+serves first". When the speed graphic names the server this is resolved; otherwise
+`align_summary.json` sets `server_identity_ambiguous` and near/far names may be swapped. Also fixed:
+2011–2017 official files (no `RallyCount`/`ServeNumber`) previously broke `align`.
+
+**5. Gold set expansion.** `gold` targets ~200 forehand/backhand labels across broadcast eras
+(2000–06 SD, 2007–12, 2013–26), 60% near-court and 30% left-handed where available. Because
+Qwen3-VL-8B showed a strong "left" bias, answers only count if they flip when the crop is mirrored.
+Two independent questions vote (racket side in one word; racket and chest points), and "both
+hands on the racket" vetoes a forehand. Crops are re-decoded at the source resolution. The protocol
+is first scored against the existing hand-checked labels, and nothing is written unless it agrees at
+least 90%. If the 8B model fails that, try `--model mlx-community/Qwen3-VL-30B-A3B-Instruct-4bit`.
+New rows carry `labeler=qwen3-vl:…`, era, side, hand and the raw votes. Contact sheets for spot-checks
+go to `.cache/gold_sheets/`, and `strokes` reports rule accuracy by side, hand, era and labeler.
+
 ## Output files per match
 
 | File | Contents |
