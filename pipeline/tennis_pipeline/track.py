@@ -4,6 +4,7 @@ from dataclasses import dataclass, field
 import cv2
 import numpy as np
 import torch
+import torch.nn.functional as F
 
 from . import tracknet
 from .court import Calibration, CourtDetector
@@ -50,19 +51,47 @@ class BallTracker:
             self.model = tracknet.load("ball", dev, path).to(self.dtype).to(memory_format=torch.channels_last)
             self.tag = tracknet.weights_tag(path)
 
-    def _heat(self, small: np.ndarray, batch: int = 8):
-        n = len(small)
+    batch_override: int | None = None
+
+    @property
+    def batch(self) -> int:
+        return self.batch_override or (16 if self.dev.type == "cuda" else 8)
+
+    def _small(self, frames: np.ndarray) -> torch.Tensor:
+        """TrackNet input frames (n, 3, 360, 512) on the device, scaled to [0, 1].
+
+        Cropping at full resolution and 2x average pooling on the device reproduces
+        cv2.resize(INTER_LINEAR) to 640x360 (an exact 2x downscale averages each 2x2 block),
+        without a per-frame CPU resize.
+        """
+        x0, x1 = BALL_CROP_X
+        n = len(frames)
+        if frames.shape[1:3] != (720, 1280):
+            small = np.stack([cv2.resize(f, (640, 360))[:, x0:x1] for f in frames])
+            return torch.from_numpy(small).to(self.dev).permute(0, 3, 1, 2).to(self.dtype) / 255
+        out = torch.empty((n, 3, 360, x1 - x0), dtype=self.dtype, device=self.dev)
+        for s in range(0, n, 64):
+            part = torch.from_numpy(np.ascontiguousarray(frames[s:s + 64, :, 2 * x0:2 * x1])).to(self.dev)
+            # floor(x + 0.5): cv2 rounds halves up, torch.round rounds them to even.
+            pooled = torch.floor(F.avg_pool2d(part.permute(0, 3, 1, 2).float(), 2) + 0.5)
+            out[s:s + len(part)] = (pooled / 255).to(self.dtype)
+        return out
+
+    def _heat(self, frames: np.ndarray):
+        n = len(frames)
         if self.backend == "coreml":
-            F = small.astype(np.float32).transpose(0, 3, 1, 2) / 255
+            x0, x1 = BALL_CROP_X
+            small = np.stack([cv2.resize(f, (640, 360))[:, x0:x1] for f in frames])
+            Fs = small.astype(np.float32).transpose(0, 3, 1, 2) / 255
             for s in range(2, n):
-                x = np.concatenate([F[s], F[s - 1], F[s - 2]], 0)[None]
+                x = np.concatenate([Fs[s], Fs[s - 1], Fs[s - 2]], 0)[None]
                 yield s, next(iter(self.model.predict({"x": x}).values()))[0].astype(np.uint8)
             return
-        F = torch.from_numpy(small).to(self.dev).permute(0, 3, 1, 2).to(self.dtype) / 255
         with torch.no_grad():
-            for s in range(2, n, batch):
-                idx = torch.arange(s, min(s + batch, n), device=self.dev)
-                inp = torch.cat([F[idx], F[idx - 1], F[idx - 2]], 1).contiguous(memory_format=torch.channels_last)
+            X = self._small(frames)
+            for s in range(2, n, self.batch):
+                idx = torch.arange(s, min(s + self.batch, n), device=self.dev)
+                inp = torch.cat([X[idx], X[idx - 1], X[idx - 2]], 1).contiguous(memory_format=torch.channels_last)
                 heat = self.model(inp).argmax(1).to(torch.uint8).cpu().numpy()
                 for k, hm in enumerate(heat):
                     yield s + k, hm
@@ -72,10 +101,9 @@ class BallTracker:
         out = np.full((n, 2), np.nan)
         if n < 3:
             return out
-        x0, x1 = BALL_CROP_X
-        small = np.stack([cv2.resize(f, (640, 360))[:, x0:x1] for f in frames])
+        x0 = BALL_CROP_X[0]
         prev = None
-        for f, hm in self._heat(small):
+        for f, hm in self._heat(frames):
             xy = self._pick(hm, prev)
             if xy is not None:
                 out[f] = ((xy[0] + x0) * 2, xy[1] * 2)
@@ -112,10 +140,17 @@ class PlayerDetector:
         WEIGHTS.mkdir(parents=True, exist_ok=True)
         self.detector = YOLO(str(WEIGHTS / model_name))
         self.model = YOLO(str(WEIGHTS / pose_name))
+        self.device = tracknet.yolo_device()
+        self.half = self.device == "0"
 
     def _run(self, imgs, imgsz):
-        res = self.detector.predict(imgs, imgsz=imgsz, device="mps", conf=0.15, classes=[0], verbose=False)
+        res = self.detector.predict(imgs, imgsz=imgsz, device=self.device, half=self.half, conf=0.15,
+                                    classes=[0], verbose=False)
         return [(r.boxes.xyxy.cpu().numpy(), r.boxes.conf.cpu().numpy(), None) for r in res]
+
+    def pose(self, crops: list[np.ndarray], imgsz: int = 256):
+        return self.model.predict(crops, imgsz=imgsz, device=self.device, half=self.half, conf=0.2,
+                                  classes=[0], verbose=False)
 
     def detect(self, frames: list[np.ndarray], far_rect: tuple[int, int, int, int] | None, up: float = 1.5):
         near = self._run(frames, 960)
