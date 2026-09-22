@@ -1,0 +1,45 @@
+{
+  "title": "Manual non-YouTube web discovery, 2026-09-22",
+  "entries": [
+    {
+      "extractor_key": "Dailymotion",
+      "id": "x1n5bp8",
+      "webpage_url": "https://www.dailymotion.com/video/x1n5bp8",
+      "title": "Australian Open 2009 FINAL - Roger Federer vs Rafael Nadal FULL MATCH",
+      "duration": 17936,
+      "uploader": "Great Courts by Horst Skoff"
+    },
+    {
+      "extractor_key": "Dailymotion",
+      "id": "x1n2dc3",
+      "webpage_url": "https://www.dailymotion.com/video/x1n2dc3",
+      "title": "Australian Open 2012 1/2 FINAL - Roger Federer vs Rafael Nadal FULL MATCH",
+      "duration": 13267,
+      "uploader": "Great Courts by Horst Skoff"
+    },
+    {
+      "extractor_key": "Dailymotion",
+      "id": "x1m7xfd",
+      "webpage_url": "https://www.dailymotion.com/video/x1m7xfd",
+      "title": "US Open 2004 1/4 FINAL - Jennifer Capriati vs Serena Williams FULL MATCH",
+      "duration": 7269,
+      "uploader": "Great Courts by Horst Skoff"
+    },
+    {
+      "extractor_key": "Dailymotion",
+      "id": "x3y3bbv",
+      "webpage_url": "https://www.dailymotion.com/video/x3y3bbv",
+      "title": "US Open 2010 Final - Rafael Nadal vs Novak Djokovic",
+      "duration": 14969,
+      "uploader": "Great Courts by Horst Skoff"
+    },
+    {
+      "extractor_key": "Dailymotion",
+      "id": "x1iu5ge",
+      "webpage_url": "https://www.dailymotion.com/video/x1iu5ge",
+      "title": "US Open 2006 Final - Maria Sharapova vs Justine Henin FULL MATCH",
+      "duration": 5534,
+      "uploader": "Great Courts by Horst Skoff"
+    }
+  ]
+}

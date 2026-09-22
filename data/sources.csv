@@ -1,0 +1,8 @@
+source_id,source_type,tournament,url,purpose,rights_note
+ao-youtube-channel,official_video_channel,Australian Open,https://www.youtube.com/@australianopen,Public video metadata discovery,Public viewing does not grant download or redistribution rights
+ao-classic-full-playlist,official_video_playlist,Australian Open,https://www.youtube.com/playlist?list=PL2RR--XMozwWcV6-VEEMbCNnJ-Xre1BU7,Official classic full-match collection,Public viewing does not grant download or redistribution rights
+ao-archive-announcement,official_announcement,Australian Open,https://ausopen.com/articles/news/iconic-australian-open-archive-matches-debut-on-ao-youtube-channel,Documents the archive digitization program,Informational source
+us-open-youtube-channel,official_video_channel,US Open,https://www.youtube.com/@usopen,Public video metadata discovery,Public viewing does not grant download or redistribution rights
+us-open-iconic-playlist,official_video_playlist,US Open,https://www.youtube.com/playlist?list=PL_2A0MxHOgdaneHVlaxliKb0KqOJ5nJC4,Official iconic full-match collection,Public viewing does not grant download or redistribution rights
+dailymotion-web-search,public_video_search,"Australian Open; US Open",https://www.dailymotion.com/,Supplemental non-official full-match candidates,Unverified uploads; rights and match completeness require manual review
+sackmann-archive,match_results,"Australian Open; US Open",https://huggingface.co/datasets/Aneeshers/tennis-sackmann-archive,Canonical player pairings and rounds,CC BY-NC-SA 4.0; attribute Jeff Sackmann
