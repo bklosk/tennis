@@ -342,7 +342,11 @@ def annotate_hits(tr: SegmentTracks, b: np.ndarray, hits: list[dict], bounces: l
         # A serve is struck overhead from behind the baseline after a toss (the incoming flight
         # starts at the server), and not ~1 s after an opponent's shot.
         paused = gap_before > 2.0 or (out[k - 1]["side"] == rec["side"] and gap_before > 0.8)
-        rec["is_serve"] = bool(behind_baseline and rec["ball_above_head"] and (rec.get("toss") or (paused and k == 0)))
+        by_rule = bool(behind_baseline and rec["ball_above_head"] and (rec.get("toss") or (paused and k == 0)))
+        by_detector = rec.get("serve_score") is not None
+        rec["is_serve"] = by_rule or by_detector
+        rec["serve_source"] = ("rule+detector" if by_rule and by_detector else "rule" if by_rule
+                               else "detector" if by_detector else None)
     return out
 
 

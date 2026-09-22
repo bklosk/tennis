@@ -8,13 +8,24 @@ dependencies = [
     "gdown>=6.4.0",
     "mlx-vlm>=0.7.2",
     "numpy>=2.5.3",
+    "onnxruntime>=1.30",
     "opencv-python-headless>=5.0.0.93",
     "pandas>=3.0.6",
     "pyarrow>=25.0.1",
+    "rapidocr>=3.9",
     "scikit-learn>=1.9.1",
     "scipy>=1.18.1",
     "torch>=2.14.0",
     "torchvision>=0.29.0",
     "tqdm>=4.70.1",
     "ultralytics>=8.4.159",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
 ]

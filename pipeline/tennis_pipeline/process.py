@@ -14,7 +14,7 @@ import pandas as pd
 import torch
 from tqdm import tqdm
 
-from . import events, tracknet, video
+from . import events, serve, tracknet, video
 from .court import Calibration, CourtDetector
 from .paths import CACHE, match_dir
 from .track import FPS, BallTracker, PlayerDetector, SegmentTracks, track_segment
@@ -36,7 +36,7 @@ def save_tracks(path: Path, tr: SegmentTracks):
             anchors.append(f)
             mats.append(c.court_to_img)
     np.savez_compressed(
-        path, t0=tr.t0, n=tr.n, court_ok=tr.court_ok, ball=tr.ball,
+        path, t0=tr.t0, n=tr.n, court_ok=tr.court_ok, ball=tr.ball, ball_weights=tr.ball_weights,
         anchors=np.array(anchors, int), mats=np.array(mats) if mats else np.zeros((0, 3, 3)),
         **{f"box_{s}": v for s, v in tr.players.items()},
         **{f"kps_{s}": v for s, v in tr.player_kps.items()},
@@ -56,7 +56,8 @@ def load_tracks(path: Path) -> SegmentTracks:
     if len(anchors):
         for f in range(anchors[0]):
             calibs[f] = calibs[anchors[0]]
-    tr = SegmentTracks(t0=float(z["t0"]), n=n, calibs=calibs, ball=z["ball"], court_ok=float(z["court_ok"]))
+    tr = SegmentTracks(t0=float(z["t0"]), n=n, calibs=calibs, ball=z["ball"], court_ok=float(z["court_ok"]),
+                       ball_weights=str(z["ball_weights"]) if "ball_weights" in z else "")
     for s in ("near", "far"):
         if f"box_{s}" in z:
             tr.players[s] = z[f"box_{s}"]
@@ -64,45 +65,73 @@ def load_tracks(path: Path) -> SegmentTracks:
     return tr
 
 
+def _legacy_ball_tag(tr: SegmentTracks) -> str:
+    # Chunks cached before weights were tagged were all tracked with the pretrained model.
+    if tr.ball_weights or not tracknet.PRETRAINED_BALL.exists():
+        return tr.ball_weights
+    return tracknet.weights_tag(tracknet.PRETRAINED_BALL)
+
+
 def track_match(video_id: str, video_path: Path, limit_segments: int | None = None,
-                ball_backend: str = "mps") -> dict:
+                ball_backend: str = "mps", ball_weights: str | None = None) -> dict:
+    """Track every main-camera chunk; chunks cached with other ball weights get the ball re-run only."""
     out_dir = match_dir(video_id)
     tdir = _tracks_dir(video_id)
     segs = pd.read_csv(out_dir / "segments.csv")
     if limit_segments:
         segs = segs.head(limit_segments)
     dev = tracknet.device()
-    court_det, ball, players = CourtDetector(dev), BallTracker(dev, ball_backend), PlayerDetector()
-    t_start, n_frames = time.time(), 0
+    ball = BallTracker(dev, ball_backend, ball_weights)
+    court_det = players = None
+    t_start, n_frames, n_retracked = time.time(), 0, 0
     for seg in tqdm(segs.itertuples(), total=len(segs), desc=f"track {video_id}"):
         t = seg.start
         while t < seg.end - 0.5:
             dur = min(CHUNK_S, seg.end - t)
             path = tdir / f"{seg.segment_id:04d}_{int(round(t * 10)):06d}.npz"
             if not path.exists():
+                if court_det is None:
+                    court_det, players = CourtDetector(dev), PlayerDetector()
                 frames = video.read_clip(video_path, t, dur, fps=FPS)
                 n_frames += len(frames)
                 save_tracks(path, track_segment(frames, t, court_det, ball, players))
-                del frames
-                gc.collect()
-                if torch.backends.mps.is_available():
-                    torch.mps.empty_cache()
+            else:
+                tr = load_tracks(path)
+                if tr.court_ok < 0.5 or _legacy_ball_tag(tr) == ball.tag:
+                    t += dur
+                    continue
+                frames = video.read_clip(video_path, t, dur, fps=FPS)
+                n_frames += len(frames)
+                n_retracked += 1
+                tr.ball, tr.ball_weights = ball(frames), ball.tag
+                save_tracks(path, tr)
+            del frames
+            gc.collect()
+            if torch.backends.mps.is_available():
+                torch.mps.empty_cache()
             t += dur
     elapsed = time.time() - t_start
     stats = {"video_id": video_id, "frames": n_frames, "seconds": round(elapsed, 1),
-             "fps": round(n_frames / max(elapsed, 1e-9), 2)}
-    (out_dir / "track_stats.json").write_text(json.dumps(stats, indent=2))
+             "fps": round(n_frames / max(elapsed, 1e-9), 2), "ball_weights": ball.tag,
+             "chunks_ball_retracked": n_retracked}
+    if n_frames:  # keep the last real throughput measurement when everything was cached
+        (out_dir / "track_stats.json").write_text(json.dumps(stats, indent=2))
     return stats
 
 
-def events_match(video_id: str, video_path: Path | None = None) -> pd.DataFrame:
-    """Recompute bounces/hits from cached tracks; writes ball/players/hits tables."""
+def events_match(video_id: str, video_path: Path | None = None, serve_detector: bool = True,
+                 serve_params: "serve.ServeParams | None" = None) -> pd.DataFrame:
+    """Recompute bounces/hits from cached tracks; writes ball/players/hits/serve-candidate tables."""
+    from . import audio
     from .scenes import SAMPLE_FPS, scene_prob
 
     out_dir = match_dir(video_id)
     bounce_model = events.BounceModel()
     prob = scene_prob(video_id)
-    ball_rows, player_rows, hit_rows = [], [], []
+    onsets = None
+    if video_path is not None or (out_dir / "audio_onsets.npz").exists():
+        onsets = audio.onsets(video_id, video_path)
+    ball_rows, player_rows, hit_rows, serve_rows = [], [], [], []
     for path in sorted(_tracks_dir(video_id).glob("*.npz")):
         tr = load_tracks(path)
         if tr.court_ok < 0.5:
@@ -119,7 +148,12 @@ def events_match(video_id: str, video_path: Path | None = None) -> pd.DataFrame:
         chunk_id = path.stem
         b = events.clean_ball(tr.ball)
         bounces = bounce_model.predict(b)
-        hits = events.annotate_hits(tr, b, events.detect_hits(tr, b), bounces)
+        raw = events.detect_hits(tr, b)
+        if serve_detector:
+            cands = serve.detect(tr, b, raw, onsets, serve_params)
+            serve_rows += [{**c, "chunk_id": chunk_id} for c in cands]
+            raw = serve.merge(raw, cands, b, tr, serve_params)
+        hits = events.annotate_hits(tr, b, raw, bounces)
         _collect_frames(tr, b, bounces, chunk_id, ball_rows, player_rows)
         for h in hits:
             rec = {k: v for k, v in h.items()}
@@ -130,11 +164,10 @@ def events_match(video_id: str, video_path: Path | None = None) -> pd.DataFrame:
             hit_rows.append(rec)
     pd.DataFrame(ball_rows).to_parquet(out_dir / "ball.parquet", index=False)
     pd.DataFrame(player_rows).to_parquet(out_dir / "players.parquet", index=False)
+    pd.DataFrame(serve_rows).to_parquet(out_dir / "serve_candidates.parquet", index=False)
     hits = pd.DataFrame(hit_rows)
-    if video_path is not None and len(hits):
-        from . import audio
-
-        on_t, on_s = audio.onsets(video_id, video_path)
+    if onsets is not None and len(hits):
+        on_t, on_s = onsets
         hits["t_audio"], hits["audio_strength"] = audio.snap(hits.t.to_numpy(), on_t, on_s)
         hits["audio_confirmed"] = hits.t_audio.notna()
         hits["t_visual"] = hits.t

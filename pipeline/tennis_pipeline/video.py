@@ -1,5 +1,6 @@
 import json
 import subprocess
+import sys
 from pathlib import Path
 from typing import Iterator
 
@@ -35,7 +36,9 @@ def iter_frames(
 ) -> Iterator[np.ndarray]:
     """Yield BGR frames resampled to `fps` and resized to `size` (width, height)."""
     width, height = size
-    cmd = ["ffmpeg", "-v", "error", "-hwaccel", "videotoolbox"]
+    cmd = ["ffmpeg", "-v", "error"]
+    if sys.platform == "darwin":
+        cmd += ["-hwaccel", "videotoolbox"]
     if start:
         cmd += ["-ss", f"{start:.3f}"]
     cmd += ["-i", str(path)]

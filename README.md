@@ -94,6 +94,19 @@ uv run python -m tennis_pipeline.cli crops   VIDEO_ID       # hitter crops + pos
 uv run python -m tennis_pipeline.cli align   VIDEO_ID       # group into points, align to official data
 uv run python -m tennis_pipeline.cli strokes VIDEO_ID ...   # VLM-labelled stroke classifier
 uv run python -m tennis_pipeline.cli report  VIDEO_ID ...   # CSV exports, court maps, QA clip
+uv run python -m tennis_pipeline.cli ocr     VIDEO_ID       # score bug + serve speed, for matches without official data
+```
+
+Improvement tooling from the pilot's next steps (see the pilot doc for the workflow):
+
+```bash
+uv run python -m tennis_pipeline.cli balllabels VIDEO_ID ... --action sample --n 2000   # pick + pre-label frames
+uv run python -m tennis_pipeline.cli balllabels --action export                        # decode 3-frame inputs
+uv run python -m tennis_pipeline.cli balllabels --action review --labeler NAME         # click-through labeling
+uv run python -m tennis_pipeline.cli balltrain --epochs 30                             # fine-tune TrackNet
+uv run python -m eval.serve_eval VIDEO_ID ... --sweep 0.35,0.5,0.65                    # serve detector vs official
+uv run python -m tennis_pipeline.cli gold VIDEO_ID ... --target 200                    # Qwen3-VL gold expansion
+uv run pytest                                                                          # synthetic-data tests
 ```
 
 Pilot results on three 2024 matches (accuracy, cost projection, next steps) are in

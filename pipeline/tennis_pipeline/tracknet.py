@@ -2,6 +2,10 @@
 
 Ported from github.com/yastrebksv/TrackNet so the published state dicts load unchanged.
 """
+import hashlib
+from functools import lru_cache
+from pathlib import Path
+
 import torch
 from torch import nn
 
@@ -59,16 +63,40 @@ class BallTrackerNet(nn.Module):
         return self.conv18(self.conv17(self.conv16(x)))
 
 
+PRETRAINED_BALL = WEIGHTS / "tracknet.pt"
+FINETUNED_BALL = WEIGHTS / "tracknet_ft.pt"
+
+
 def device() -> torch.device:
+    if torch.cuda.is_available():
+        return torch.device("cuda")
     return torch.device("mps" if torch.backends.mps.is_available() else "cpu")
 
 
-def load(kind: str, dev: torch.device | None = None) -> BallTrackerNet:
+def ball_weights(path: str | Path | None = None) -> Path:
+    """Explicit path, else the US Open fine-tune when it exists, else the pretrained weights."""
+    if path:
+        return Path(path)
+    return FINETUNED_BALL if FINETUNED_BALL.exists() else PRETRAINED_BALL
+
+
+def weights_tag(path: Path) -> str:
+    """Short content hash, stored with cached tracks so a weights change triggers re-tracking."""
+    st = path.stat()
+    return _tag(str(path), st.st_mtime_ns, st.st_size)
+
+
+@lru_cache
+def _tag(path: str, mtime_ns: int, size: int) -> str:
+    return f"{Path(path).stem}:{hashlib.sha1(Path(path).read_bytes()).hexdigest()[:10]}"
+
+
+def load(kind: str, dev: torch.device | None = None, weights: str | Path | None = None) -> BallTrackerNet:
     dev = dev or device()
     if kind == "ball":
-        model, path = BallTrackerNet(9, 256), WEIGHTS / "tracknet.pt"
+        model, path = BallTrackerNet(9, 256), ball_weights(weights)
     elif kind == "court":
-        model, path = BallTrackerNet(3, 15), WEIGHTS / "court.pt"
+        model, path = BallTrackerNet(3, 15), Path(weights) if weights else WEIGHTS / "court.pt"
     else:
         raise ValueError(kind)
     model.load_state_dict(torch.load(path, map_location="cpu"))

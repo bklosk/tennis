@@ -7,6 +7,7 @@ which end the server is on (from the change-of-ends rule), and elapsed-time cons
 import csv
 import json
 import re
+import urllib.error
 import urllib.request
 from functools import lru_cache
 
@@ -37,26 +38,68 @@ def video_match(video_id: str) -> dict:
     raise KeyError(video_id)
 
 
-def official_points(video_id: str) -> tuple[dict, pd.DataFrame]:
-    meta = video_match(video_id)
-    year = meta["year"]
-    matches = pd.read_csv(_fetch(f"slam_pointbypoint/{year}-usopen-matches.csv"))
-    names = {_norm(meta["player1"]), _norm(meta["player2"])}
-    hit = matches[matches.apply(lambda r: {_norm(str(r.player1)), _norm(str(r.player2))} == names, axis=1)]
-    if hit.empty:
-        raise KeyError(f"no point-by-point match for {video_id}")
-    m = hit.iloc[0]
-    pts = pd.read_csv(_fetch(f"slam_pointbypoint/{year}-usopen-points.csv"), low_memory=False)
-    pts = pts[(pts.match_id == m.match_id) & ~pts.PointNumber.astype(str).isin(["0X", "0Y"])].copy()
-    pts["elapsed_s"] = pts.ElapsedTime.map(lambda s: sum(int(x) * 60 ** i for i, x in enumerate(reversed(s.split(":")))))
-    pts = pts.reset_index(drop=True)
+SLAM_SLUG = {"US Open": "usopen", "Australian Open": "ausopen"}
+
+
+def _ends_parity(pts: pd.DataFrame) -> np.ndarray:
+    """Players change ends after odd games; parity of end changes before each point."""
     games_per_set = pts.groupby("SetNo").GameNo.max().to_dict()
     changes = []
     for r in pts.itertuples():
         before = sum(int(np.ceil(games_per_set[s] / 2)) for s in games_per_set if s < r.SetNo)
         changes.append(before + r.GameNo // 2)
-    pts["ends_parity"] = np.array(changes) % 2
-    return {"match_id": m.match_id, "player1": m.player1, "player2": m.player2}, pts
+    return np.array(changes, int) % 2
+
+
+def sackmann_points(video_id: str) -> tuple[dict, pd.DataFrame]:
+    meta = video_match(video_id)
+    year, slug = meta["year"], SLAM_SLUG[meta["tournament"]]
+    try:
+        matches = pd.read_csv(_fetch(f"slam_pointbypoint/{year}-{slug}-matches.csv"))
+    except urllib.error.HTTPError as e:
+        raise KeyError(f"no official point-by-point file for {year} {slug}") from e
+    names = {_norm(meta["player1"]), _norm(meta["player2"])}
+    hit = matches[matches.apply(lambda r: {_norm(str(r.player1)), _norm(str(r.player2))} == names, axis=1)]
+    if hit.empty:
+        raise KeyError(f"no point-by-point match for {video_id}")
+    m = hit.iloc[0]
+    pts = pd.read_csv(_fetch(f"slam_pointbypoint/{year}-{slug}-points.csv"), low_memory=False)
+    pts = pts[(pts.match_id == m.match_id) & ~pts.PointNumber.astype(str).isin(["0", "0X", "0Y"])
+              & (pts.PointServer.astype(int) > 0)].copy()
+    pts["elapsed_s"] = pts.ElapsedTime.map(lambda s: sum(int(x) * 60 ** i for i, x in enumerate(reversed(s.split(":")))))
+    # Older files (2011-2017) have no RallyCount/ServeNumber/ServeWidth; Rally held the count then.
+    if "RallyCount" not in pts or pts.RallyCount.isna().all():
+        pts["RallyCount"] = pd.to_numeric(pts.get("Rally"), errors="coerce")
+    for col in ("ServeNumber", "ServeWidth", "ServeDepth", "ReturnDepth", "Speed_KMH"):
+        if col not in pts:
+            pts[col] = np.nan
+    pts = pts.reset_index(drop=True)
+    pts["ends_parity"] = _ends_parity(pts)
+    return {"match_id": m.match_id, "player1": m.player1, "player2": m.player2, "source": "official"}, pts
+
+
+def ocr_points(video_id: str) -> tuple[dict, pd.DataFrame]:
+    """Point table read from the broadcast's score graphics (see `ocr.py`)."""
+    meta = video_match(video_id)
+    path = match_dir(video_id) / "ocr_points.csv"
+    if not path.exists():
+        raise KeyError(f"no official data for {video_id}; run the ocr stage first")
+    pts = pd.read_csv(path)
+    if pts.empty:
+        raise KeyError(f"ocr found no points for {video_id}")
+    pts["PointServer"] = pts.server_p1_first
+    for col in ("RallyCount", "ServeWidth", "ServeDepth", "ReturnDepth"):
+        pts[col] = np.nan
+    pts["ends_parity"] = _ends_parity(pts)
+    return {"match_id": pts.match_id.iloc[0], "player1": meta["player1"], "player2": meta["player2"],
+            "source": "ocr"}, pts
+
+
+def official_points(video_id: str) -> tuple[dict, pd.DataFrame]:
+    try:
+        return sackmann_points(video_id)
+    except KeyError:
+        return ocr_points(video_id)
 
 
 @lru_cache
@@ -129,6 +172,8 @@ def _align(vps: list[dict], pts: pd.DataFrame, p1_start: str):
     other = {"near": "far", "far": "near"}
     p1_side = np.where(parity == 0, p1_start, other[p1_start])
     exp_side = np.where(server == 1, p1_side, [other[s] for s in p1_side])
+    # OCR-derived points carry the video time at which the new score first appeared.
+    t_hi = pts.video_t_hi.to_numpy(float) if "video_t_hi" in pts else np.full(m, np.nan)
 
     def s(i, j):
         v = vps[i]
@@ -137,6 +182,8 @@ def _align(vps: list[dict], pts: pd.DataFrame, p1_start: str):
             sc += 1.5 if v["server_side"] == exp_side[j] else -2.5
         if rally[j] >= 0:
             sc += 1.5 - 0.6 * min(abs(v["n_shots"] - rally[j]), 5)
+        if not np.isnan(t_hi[j]):
+            sc += 1.5 if t_hi[j] - 40 <= v["t_end"] <= t_hi[j] + 2 else -2.0
         return sc
 
     def trans(i0, j0, i1, j1):
@@ -176,6 +223,34 @@ def _align(vps: list[dict], pts: pd.DataFrame, p1_start: str):
         pairs.append(cur)
         cur = back[cur]
     return score, pairs[::-1], exp_side
+
+
+def best_alignment(vps: list[dict], pts: pd.DataFrame, source: str):
+    """Align under each unknown: which end player 1 starts at, and (OCR only) who served first.
+
+    For OCR points the two unknowns are coupled: "player 1 starts far, player 2 serves first"
+    puts the server at the same end on every point as "player 1 starts near and serves first",
+    so video alone cannot tell them apart. A server named on the speed graphic settles it;
+    otherwise the result is flagged ambiguous (near/far player names may be swapped).
+    """
+    ambiguous = False
+    if source == "official":
+        firsts = [None]
+    else:
+        hints = pts.get("server_hint", pd.Series(dtype=float)).dropna()
+        if len(hints) >= 3:
+            agree = float((hints == pts.loc[hints.index, "server_p1_first"]).mean())
+            firsts = [1 if agree >= 0.5 else 2]
+        else:
+            firsts = [1, 2]
+            ambiguous = True
+    results = []
+    for first in firsts:
+        t = pts if first is None else pts.assign(
+            PointServer=pts.server_p1_first if first == 1 else 3 - pts.server_p1_first)
+        results += [(_align(vps, t, start), start, t) for start in ("near", "far")]
+    (score, pairs, exp_side), p1_start, table = max(results, key=lambda r: r[0][0])
+    return score, pairs, exp_side, p1_start, table, ambiguous
 
 
 def _torso_hist(path: str) -> np.ndarray | None:
@@ -240,8 +315,7 @@ def run(video_id: str) -> dict:
     feats_path = out_dir / "hit_features.parquet"
     meta, pts = official_points(video_id)
     vps = video_points(hits)
-    results = [(_align(vps, pts, start), start) for start in ("near", "far")]
-    (score, pairs, exp_side), p1_start = max(results, key=lambda r: r[0][0])
+    _, pairs, exp_side, p1_start, pts, ambiguous = best_alignment(vps, pts, meta["source"])
 
     matched = {i: j for i, j in pairs}
     names = {1: meta["player1"], 2: meta["player2"]}
@@ -262,7 +336,8 @@ def run(video_id: str) -> dict:
                 "far_player": names[3 - server] if server_side == "near" else names[server],
                 "official_rally_count": int(p.RallyCount) if not pd.isna(p.RallyCount) else None,
                 "serve_number": int(p.ServeNumber) if not pd.isna(p.ServeNumber) else None,
-                "serve_speed_kmh": float(p.Speed_KMH) if p.Speed_KMH else None,
+                "serve_speed_kmh": float(p.Speed_KMH) if not pd.isna(p.Speed_KMH) and p.Speed_KMH else None,
+                "points_source": meta["source"],
                 "serve_width": p.ServeWidth, "serve_depth": p.ServeDepth, "return_depth": p.ReturnDepth,
                 "point_winner": names.get(int(p.PointWinner)),
                 "score_after": f"{p.P1Score}-{p.P2Score}", "elapsed_s": int(p.elapsed_s),
@@ -296,7 +371,8 @@ def run(video_id: str) -> dict:
     both = points[aligned & points.official_rally_count.notna()]
     served = points[aligned & points.server_side.notna()]
     summary = {
-        "video_id": video_id, "official_match_id": meta["match_id"],
+        "video_id": video_id, "official_match_id": meta["match_id"], "points_source": meta["source"],
+        "server_identity_ambiguous": ambiguous,
         "official_points": int(len(pts)), "video_points": int(len(points)),
         "aligned_points": int(aligned.sum()), "p1_starts": p1_start,
         "serve_detected_rate": float(len(served) / max(aligned.sum(), 1)),
