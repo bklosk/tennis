@@ -109,21 +109,30 @@ def _refine(img: np.ndarray, x: float, y: float, crop: int = 40) -> tuple[float,
 class CourtDetector:
     def __init__(self, dev: torch.device | None = None):
         self.dev = dev or tracknet.device()
-        self.model = tracknet.load("court", self.dev)
+        self.dtype = torch.float32 if self.dev.type == "cpu" else torch.float16
+        self.model = tracknet.load("court", self.dev).to(self.dtype).to(memory_format=torch.channels_last)
 
     @torch.no_grad()
     def keypoints(self, frames_bgr: list[np.ndarray]) -> list[list]:
         """Detect 14 court keypoints (1280x720 pixel coords or None) per frame."""
-        small = np.stack([cv2.resize(f, (640, 360)) for f in frames_bgr]).astype(np.float32) / 255.0
-        inp = torch.from_numpy(small).permute(0, 3, 1, 2).to(self.dev)
-        heat = torch.sigmoid(self.model(inp))[:, :14].cpu().numpy()
-        results = []
-        for frame, maps in zip(frames_bgr, heat):
+        n = len(frames_bgr)
+        small = np.stack([cv2.resize(f, (640, 360)) for f in frames_bgr])
+        padded = 1 << (n - 1).bit_length()  # power-of-two batches limit cuDNN re-tuning to a few shapes
+        if padded > n:
+            small = np.concatenate([small, np.repeat(small[-1:], padded - n, 0)])
+        inp = torch.from_numpy(small).to(self.dev).permute(0, 3, 1, 2).to(self.dtype) / 255
+        heat = torch.sigmoid(self.model(inp.contiguous(memory_format=torch.channels_last)).float())[:n, :14]
+        present = (heat.amax((2, 3)) >= 0.67).cpu().numpy()
+        maps_present = heat[torch.from_numpy(present).to(heat.device)].cpu().numpy()  # only copy detected maps
+        results, j = [], 0
+        for frame, flags in zip(frames_bgr, present):
             pts = []
-            for k, hm in enumerate(maps):
-                if hm.max() < 0.67:
+            for k, found in enumerate(flags):
+                if not found:
                     pts.append(None)
                     continue
+                hm = maps_present[j]
+                j += 1
                 mask = (hm > 0.67).astype(np.uint8)
                 _, labels, stats, cents = cv2.connectedComponentsWithStats(mask)
                 peak = np.unravel_index(hm.argmax(), hm.shape)

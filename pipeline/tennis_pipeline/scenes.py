@@ -41,8 +41,12 @@ class Embedder:
         return self.net((x - self.mean) / self.std).cpu().numpy()
 
 
-def embed_video(video_id: str, video_path: Path, n_label_samples: int = 160, seed: int = 0) -> np.ndarray:
-    """Embed every 2 fps frame; save a random subset as JPEGs for VLM labeling."""
+def embed_video(video_id: str, video_path: Path, n_label_samples: int = 160, seed: int = 0,
+                keyframes_only: bool = False) -> np.ndarray:
+    """Embed every 2 fps frame; save a random subset as JPEGs for labeling.
+
+    `keyframes_only` decodes ~6x faster but samples the scene once per keyframe interval.
+    """
     cache = match_dir(video_id) / "scene_embeddings.npz"
     if cache.exists():
         return np.load(cache)["emb"]
@@ -55,7 +59,7 @@ def embed_video(video_id: str, video_path: Path, n_label_samples: int = 160, see
 
     embedder = Embedder()
     embs, batch = [], []
-    for i, frame in enumerate(video.iter_frames(video_path, SAMPLE_FPS, (640, 360))):
+    for i, frame in enumerate(video.iter_frames(video_path, SAMPLE_FPS, (640, 360), keyframes_only=keyframes_only)):
         if i in label_idx:
             cv2.imwrite(str(label_dir / f"{i:06d}.jpg"), frame)
         batch.append(frame)

@@ -136,7 +136,15 @@ class Droplet:
         body = {"name": self.name, "region": self.region, "size": self.size_slug, "image": self.image,
                 "ssh_keys": [self.key_id], "tags": [TAG], "user_data": self_destruct_script(token, seconds),
                 "monitoring": False, "ipv6": False}
-        drop = self.do.request("POST", "/droplets", body)["droplet"]
+        for attempt in range(6):
+            try:
+                drop = self.do.request("POST", "/droplets", body)["droplet"]
+                break
+            except RuntimeError as e:
+                # A just-registered SSH key can take a few seconds to become usable.
+                if "invalid key identifiers" not in str(e) or attempt == 5:
+                    raise
+                time.sleep(5)
         self.id = drop["id"]
         self.budget = Budget(self.price, self.cap_usd)
         print(f"created droplet {self.id} ({self.size_slug}, ${self.price}/h, cap ${self.cap_usd:.2f} "
@@ -206,11 +214,14 @@ class Droplet:
             self.key_id = None
 
 
-def cleanup_leftovers(do: DO) -> list[int]:
-    """Destroy droplets left behind by an earlier run of this launcher."""
+def cleanup_leftovers(do: DO, keep_key: int | None = None) -> list[int]:
+    """Destroy droplets (and SSH keys) left behind by an earlier run of this launcher."""
     ids = [d["id"] for d in do.tagged_droplets()]
     for i in ids:
         do.request("DELETE", f"/droplets/{i}")
+    for k in do.request("GET", "/account/keys?per_page=200").get("ssh_keys", []):
+        if k["name"].startswith("tennis-") and k["id"] != keep_key:
+            do.request("DELETE", f"/account/keys/{k['id']}")
     return ids
 
 
@@ -283,7 +294,7 @@ def bench(video: Path, budget: float, size: str, region: str, out: Path) -> dict
         print(r.stdout.strip(), flush=True)
         print(f"setup took {time.time() - t:.0f} s (${d.budget.spent():.2f} so far)", flush=True)
         script = (f"cd {REMOTE}/pipeline && ~/.local/bin/uv run python -m eval.gpu_bench "
-                  f"{REMOTE}/downloads/bench.mp4 --out {REMOTE}/outputs/gpu_bench.json --compile")
+                  f"{REMOTE}/downloads/bench.mp4 --out {REMOTE}/outputs/gpu_bench.json")
         fetch = lambda: d.rsync_down(f"{REMOTE}/outputs/gpu_bench.json", out)  # noqa: E731
         run_logged(d, script, "/root/bench.log", sync=fetch)
         fetch()

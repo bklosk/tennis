@@ -87,7 +87,6 @@ def main():
     ap.add_argument("video", type=Path)
     ap.add_argument("--out", type=Path, default=Path("gpu_bench.json"))
     ap.add_argument("--chunks", type=int, default=6, help="30 s chunks for the end-to-end runs")
-    ap.add_argument("--compile", action="store_true", help="also try torch.compile on TrackNet")
     ap.add_argument("--seconds", type=float, default=30.0, help="chunk length for component timings")
     ap.add_argument("--batches", default="8,16,32", help="TrackNet batch sizes to time")
     args = ap.parse_args()
@@ -102,7 +101,13 @@ def main():
         print(key, json.dumps(value), flush=True)
 
     dur = video.probe(args.video)["duration"]
-    for name, accel in (("cpu", ()), ("hw", video.hwaccel())):
+    import os as _os
+    _os.environ["TENNIS_HWACCEL"] = "cuda"
+    video.hwaccel.cache_clear()
+    hw = video.hwaccel()
+    _os.environ["TENNIS_HWACCEL"] = "auto"
+    video.hwaccel.cache_clear()
+    for name, accel in (("cpu", ()), ("hw", hw)):
         if name == "hw" and not accel:
             continue
         t = time.time()
@@ -113,9 +118,16 @@ def main():
         n = sum(1 for _ in video.iter_frames(args.video, 2, (640, 360), accel=accel))
         save(f"decode_scene_2fps_{name}", {"video_s": round(dur, 1), "seconds": round(time.time() - t, 2),
                                            "x_realtime": round(dur / (time.time() - t), 1)})
+        if name == "cpu":
+            t = time.time()
+            n = sum(1 for _ in video.iter_frames(args.video, 2, (640, 360), accel=accel, keyframes_only=True))
+            save("decode_scene_2fps_keyframes", {"seconds": round(time.time() - t, 2),
+                                                 "x_realtime": round(dur / (time.time() - t), 1)})
 
     frames = video.read_clip(args.video, 60, args.seconds)
     dev = tracknet.device()
+    import os
+    os.environ["TENNIS_COMPILE"] = "0"
     ball = BallTracker(dev)
     ball(frames[:64])
     t = time.time()
@@ -130,24 +142,40 @@ def main():
         sync()
         save(f"tracknet_batch{b}", {"fps": round(len(frames) / (time.time() - t), 1)})
     ball.batch_override = None
+    os.environ["TENNIS_COMPILE"] = "1"
+    t = time.time()
+    ball = BallTracker(dev)
+    ball(frames[:64])
+    sync()
+    compile_s = time.time() - t
+    t = time.time()
+    ball(frames)
+    sync()
+    save("tracknet_default", {"compiled": getattr(ball, "compiled", False), "warmup_s": round(compile_s, 1),
+                              "fps": round(len(frames) / (time.time() - t), 1)})
 
     players = PlayerDetector()
     rect = far_court_rect(broadcast_calib())
     idx = list(range(0, len(frames), 4))
-    players.detect([frames[i] for i in idx[:16]], rect)
-    sync()
-    t = time.time()
-    for k in range(0, len(idx), 16):
-        players.detect([frames[i] for i in idx[k:k + 16]], rect)
-    sync()
-    save("players_detect", {"sampled_frames": len(idx), "ms_per_sampled_frame": round((time.time() - t) / len(idx) * 1000, 1)})
+    for near_imgsz, bs in ((960, 16), (640, 32)):
+        players.detect([frames[i] for i in idx[:bs]], rect, near_imgsz=near_imgsz)
+        sync()
+        t = time.time()
+        for k in range(0, len(idx), bs):
+            players.detect([frames[i] for i in idx[k:k + bs]], rect, near_imgsz=near_imgsz)
+        sync()
+        save(f"players_detect_near{near_imgsz}_batch{bs}",
+             {"sampled_frames": len(idx), "ms_per_sampled_frame": round((time.time() - t) / len(idx) * 1000, 1)})
 
     court = CourtDetector(dev)
-    court.calibrate(frames[:2])
+    probes = [frames[i] for i in range(0, len(frames), 60)]
+    court.calibrate(probes)  # warm up at the real batch shape
+    sync()
     t = time.time()
-    court.calibrate([frames[i] for i in range(0, len(frames), 30)])
-    save("court_calibrate", {"probes": len(range(0, len(frames), 30)),
-                             "ms_per_probe": round((time.time() - t) / len(range(0, len(frames), 30)) * 1000, 1)})
+    for _ in range(3):
+        court.calibrate(probes)
+    sync()
+    save("court_calibrate", {"probes": len(probes), "ms_per_probe": round((time.time() - t) / (3 * len(probes)) * 1000, 1)})
 
     crops = [cv2.resize(frames[i][200:520, 500:820], (256, 256)) for i in range(0, len(frames), max(len(frames) // 64, 1))][:64]
     players.pose(crops[:4])
@@ -194,16 +222,6 @@ def main():
         video.read_clip(args.video, h.t - 5 / 30, 11 / 30)
     save("crops_old_decode_s_per_hit", round((time.time() - t) / len(hits), 3))
 
-    if args.compile:
-        ball.model = torch.compile(ball.model)
-        t = time.time()
-        ball(frames[:64])
-        sync()
-        compile_s = time.time() - t
-        t = time.time()
-        ball(frames)
-        sync()
-        save("tracknet_compiled", {"compile_s": round(compile_s, 1), "fps": round(len(frames) / (time.time() - t), 1)})
     print("done", flush=True)
 
 

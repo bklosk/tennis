@@ -36,16 +36,19 @@ def probe(path: Path) -> dict:
 
 @lru_cache
 def hwaccel() -> tuple[str, ...]:
-    """ffmpeg hardware-decode flags: VideoToolbox on macOS, NVDEC when an NVIDIA GPU is present.
+    """ffmpeg hardware-decode flags: VideoToolbox on macOS, software elsewhere.
 
-    TENNIS_HWACCEL=none forces software decoding.
+    On an L40S droplet (8 vCPUs), NVDEC was 2.3x slower than software decoding for this
+    workload (224 vs 525 fps for 720p60 -> 30 fps chunks) because every frame is copied back
+    and scaled on the CPU. TENNIS_HWACCEL=cuda opts in anyway; TENNIS_HWACCEL=none disables
+    VideoToolbox.
     """
     mode = os.environ.get("TENNIS_HWACCEL", "auto")
     if mode == "none":
         return ()
     if sys.platform == "darwin":
         return ("-hwaccel", "videotoolbox")
-    if shutil.which("nvidia-smi"):
+    if mode == "cuda" and shutil.which("nvidia-smi"):
         out = subprocess.run(["ffmpeg", "-hide_banner", "-hwaccels"], capture_output=True, text=True).stdout
         if "cuda" in out.split():
             return ("-hwaccel", "cuda")
@@ -59,10 +62,17 @@ def iter_frames(
     start: float | None = None,
     duration: float | None = None,
     accel: tuple[str, ...] | None = None,
+    keyframes_only: bool = False,
 ) -> Iterator[np.ndarray]:
-    """Yield BGR frames resampled to `fps` and resized to `size` (width, height)."""
+    """Yield BGR frames resampled to `fps` and resized to `size` (width, height).
+
+    `keyframes_only` decodes only keyframes (~6x faster); the fps filter repeats each keyframe
+    until the next, so temporal resolution drops to the stream's keyframe interval.
+    """
     width, height = size
     cmd = ["ffmpeg", "-v", "error", *(hwaccel() if accel is None else accel)]
+    if keyframes_only:
+        cmd += ["-skip_frame", "nokey"]
     if start:
         cmd += ["-ss", f"{start:.3f}"]
     cmd += ["-i", str(path)]

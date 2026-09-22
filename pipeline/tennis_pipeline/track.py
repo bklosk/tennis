@@ -1,4 +1,5 @@
 """Stage 2: per-segment court calibration, ball tracking (TrackNet), and player detection."""
+import os
 from dataclasses import dataclass, field
 
 import cv2
@@ -50,6 +51,13 @@ class BallTracker:
             self.dtype = torch.float32 if dev.type == "cpu" else torch.float16
             self.model = tracknet.load("ball", dev, path).to(self.dtype).to(memory_format=torch.channels_last)
             self.tag = tracknet.weights_tag(path)
+            self.compiled = False
+            if dev.type == "cuda" and os.environ.get("TENNIS_COMPILE", "1") != "0":
+                # +37% TrackNet throughput on an L40S for a ~10 s one-time compile. Batches are
+                # padded to a fixed size in _heat so it compiles once.
+                self.eager = self.model
+                self.model = torch.compile(self.model)
+                self.compiled = True
 
     batch_override: int | None = None
 
@@ -90,11 +98,23 @@ class BallTracker:
         with torch.no_grad():
             X = self._small(frames)
             for s in range(2, n, self.batch):
-                idx = torch.arange(s, min(s + self.batch, n), device=self.dev)
+                m = min(self.batch, n - s)
+                # Pad the last batch with repeats: fixed shapes avoid recompiles and cuDNN re-tuning.
+                idx = torch.arange(s, s + self.batch, device=self.dev).clamp(max=n - 1)
                 inp = torch.cat([X[idx], X[idx - 1], X[idx - 2]], 1).contiguous(memory_format=torch.channels_last)
-                heat = self.model(inp).argmax(1).to(torch.uint8).cpu().numpy()
+                heat = self._forward(inp).argmax(1).to(torch.uint8)[:m].cpu().numpy()
                 for k, hm in enumerate(heat):
                     yield s + k, hm
+
+    def _forward(self, inp: torch.Tensor) -> torch.Tensor:
+        if not getattr(self, "compiled", False):
+            return self.model(inp)
+        try:
+            return self.model(inp)
+        except Exception as e:  # compiler/toolchain problems must not stop tracking
+            print(f"torch.compile failed ({type(e).__name__}); using eager TrackNet", flush=True)
+            self.model, self.compiled = self.eager, False
+            return self.model(inp)
 
     def __call__(self, frames: np.ndarray) -> np.ndarray:
         n = len(frames)
@@ -141,19 +161,22 @@ class PlayerDetector:
         self.detector = YOLO(str(WEIGHTS / model_name))
         self.model = YOLO(str(WEIGHTS / pose_name))
         self.device = tracknet.yolo_device()
-        self.half = self.device == "0"
+        self.precision = {"quantize": 16} if self.device == "0" else {}
 
     def _run(self, imgs, imgsz):
-        res = self.detector.predict(imgs, imgsz=imgsz, device=self.device, half=self.half, conf=0.15,
-                                    classes=[0], verbose=False)
+        res = self.detector.predict(imgs, imgsz=imgsz, device=self.device, conf=0.15, classes=[0], verbose=False,
+                                    **self.precision)
         return [(r.boxes.xyxy.cpu().numpy(), r.boxes.conf.cpu().numpy(), None) for r in res]
 
     def pose(self, crops: list[np.ndarray], imgsz: int = 256):
-        return self.model.predict(crops, imgsz=imgsz, device=self.device, half=self.half, conf=0.2,
-                                  classes=[0], verbose=False)
+        return self.model.predict(crops, imgsz=imgsz, device=self.device, conf=0.2, classes=[0], verbose=False,
+                                  **self.precision)
 
-    def detect(self, frames: list[np.ndarray], far_rect: tuple[int, int, int, int] | None, up: float = 1.5):
-        near = self._run(frames, 960)
+    def detect(self, frames: list[np.ndarray], far_rect: tuple[int, int, int, int] | None, up: float = 1.5,
+               near_imgsz: int = 640):
+        # The near player is 110-150 px tall at 720p, so half resolution is ample; the ~55 px far
+        # player gets the upscaled court crop below.
+        near = self._run(frames, near_imgsz)
         if far_rect is None:
             return near, [None] * len(frames)
         x0, y0, x1, y1 = far_rect
@@ -210,7 +233,8 @@ def select_players(near_dets, far_dets, calib: Calibration | None, prev: dict):
 
 
 def track_segment(frames: np.ndarray, t0: float, court_det: CourtDetector, ball: BallTracker,
-                  players: PlayerDetector, calib_every: int = 30, player_every: int = 4) -> SegmentTracks:
+                  players: PlayerDetector, calib_every: int = 60, player_every: int = 4,
+                  player_batch: int = 32) -> SegmentTracks:
     n = len(frames)
     probe_idx = list(range(0, n, calib_every)) or [0]
     probe_cal = court_det.calibrate([frames[i] for i in probe_idx])
@@ -232,8 +256,8 @@ def track_segment(frames: np.ndarray, t0: float, court_det: CourtDetector, ball:
     sample = list(range(0, n, player_every))
     prev = {}
     far_rect = far_court_rect(good[len(good) // 2][1])
-    for chunk in range(0, len(sample), 16):
-        idx = sample[chunk:chunk + 16]
+    for chunk in range(0, len(sample), player_batch):
+        idx = sample[chunk:chunk + player_batch]
         near_dets, far_dets = players.detect([frames[i] for i in idx], far_rect)
         for f, nd, fd in zip(idx, near_dets, far_dets):
             sel = select_players(nd, fd, tracks.calibs[f], prev)
