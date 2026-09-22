@@ -78,6 +78,32 @@ The global search uses only two workers by default to avoid aggressive request r
 Search results from unofficial channels remain candidates even when their titles say
 "Full Match."
 
+## Charting pipeline (pilot)
+
+`pipeline/` turns a full-match broadcast into analysis tables: ball trajectory, player court
+positions, every shot (player, forehand/backhand/serve/overhead, volley, contact and bounce
+coordinates, speed), and points aligned to the official point-by-point data (serve speed,
+serve placement, winner). It runs locally on Apple Silicon; the same code runs on CUDA.
+
+```bash
+cd pipeline
+uv run python -m tennis_pipeline.cli scenes  VIDEO_ID ...   # main-camera classifier (VLM-labelled)
+uv run python -m tennis_pipeline.cli track   VIDEO_ID       # court, ball (TrackNet), players; cached per chunk
+uv run python -m tennis_pipeline.cli events  VIDEO_ID       # bounces, hits, serves (+ audio snapping)
+uv run python -m tennis_pipeline.cli crops   VIDEO_ID       # hitter crops + pose features
+uv run python -m tennis_pipeline.cli align   VIDEO_ID       # group into points, align to official data
+uv run python -m tennis_pipeline.cli strokes VIDEO_ID ...   # VLM-labelled stroke classifier
+uv run python -m tennis_pipeline.cli report  VIDEO_ID ...   # CSV exports, court maps, QA clip
+```
+
+Pilot results on three 2024 matches (accuracy, cost projection, next steps) are in
+[`docs/charting-pilot.md`](docs/charting-pilot.md).
+
+Videos are read from `downloads/VIDEO_ID.mp4`; outputs go to `outputs/VIDEO_ID/`. Pretrained
+weights (TrackNet ball, court keypoints, CatBoost bounce) come from the yastrebksv
+TennisProject repositories and live in `.cache/weights/`. Labels are bootstrapped with
+Qwen3-VL-8B running locally through MLX.
+
 ## Verification priorities
 
 Before using a candidate:
