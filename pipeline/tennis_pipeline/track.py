@@ -14,6 +14,8 @@ from .paths import WEIGHTS
 
 FPS = 30.0
 BALL_CROP_X = (64, 576)  # in 640-wide TrackNet space; keeps the court, drops the stands
+# Player detection runs here, overlapping TrackNet on the main thread.
+_PLAYER_POOL = ThreadPoolExecutor(max_workers=1)
 
 
 @dataclass
@@ -29,33 +31,33 @@ class SegmentTracks:
 
 
 class BallTracker:
-    """TrackNet ball detector on MPS/CUDA (PyTorch) or the Neural Engine (Core ML).
+    """TrackNet ball detector: PyTorch on CUDA/MPS/CPU, or the Apple Neural Engine via Core ML.
 
-    The Core ML backend's process memory grows with repeated predictions (~15 GB over a few
-    minutes of footage), so it is only suitable for short runs. It is a conversion of the
-    pretrained weights only.
+    `auto` picks the Neural Engine on Apple silicon (39 fps on an M3 Pro vs 18 fps on its GPU),
+    which leaves the GPU to player detection. Giving the GPU a share of the ball frames as well
+    was slower end to end (25-28 vs 32 fps). Both backends run the same weights, so they share
+    the weights tag and cached tracks are not re-run when the backend changes.
     """
 
-    def __init__(self, dev: torch.device, backend: str = "mps", weights: str | None = None):
+    def __init__(self, dev: torch.device, backend: str = "auto", weights: str | None = None):
         self.dev = dev
+        if backend == "auto":
+            backend = "ane" if tracknet.coreml_available() else "torch"
         self.backend = backend
-        if backend == "coreml":
-            import coremltools as ct
-
-            if weights or tracknet.ball_weights() != tracknet.PRETRAINED_BALL:
-                raise ValueError("the Core ML backend only has the pretrained ball weights; use --ball-backend mps")
-            path = WEIGHTS / "tracknet_512.mlpackage"
-            self.model = ct.models.MLModel(str(path), compute_units=ct.ComputeUnit.CPU_AND_NE)
-            self.tag = f"coreml:{tracknet.weights_tag(tracknet.PRETRAINED_BALL)}"
+        path = tracknet.ball_weights(weights)
+        self.tag = tracknet.weights_tag(path)
+        if backend == "ane":
+            self.model = tracknet.coreml_ball(path, 360, BALL_CROP_X[1] - BALL_CROP_X[0])
         else:
-            path = tracknet.ball_weights(weights)
             self.dtype = torch.float32 if dev.type == "cpu" else torch.float16
-            self.model = tracknet.load("ball", dev, path).to(self.dtype).to(memory_format=torch.channels_last)
-            self.tag = tracknet.weights_tag(path)
+            # channels_last is kept for CUDA; on MPS it is 11% slower than contiguous.
+            fmt = torch.channels_last if dev.type == "cuda" else torch.contiguous_format
+            self.fmt = fmt
+            self.model = tracknet.load("ball", dev, path).to(self.dtype).to(memory_format=fmt)
             self.compiled = False
             if dev.type == "cuda" and os.environ.get("TENNIS_COMPILE", "1") != "0":
                 # +37% TrackNet throughput on an L40S for a ~10 s one-time compile. Batches are
-                # padded to a fixed size in _heat so it compiles once.
+                # padded to a fixed size in _masks so it compiles once.
                 self.eager = self.model
                 self.model = torch.compile(self.model)
                 self.compiled = True
@@ -71,7 +73,8 @@ class BallTracker:
 
         Cropping at full resolution and 2x average pooling on the device reproduces
         cv2.resize(INTER_LINEAR) to 640x360 (an exact 2x downscale averages each 2x2 block),
-        without a per-frame CPU resize.
+        without a per-frame CPU resize. Bit-exact with OpenCV on x86; OpenCV on ARM rounds
+        each axis separately and can be one level higher.
         """
         x0, x1 = BALL_CROP_X
         n = len(frames)
@@ -86,15 +89,17 @@ class BallTracker:
             out[s:s + len(part)] = (pooled / 255).to(self.dtype)
         return out
 
-    def _heat(self, frames: np.ndarray):
+    def _masks(self, frames: np.ndarray):
+        """Yield (frame index, uint8 mask of heatmap pixels above 127) from frame 2 on."""
         n = len(frames)
-        if self.backend == "coreml":
+        if self.backend == "ane":
             x0, x1 = BALL_CROP_X
-            small = np.stack([cv2.resize(f, (640, 360))[:, x0:x1] for f in frames])
-            Fs = small.astype(np.float32).transpose(0, 3, 1, 2) / 255
+            small = [cv2.resize(f, (640, 360))[None, :, x0:x1].astype(np.float16) for f in frames[:2]]
             for s in range(2, n):
-                x = np.concatenate([Fs[s], Fs[s - 1], Fs[s - 2]], 0)[None]
-                yield s, next(iter(self.model.predict({"x": x}).values()))[0].astype(np.uint8)
+                small.append(cv2.resize(frames[s], (640, 360))[None, :, x0:x1].astype(np.float16))
+                margin = self.model.predict({"cur": small[2], "prev1": small[1], "prev2": small[0]})["margin"]
+                small.pop(0)
+                yield s, (margin[0] > 0).astype(np.uint8)
             return
         with torch.no_grad():
             X = self._small(frames)
@@ -102,10 +107,10 @@ class BallTracker:
                 m = min(self.batch, n - s)
                 # Pad the last batch with repeats: fixed shapes avoid recompiles and cuDNN re-tuning.
                 idx = torch.arange(s, s + self.batch, device=self.dev).clamp(max=n - 1)
-                inp = torch.cat([X[idx], X[idx - 1], X[idx - 2]], 1).contiguous(memory_format=torch.channels_last)
-                heat = self._forward(inp).argmax(1).to(torch.uint8)[:m].cpu().numpy()
-                for k, hm in enumerate(heat):
-                    yield s + k, hm
+                inp = torch.cat([X[idx], X[idx - 1], X[idx - 2]], 1).contiguous(memory_format=self.fmt)
+                masks = (self._forward(inp).argmax(1) > 127).to(torch.uint8)[:m].cpu().numpy()
+                for k, mask in enumerate(masks):
+                    yield s + k, mask
 
     def _forward(self, inp: torch.Tensor) -> torch.Tensor:
         if not getattr(self, "compiled", False):
@@ -124,16 +129,16 @@ class BallTracker:
             return out
         x0 = BALL_CROP_X[0]
         prev = None
-        for f, hm in self._heat(frames):
-            xy = self._pick(hm, prev)
+        for f, mask in self._masks(frames):
+            xy = self._pick(mask, prev)
             if xy is not None:
                 out[f] = ((xy[0] + x0) * 2, xy[1] * 2)
             prev = None if xy is None else ((xy[0] + x0) * 2, xy[1] * 2)
         return out
 
     @staticmethod
-    def _pick(hm: np.ndarray, prev, max_dist: float = 80.0):
-        mask = (hm > 127).astype(np.uint8)
+    def _pick(mask: np.ndarray, prev, max_dist: float = 80.0):
+        """Ball blob in a uint8 mask of heatmap pixels above 127 (crop space, 640x360 scale)."""
         n, _, stats, cents = cv2.connectedComponentsWithStats(mask)
         if n <= 1:
             return None
@@ -255,18 +260,20 @@ def track_segment(frames: np.ndarray, t0: float, court_det: CourtDetector, ball:
     for f in range(n):
         tracks.calibs[f] = good[int(np.argmin(np.abs(anchors - f)))][1]
 
-    # Player detection is mostly CPU pre/post-processing and TrackNet mostly GPU work; on an
-    # L40S they took similar time per chunk, so run them concurrently.
     far_rect = far_court_rect(good[len(good) // 2][1])
-    people = _PLAYER_POOL.submit(_track_players, frames, tracks.calibs, players, far_rect, player_every,
-                                 player_batch)
-    tracks.ball = ball(frames)
+    args = (frames, tracks.calibs, players, far_rect, player_every, player_batch)
+    if ball.backend == "torch" and ball.dev.type == "mps":
+        # MPS trips a Metal assertion when two threads encode GPU commands at once.
+        tracks.players, tracks.player_kps = _track_players(*args)
+        tracks.ball = ball(frames)
+    else:
+        # TrackNet on the Neural Engine or CUDA; players (GPU inference plus CPU pre/post-
+        # processing) overlap it. On an L40S they took about as long per chunk as TrackNet.
+        people = _PLAYER_POOL.submit(_track_players, *args)
+        tracks.ball = ball(frames)
+        tracks.players, tracks.player_kps = people.result()
     tracks.ball_weights = ball.tag
-    tracks.players, tracks.player_kps = people.result()
     return tracks
-
-
-_PLAYER_POOL = ThreadPoolExecutor(max_workers=1)
 
 
 def _track_players(frames, calibs, players, far_rect, player_every, player_batch):

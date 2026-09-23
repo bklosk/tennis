@@ -99,9 +99,9 @@ def evaluate(model: nn.Module, rows: pd.DataFrame, dev: torch.device, tols=(5.0,
     preds = []
     for s in range(0, len(ds), batch):
         items = [ds[i] for i in range(s, min(s + batch, len(ds)))]
-        heat = model(torch.stack([it[0] for it in items]).to(dev)).argmax(1).to(torch.uint8).cpu().numpy()
-        for hm in heat:
-            xy = BallTracker._pick(hm, None)
+        masks = (model(torch.stack([it[0] for it in items]).to(dev)).argmax(1) > 127).to(torch.uint8).cpu().numpy()
+        for mask in masks:
+            xy = BallTracker._pick(mask, None)
             preds.append((np.nan, np.nan) if xy is None else ((xy[0] + X0) * 2, xy[1] * 2))
     res = rows[["bucket", "visibility", "x", "y"]].copy().reset_index(drop=True)
     res["px"], res["py"] = [p[0] for p in preds], [p[1] for p in preds]

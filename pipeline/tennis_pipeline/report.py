@@ -27,6 +27,9 @@ SHOT_COLUMNS = [
 def export(video_id: str) -> pd.DataFrame:
     out_dir = match_dir(video_id)
     shots = pd.read_parquet(out_dir / "shots_strokes.parquet").sort_values("t")
+    for col in ("bounce_x_m", "bounce_y_m", "bounce_t"):  # absent when no shot's bounce was found
+        if col not in shots:
+            shots[col] = np.nan
     shots["shot_num"] = shots.groupby("vp").cumcount() + 1
     shots["video_id"] = video_id
     # Average ground speed from contact (audio-snapped time) to the first bounce.
@@ -228,20 +231,24 @@ def overlay_clip(video_id: str, vp: int, out_name: str | None = None):
     return out_path
 
 
+def match_report(video_id: str, clip: bool = True) -> dict:
+    """Exports, court maps, contact sheet and (if the video is available) the longest-rally clip."""
+    shots = export(video_id)
+    points = pd.read_csv(match_dir(video_id) / "points.csv")
+    court_maps(video_id, shots, points)
+    hit_sheet(video_id, shots)
+    aligned = points.dropna(subset=["point_number"])
+    long_rally = aligned.sort_values("n_shots", ascending=False).head(1)
+    if clip and len(long_rally) and video_path(video_id).exists():
+        overlay_clip(video_id, int(long_rally.vp.iloc[0]))
+    summary = json.loads((match_dir(video_id) / "align_summary.json").read_text())
+    summary["shots"] = int(len(shots))
+    summary["stroke_counts"] = shots.stroke.value_counts().to_dict()
+    return summary
+
+
 def run(video_ids: list[str]):
-    summary = {}
-    for vid in video_ids:
-        shots = export(vid)
-        points = pd.read_csv(match_dir(vid) / "points.csv")
-        court_maps(vid, shots, points)
-        hit_sheet(vid, shots)
-        aligned = points.dropna(subset=["point_number"])
-        long_rally = aligned.sort_values("n_shots", ascending=False).head(1)
-        if len(long_rally):
-            overlay_clip(vid, int(long_rally.vp.iloc[0]))
-        summary[vid] = json.loads((match_dir(vid) / "align_summary.json").read_text())
-        summary[vid]["shots"] = int(len(shots))
-        summary[vid]["stroke_counts"] = shots.stroke.value_counts().to_dict()
+    summary = {vid: match_report(vid) for vid in video_ids}
     summary["serve_speed"] = serve_speed_plot(video_ids)
     (OUTPUTS / "pilot_summary.json").write_text(json.dumps(summary, indent=2, default=str))
     print(json.dumps(summary, indent=2, default=str))

@@ -14,12 +14,16 @@ import json
 import os
 import shlex
 import subprocess
+import sys
 import tempfile
+import threading
 import time
 import urllib.error
 import urllib.request
 from dataclasses import dataclass, field
 from pathlib import Path
+
+from .batch import UPLOADS_DONE
 
 API = "https://api.digitalocean.com/v2"
 GPU_IMAGE = "gpu-h100x1-base"  # NVIDIA AI/ML-ready image (drivers + CUDA); valid on all NVIDIA GPU sizes
@@ -187,10 +191,10 @@ class Droplet:
         return subprocess.run(full, check=check, timeout=timeout, text=True,
                               capture_output=capture)
 
-    def rsync_up(self, src: str | Path, dest: str, excludes: tuple[str, ...] = ()):
+    def rsync_up(self, src: str | Path, dest: str, excludes: tuple[str, ...] = (), compress: bool = True):
         ex = sum((["--exclude", e] for e in excludes), [])
-        subprocess.run(["rsync", "-az", "--partial", *ex, "-e", self._rsh(), str(src), f"root@{self.ip}:{dest}"],
-                       check=True)
+        subprocess.run(["rsync", "-az" if compress else "-a", "--partial", *ex, "-e", self._rsh(), str(src),
+                        f"root@{self.ip}:{dest}"], check=True)
 
     def rsync_down(self, src: str, dest: str | Path, excludes: tuple[str, ...] = ()):
         ex = sum((["--exclude", e] for e in excludes), [])
@@ -253,32 +257,47 @@ def upload_code(d: Droplet):
         d.rsync_up(REPO / ".cache" / "weights", f"{REMOTE}/.cache/")
 
 
-def run_logged(d: Droplet, script: str, log: str, poll_s: float = 15.0, sync=None) -> bool:
+def run_logged(d: Droplet, script: str, log: str, poll_s: float = 15.0, sync=None, sync_every: int = 8,
+               max_offline_s: float = 1800.0) -> bool:
     """Run `script` in the background on the droplet, streaming its log until it exits.
 
-    Returns False if the budget ran out first (the job is then killed). `sync` is called
-    every few polls so partial results survive a forced stop.
+    Returns False if the budget ran out first (the job is then killed) or the droplet stayed
+    unreachable for `max_offline_s`. `sync` is called every `sync_every` polls so partial results
+    survive a forced stop. Every poll refreshes /root/heartbeat, which the batch job watches to
+    detect a launcher that has gone away.
     """
-    d.ssh(f"cat > /root/job.sh <<'EOF'\n{script}\nEOF\n"
+    d.ssh(f"touch /root/heartbeat; cat > /root/job.sh <<'EOF'\n{script}\nEOF\n"
           f"setsid nohup bash /root/job.sh > {log} 2>&1 < /dev/null & echo $! > /root/job.pid", timeout=30)
-    offset, polls = 0, 0
+    offset, polls, offline_since = 0, 0, None
     while True:
-        out = d.ssh(f"tail -c +{offset + 1} {log}; echo; kill -0 $(cat /root/job.pid) 2>/dev/null && echo __RUNNING__",
-                    check=False, timeout=60).stdout
-        running = out.rstrip().endswith("__RUNNING__")
-        text = out.rstrip()[: -len("__RUNNING__")] if running else out
+        try:
+            out = d.ssh(f"touch /root/heartbeat; tail -c +{offset + 1} {log}; echo; "
+                        "if kill -0 $(cat /root/job.pid) 2>/dev/null; then echo __RUNNING__; else echo __EXITED__; fi",
+                        check=False, timeout=120).stdout
+        except subprocess.TimeoutExpired:
+            out = ""
+        marker = next((m for m in ("__RUNNING__", "__EXITED__") if out.rstrip().endswith(m)), None)
+        if marker is None:  # ssh failed: a network blip must not end the run
+            offline_since = offline_since or time.time()
+            if time.time() - offline_since > max_offline_s:
+                print(f"droplet unreachable for {max_offline_s / 60:.0f} min; giving up", flush=True)
+                return False
+            time.sleep(poll_s)
+            continue
+        offline_since = None
+        text = out.rstrip()[: -len(marker)]
         text = text[:-1] if text.endswith("\n") else text
         if text:
             print(text, end="" if text.endswith("\n") else "\n", flush=True)
             offset += len(text.encode())
-        if not running:
+        if marker == "__EXITED__":
             return True
         if d.remaining() <= 0:
             print(f"budget reached (${d.budget.spent():.2f}); stopping remote job", flush=True)
             d.ssh("pkill -P $(cat /root/job.pid); kill $(cat /root/job.pid)", check=False, timeout=30)
             return False
         polls += 1
-        if sync and polls % 8 == 0:
+        if sync and polls % sync_every == 0:
             sync()
         time.sleep(poll_s)
 
@@ -336,8 +355,6 @@ echo PILOT_DONE
 def pilot(video_ids: list[str], videos_dir: Path, budget: float, size: str, region: str,
           scene_keyframes: bool = False) -> dict:
     """Full pipeline on a GPU droplet for videos on this machine; results sync to outputs/."""
-    import threading
-
     missing = [v for v in video_ids if not (videos_dir / f"{v}.mp4").exists()]
     if missing:
         raise FileNotFoundError(f"videos not found in {videos_dir}: {missing}")
@@ -384,6 +401,185 @@ def pilot(video_ids: list[str], videos_dir: Path, budget: float, size: str, regi
     return summary
 
 
+BATCH_JOB = """set -e
+cd {remote}/pipeline
+export TQDM_DISABLE=1 PYTHONUNBUFFERED=1
+touch /root/heartbeat
+# Dead man's switch: if the launcher stops polling (laptop asleep or offline) for {orphan_min} min, delete
+# the droplet instead of waiting, at full price, for videos that will not come.
+( while sleep 60; do
+    age=$(( $(date +%s) - $(stat -c %Y /root/heartbeat) ))
+    if [ "$age" -gt {orphan_s} ]; then echo "no launcher heartbeat for $age s; deleting the droplet"; \
+/usr/local/sbin/self-destruct; fi
+  done ) &
+WATCHDOG=$!
+trap "kill $WATCHDOG" EXIT
+$HOME/.local/bin/uv run python -c "from rapidocr import RapidOCR; RapidOCR()" >/dev/null 2>&1 || echo "rapidocr warm-up failed"
+$HOME/.local/bin/uv run python -m tennis_pipeline.batch run --manifest {remote}/outputs/batch_manifest.txt \\
+  --wait-for-videos --delete-videos --cpu-workers {cpu_workers} --gpu-workers {gpu_workers}
+echo BATCH_DONE
+"""
+
+
+class Uploader(threading.Thread):
+    """Streams each match's prep outputs and video (or main-camera pack) to the droplet, in order.
+
+    At most `max_ahead` videos wait on the droplet (the runner deletes a video once its match is
+    finished), which bounds droplet disk use. Each finished upload is marked with
+    downloads/VIDEO_ID.ready; downloads/UPLOADS_DONE follows the last one.
+    """
+
+    def __init__(self, d: Droplet, recs: list[dict], max_ahead: int = 4, streams: int = 2):
+        super().__init__(daemon=True)
+        self.d, self.recs, self.max_ahead, self.streams = d, recs, max_ahead, streams
+        self.stop = threading.Event()
+        self.lock = threading.Lock()
+        self.active = 0
+        self.bytes = 0
+        self.seconds = 0.0
+        self.done: list[str] = []
+        self.failed: list[str] = []
+
+    def waiting_on_droplet(self) -> int:
+        r = self.d.ssh(f"ls {REMOTE}/downloads/*.ready 2>/dev/null | wc -l", check=False, timeout=60)
+        return int(r.stdout.strip() or 0) if r.returncode == 0 else self.max_ahead
+
+    def _slot(self) -> bool:
+        while not self.stop.is_set():
+            waiting = self.waiting_on_droplet()
+            with self.lock:
+                if self.active < self.streams and waiting + self.active < self.max_ahead:
+                    self.active += 1
+                    return True
+            self.stop.wait(20)
+        return False
+
+    def upload(self, rec: dict):
+        from . import cli
+
+        vid, d = rec["video_id"], self.d
+        local = REPO / "outputs" / vid
+        d.ssh(f"mkdir -p {REMOTE}/outputs/{vid} {REMOTE}/.cache/hit_crops", timeout=60)
+        # Prep outputs, plus any partial results (tracks, status) when resuming. The embeddings
+        # stay local: the droplet only needs the per-sample probabilities in scene_prob.npz.
+        d.rsync_up(f"{local}/", f"{REMOTE}/outputs/{vid}/", excludes=("*.mp4", "scene_embeddings.npz"))
+        crops = REPO / ".cache" / "hit_crops" / vid
+        if crops.exists():
+            d.rsync_up(crops, f"{REMOTE}/.cache/hit_crops/")
+        if rec["upload"] == "pack":
+            src, dest = REPO / "downloads" / f"{vid}.pack", f"{REMOTE}/downloads/"
+        else:
+            src, dest = cli.video_path(vid), f"{REMOTE}/downloads/{vid}.mp4"
+        t = time.time()
+        d.rsync_up(src, dest, compress=False)
+        dt = time.time() - t
+        d.ssh(f"touch {REMOTE}/downloads/{vid}.ready", timeout=60)
+        with self.lock:
+            self.bytes += rec["upload_bytes"]
+            self.seconds += dt
+            self.done.append(vid)
+        print(f"uploaded {vid} ({rec['upload']}, {rec['upload_bytes'] / 1e9:.2f} GB) in {dt / 60:.1f} min at "
+              f"{rec['upload_bytes'] * 8 / max(dt, 1e-6) / 1e6:.0f} Mbps; {len(self.done)}/{len(self.recs)} uploaded",
+              flush=True)
+
+    def _worker(self, queue: list[dict]):
+        while not self.stop.is_set():
+            with self.lock:
+                if not queue:
+                    return
+                rec = queue.pop(0)
+            if not self._slot():
+                return
+            try:
+                for attempt in range(3):
+                    try:
+                        self.upload(rec)
+                        break
+                    except (subprocess.CalledProcessError, subprocess.TimeoutExpired) as e:
+                        if attempt == 2:
+                            raise
+                        print(f"upload of {rec['video_id']} failed ({e}); retrying", flush=True)
+                        self.stop.wait(30 * (attempt + 1))
+            except Exception as e:
+                with self.lock:
+                    self.failed.append(rec["video_id"])
+                print(f"giving up on uploading {rec['video_id']}: {e}", flush=True)
+            finally:
+                with self.lock:
+                    self.active -= 1
+
+    def run(self):
+        queue = list(self.recs)
+        workers = [threading.Thread(target=self._worker, args=(queue,), daemon=True) for _ in range(self.streams)]
+        for w in workers:
+            w.start()
+        for w in workers:
+            w.join()
+        if not self.stop.is_set():
+            self.d.ssh(f"touch {REMOTE}/downloads/{UPLOADS_DONE}", check=False, timeout=60)
+            print(f"all uploads finished: {self.bytes / 1e9:.1f} GB at "
+                  f"{self.bytes * 8 / max(self.seconds, 1e-6) / 1e6 * self.streams:.0f} Mbps overall", flush=True)
+
+
+def batch(video_ids: list[str], budget: float, size: str, region: str, pack: bool = True, cpu_workers: int = 2,
+          max_ahead: int = 8, upload_streams: int = 2, scene_keyframes: bool = False, plan_only: bool = False,
+          assume_fps: float = 190.0, orphan_min: int = 45, ocr_local: bool = False, gpu_workers: int = 1) -> dict:
+    """Prep locally, then run the whole batch on one budget-capped GPU droplet while streaming videos.
+
+    Rerunning the same command resumes: matches whose results are already synced are skipped and
+    partly processed matches continue from their cached tracks.
+    """
+    from . import batch as B
+
+    if sys.platform == "darwin":  # keep the Mac awake while this process runs
+        subprocess.Popen(["caffeinate", "-i", "-w", str(os.getpid())])
+    recs = B.prep(video_ids, pack=pack, keyframes=scene_keyframes, ocr_local=ocr_local)
+    todo = [r for r in recs if not r.get("error") and not B.is_complete(r["video_id"])]
+    do = DO() if not plan_only or os.environ.get("DIGITALOCEAN_ACCESS_TOKEN") else None
+    price = float(do.size(size)["price_hourly"]) if do else 1.57
+    p = B.plan([r["video_id"] for r in recs], fps=assume_fps, price_hourly=price)
+    print(B.format_plan(p), flush=True)
+    if plan_only or not todo:
+        return p
+    if p["cost_usd"] > budget:
+        print(f"budget ${budget} is below the estimate; the run stops at the cap and can be resumed", flush=True)
+    left = cleanup_leftovers(do)
+    if left:
+        print(f"destroyed leftover droplets: {left}")
+    outputs = REPO / "outputs"
+    t_start = time.time()
+    with Droplet(do, size, region, budget, name="tennis-batch") as d:
+        d.ssh(SETUP, timeout=900)
+        upload_code(d)
+        for rel in ("scene_classifier.npz", "sackmann"):
+            if (REPO / ".cache" / rel).exists():
+                d.rsync_up(REPO / ".cache" / rel, f"{REMOTE}/.cache/")
+        manifest = d.tmp / "batch_manifest.txt"
+        manifest.write_text("\n".join(r["video_id"] for r in todo) + "\n")
+        d.rsync_up(manifest, f"{REMOTE}/outputs/batch_manifest.txt")
+        uploader = Uploader(d, todo, max_ahead=max_ahead, streams=upload_streams)
+        uploader.start()  # uploads overlap the dependency install
+        print(d.ssh(INSTALL, timeout=1800).stdout.strip(), flush=True)
+        print(f"droplet ready after {(time.time() - t_start) / 60:.1f} min (${d.budget.spent():.2f} so far)", flush=True)
+
+        def fetch():
+            d.rsync_down(f"{REMOTE}/outputs/", outputs)
+            d.rsync_down(f"{REMOTE}/.cache/hit_crops", REPO / ".cache")
+
+        script = BATCH_JOB.format(remote=REMOTE, cpu_workers=cpu_workers, gpu_workers=gpu_workers,
+                                  orphan_s=orphan_min * 60, orphan_min=orphan_min)
+        finished = run_logged(d, script, "/root/batch.log", poll_s=20, sync=fetch, sync_every=15)
+        uploader.stop.set()
+        fetch()
+        spent = d.budget.spent()
+    summary = {"matches": len(todo), "finished": finished, "size": size, "cost_usd": round(spent, 2),
+               "hours": round((time.time() - t_start) / 3600, 2), "uploaded": len(uploader.done),
+               "upload_failed": uploader.failed, "upload_gb": round(uploader.bytes / 1e9, 1),
+               "complete": sum(B.is_complete(r["video_id"]) for r in todo)}
+    (outputs / "batch_run.json").write_text(json.dumps(summary, indent=2))
+    return summary
+
+
 def main():
     import argparse
 
@@ -402,6 +598,22 @@ def main():
     p.add_argument("--size", default="gpu-l40sx1-48gb")
     p.add_argument("--region", default="tor1")
     p.add_argument("--scene-keyframes", action="store_true", help="keyframe-only scene decoding (~6x faster)")
+    bt = sub.add_parser("batch", help="prep locally, then run every match on one GPU droplet (resumable)")
+    bt.add_argument("video_ids", nargs="*")
+    bt.add_argument("--manifest", default=None, help="file with one video id per line, or a preset (usopen)")
+    bt.add_argument("--budget", type=float, help="hard cap in USD for the droplet (required unless --plan)")
+    bt.add_argument("--size", default="gpu-l40sx1-48gb")
+    bt.add_argument("--region", default="tor1")
+    bt.add_argument("--no-pack", action="store_true", help="upload full videos instead of main-camera packs")
+    bt.add_argument("--cpu-workers", type=int, default=2, help="droplet processes for OCR/events/align/report")
+    bt.add_argument("--gpu-workers", type=int, default=1, help="matches tracked at once on the droplet")
+    bt.add_argument("--max-ahead", type=int, default=8, help="videos allowed to wait on the droplet")
+    bt.add_argument("--ocr-local", action="store_true",
+                    help="prep: OCR matches without official data on this machine, so they upload as packs too")
+    bt.add_argument("--upload-streams", type=int, default=2, help="parallel uploads")
+    bt.add_argument("--scene-keyframes", action="store_true", help="prep: keyframe-only scene decoding")
+    bt.add_argument("--assume-fps", type=float, default=190.0, help="tracking fps for the cost estimate")
+    bt.add_argument("--plan", action="store_true", help="prep and print the plan; no droplet")
     sub.add_parser("cleanup", help="destroy droplets left by earlier runs")
     args = ap.parse_args()
     if args.cmd == "bench":
@@ -410,6 +622,19 @@ def main():
     elif args.cmd == "pilot":
         print(json.dumps(pilot(args.video_ids, args.videos_dir, args.budget, args.size, args.region,
                                args.scene_keyframes), indent=2))
+    elif args.cmd == "batch":
+        from .batch import load_manifest
+
+        vids = load_manifest(args.manifest, args.video_ids)
+        if not vids:
+            ap.error("batch needs video ids or --manifest")
+        if args.budget is None and not args.plan:
+            ap.error("batch needs --budget (or --plan to only prep and estimate)")
+        print(json.dumps(batch(vids, args.budget, args.size, args.region, pack=not args.no_pack,
+                               cpu_workers=args.cpu_workers, max_ahead=args.max_ahead,
+                               upload_streams=args.upload_streams, scene_keyframes=args.scene_keyframes,
+                               plan_only=args.plan, assume_fps=args.assume_fps, ocr_local=args.ocr_local,
+                               gpu_workers=args.gpu_workers), indent=2))
     elif args.cmd == "cleanup":
         print(cleanup_leftovers(DO()))
 

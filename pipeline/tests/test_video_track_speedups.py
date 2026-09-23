@@ -4,13 +4,14 @@ import time
 import cv2
 import numpy as np
 import pandas as pd
+import pytest
 import torch
 
 from tennis_pipeline import process, tracknet, video
 from tennis_pipeline.track import BALL_CROP_X, BallTracker
 
 
-def test_device_downscale_matches_cv2_resize_exactly():
+def test_device_downscale_matches_cv2_resize():
     rng = np.random.default_rng(0)
     frames = rng.integers(0, 256, (5, 720, 1280, 3), dtype=np.uint8)
     bt = BallTracker.__new__(BallTracker)
@@ -18,7 +19,8 @@ def test_device_downscale_matches_cv2_resize_exactly():
     got = (bt._small(frames) * 255).round().permute(0, 2, 3, 1).numpy()
     x0, x1 = BALL_CROP_X
     ref = np.stack([cv2.resize(f, (640, 360))[:, x0:x1] for f in frames]).astype(np.float32)
-    assert np.array_equal(got, ref)
+    # Bit-exact with OpenCV on x86; OpenCV's ARM path rounds each axis separately (up to +1).
+    assert np.abs(got - ref).max() <= 1
 
 
 def test_prefetch_preserves_order_and_overlaps_loading():
@@ -80,3 +82,12 @@ def test_inline_and_batched_crops_match(tmp_path, monkeypatch):
 
 def test_empty_cache_is_safe_without_gpu():
     tracknet.empty_cache()
+
+
+@pytest.mark.skipif(not (tracknet.WEIGHTS / "court.pt").exists(), reason="court weights not downloaded")
+def test_court_model_stays_fp32_on_gpu():
+    """FP16 loses every keypoint: BatchNorm subtracts running means of ~11,000 from activations."""
+    from tennis_pipeline.court import CourtDetector
+
+    det = CourtDetector(tracknet.device())
+    assert all(p.dtype == torch.float32 for p in det.model.parameters())
