@@ -230,10 +230,13 @@ REMOTE = "/root/tennis"
 REPO_EXCLUDES = (".git", ".cache", "outputs", "downloads", "pipeline/.venv", "__pycache__", ".pytest_cache")
 SETUP = f"""set -e
 export DEBIAN_FRONTEND=noninteractive
-for i in $(seq 60); do fuser /var/lib/dpkg/lock-frontend >/dev/null 2>&1 || break; sleep 5; done
-if ! command -v ffmpeg >/dev/null || ! command -v rsync >/dev/null; then
-  apt-get update -qq && apt-get install -y -qq ffmpeg rsync >/dev/null
-fi
+# Unattended upgrades hold the apt/dpkg locks for a while after boot: wait for them and retry.
+APT="apt-get -qq -o DPkg::Lock::Timeout=600"
+for attempt in 1 2 3 4 5; do
+  if command -v ffmpeg >/dev/null && command -v ffprobe >/dev/null && command -v rsync >/dev/null; then break; fi
+  ($APT update && $APT install -y ffmpeg rsync) >/dev/null 2>&1 || sleep 15
+done
+command -v ffprobe >/dev/null || {{ echo "ffmpeg install failed" >&2; exit 1; }}
 command -v uv >/dev/null || curl -LsSf https://astral.sh/uv/install.sh | sh >/dev/null 2>&1
 mkdir -p {REMOTE}/.cache {REMOTE}/outputs {REMOTE}/downloads
 """
@@ -285,6 +288,7 @@ def bench(video: Path, budget: float, size: str, region: str, out: Path) -> dict
     left = cleanup_leftovers(do)
     if left:
         print(f"destroyed leftover pilot droplets: {left}")
+    out.unlink(missing_ok=True)  # never report an earlier run's numbers
     with Droplet(do, size, region, budget, name="tennis-gpu-bench") as d:
         t = time.time()
         d.ssh(SETUP, timeout=900)

@@ -1,5 +1,6 @@
 """Stage 2: per-segment court calibration, ball tracking (TrackNet), and player detection."""
 import os
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
 
 import cv2
@@ -169,8 +170,15 @@ class PlayerDetector:
         return [(r.boxes.xyxy.cpu().numpy(), r.boxes.conf.cpu().numpy(), None) for r in res]
 
     def pose(self, crops: list[np.ndarray], imgsz: int = 256):
-        return self.model.predict(crops, imgsz=imgsz, device=self.device, conf=0.2, classes=[0], verbose=False,
-                                  **self.precision)
+        """Pose per crop. Batches are padded to a power of two: the number of hits varies per chunk,
+        and every new batch size otherwise triggers cuDNN re-tuning."""
+        n = len(crops)
+        if n == 0:
+            return []
+        padded = 1 << (n - 1).bit_length()
+        res = self.model.predict(list(crops) + [crops[-1]] * (padded - n), imgsz=imgsz, device=self.device,
+                                 conf=0.2, classes=[0], verbose=False, **self.precision)
+        return res[:n]
 
     def detect(self, frames: list[np.ndarray], far_rect: tuple[int, int, int, int] | None, up: float = 1.5,
                near_imgsz: int = 640):
@@ -247,28 +255,37 @@ def track_segment(frames: np.ndarray, t0: float, court_det: CourtDetector, ball:
     for f in range(n):
         tracks.calibs[f] = good[int(np.argmin(np.abs(anchors - f)))][1]
 
+    # Player detection is mostly CPU pre/post-processing and TrackNet mostly GPU work; on an
+    # L40S they took similar time per chunk, so run them concurrently.
+    far_rect = far_court_rect(good[len(good) // 2][1])
+    people = _PLAYER_POOL.submit(_track_players, frames, tracks.calibs, players, far_rect, player_every,
+                                 player_batch)
     tracks.ball = ball(frames)
     tracks.ball_weights = ball.tag
+    tracks.players, tracks.player_kps = people.result()
+    return tracks
 
-    for side in ("near", "far"):
-        tracks.players[side] = np.full((n, 4), np.nan)
-        tracks.player_kps[side] = np.full((n, 17, 3), np.nan)
+
+_PLAYER_POOL = ThreadPoolExecutor(max_workers=1)
+
+
+def _track_players(frames, calibs, players, far_rect, player_every, player_batch):
+    n = len(frames)
+    boxes = {s: np.full((n, 4), np.nan) for s in ("near", "far")}
+    kps = {s: np.full((n, 17, 3), np.nan) for s in ("near", "far")}
     sample = list(range(0, n, player_every))
     prev = {}
-    far_rect = far_court_rect(good[len(good) // 2][1])
     for chunk in range(0, len(sample), player_batch):
         idx = sample[chunk:chunk + player_batch]
         near_dets, far_dets = players.detect([frames[i] for i in idx], far_rect)
         for f, nd, fd in zip(idx, near_dets, far_dets):
-            sel = select_players(nd, fd, tracks.calibs[f], prev)
+            sel = select_players(nd, fd, calibs[f], prev)
             for side, (box, kp, court_xy) in sel.items():
-                tracks.players[side][f] = box
+                boxes[side][f] = box
                 if kp is not None:
-                    tracks.player_kps[side][f] = kp
+                    kps[side][f] = kp
                 prev[side] = court_xy
-    for side in ("near", "far"):
-        tracks.players[side] = interp_nan(tracks.players[side], max_gap=player_every * 3)
-    return tracks
+    return {s: interp_nan(b, max_gap=player_every * 3) for s, b in boxes.items()}, kps
 
 
 def interp_nan(arr: np.ndarray, max_gap: int) -> np.ndarray:
