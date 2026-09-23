@@ -36,12 +36,43 @@ uv run pytest                                                                   
 ```
 
 Pilot results on three 2024 matches (accuracy, cost projection, next steps) are in
-[`docs/charting-pilot.md`](docs/charting-pilot.md).
+[`docs/charting-pilot.md`](docs/charting-pilot.md). GPU throughput on a DigitalOcean L40S, the
+revised full-dataset cost, and the budget-capped droplet launcher are in
+[`docs/gpu-pilot.md`](docs/gpu-pilot.md):
+
+```bash
+uv run python -m tennis_pipeline.cloud pilot VIDEO_ID ... --budget 4   # full pipeline on an L40S droplet
+uv run python -m tennis_pipeline.cloud bench VIDEO.mp4 --budget 0.6    # throughput benchmark
+```
 
 Videos are read from `downloads/VIDEO_ID.mp4`; outputs go to `outputs/VIDEO_ID/`. Pretrained
 weights (TrackNet ball, court keypoints, CatBoost bounce) come from the yastrebksv
 TennisProject repositories and live in `.cache/weights/`. Labels are bootstrapped with
 Qwen3-VL-8B running locally through MLX.
+
+## Next steps / TODO
+
+- [ ] Run the 3-match GPU pilot from the Mac, where the videos already are, because YouTube
+      blocks datacenter IPs:
+      `uv run python -m tennis_pipeline.cloud pilot KCcKkUnjbzA Fl33UXv6jKI Ce3dRYHWIBI --budget 4`.
+      Keep `DIGITALOCEAN_TOKEN` in the environment or a secret store, never in the repo.
+- [ ] Label about 2,000 ball frames (`balllabels`) and fine-tune TrackNet (`balltrain`). This is
+      the biggest lever for rally length, serve detection and bounces.
+- [ ] Tune the serve detector against official data with `eval/serve_eval.py`, starting with
+      Sinner–Fritz.
+- [ ] Improve rally-count accuracy. It is 64–68% within ±1 shot today.
+- [ ] Validate `--scene-keyframes` against full-decode scene segments before using it for the
+      full run. It is about 4× faster and saves about $13.
+- [ ] Solve video transfer for the full run. There is about 400 GB of video on a residential
+      uplink. Options are staging on Spaces, uploading only the main-camera segments, or
+      splitting the work across droplets.
+- [ ] Run OCR (`cli ocr`) on matches without official point-by-point data: pre-2011 and 2025+.
+- [ ] Expand the stroke gold set (`cli gold`, Mac only) beyond 51 labels and re-check the
+      geometric stroke rule.
+- [ ] Reduce the remaining CPU-bound work. The GPU is busy only about 64% of the time on an
+      L40S; YOLO preprocessing on the GPU is the next candidate.
+- [ ] Full 178-match run on an L40S, with a projected cost of about $49–62 (see
+      [`docs/gpu-pilot.md`](docs/gpu-pilot.md)).
 
 Public availability does not grant permission to download, train on, or redistribute a
 copyrighted broadcast. Do not bypass DRM, authentication, geographic restrictions, or

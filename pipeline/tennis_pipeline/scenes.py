@@ -41,8 +41,12 @@ class Embedder:
         return self.net((x - self.mean) / self.std).cpu().numpy()
 
 
-def embed_video(video_id: str, video_path: Path, n_label_samples: int = 160, seed: int = 0) -> np.ndarray:
-    """Embed every 2 fps frame; save a random subset as JPEGs for VLM labeling."""
+def embed_video(video_id: str, video_path: Path, n_label_samples: int = 160, seed: int = 0,
+                keyframes_only: bool = False) -> np.ndarray:
+    """Embed every 2 fps frame; save a random subset as JPEGs for labeling.
+
+    `keyframes_only` decodes ~6x faster but samples the scene once per keyframe interval.
+    """
     cache = match_dir(video_id) / "scene_embeddings.npz"
     if cache.exists():
         return np.load(cache)["emb"]
@@ -55,7 +59,7 @@ def embed_video(video_id: str, video_path: Path, n_label_samples: int = 160, see
 
     embedder = Embedder()
     embs, batch = [], []
-    for i, frame in enumerate(video.iter_frames(video_path, SAMPLE_FPS, (640, 360))):
+    for i, frame in enumerate(video.iter_frames(video_path, SAMPLE_FPS, (640, 360), keyframes_only=keyframes_only)):
         if i in label_idx:
             cv2.imwrite(str(label_dir / f"{i:06d}.jpg"), frame)
         batch.append(frame)
@@ -94,8 +98,47 @@ def vlm_label(video_ids: list[str]) -> pd.DataFrame:
     return pd.DataFrame([r for r in done.values() if r["video_id"] in video_ids])
 
 
-def train_classifier(video_ids: list[str]) -> dict:
-    labels = vlm_label(video_ids).dropna(subset=["main_camera"])
+def court_label(video_ids: list[str]) -> pd.DataFrame:
+    """Label the saved sample frames by whether the court-keypoint model calibrates them.
+
+    The main game camera is the only broadcast view that shows the whole court from behind a
+    baseline, which is what the court model needs. Used where the MLX VLM is unavailable (Linux).
+    """
+    from .court import CourtDetector
+
+    labels_path = LABEL_DIR / "court_labels.jsonl"
+    done = {}
+    if labels_path.exists():
+        for line in labels_path.read_text().splitlines():
+            rec = json.loads(line)
+            done[(rec["video_id"], rec["idx"])] = rec
+    det = CourtDetector()
+    with labels_path.open("a") as fh:
+        for vid in video_ids:
+            imgs = [p for p in sorted((LABEL_DIR / vid).glob("*.jpg")) if (vid, int(p.stem)) not in done]
+            for k in range(0, len(imgs), 16):
+                batch = imgs[k:k + 16]
+                frames = [cv2.resize(cv2.imread(str(p)), (1280, 720)) for p in batch]
+                for p, cal in zip(batch, det.calibrate(frames)):
+                    rec = {"video_id": vid, "idx": int(p.stem), "labeler": "court",
+                           "main_camera": bool(cal is not None and cal.reproj_px < 6)}
+                    done[(vid, rec["idx"])] = rec
+                    fh.write(json.dumps(rec) + "\n")
+    return pd.DataFrame([r for r in done.values() if r["video_id"] in video_ids])
+
+
+def _vlm_available() -> bool:
+    try:
+        import mlx_vlm  # noqa: F401
+    except ImportError:
+        return False
+    return True
+
+
+def train_classifier(video_ids: list[str], labeler: str = "auto") -> dict:
+    if labeler == "auto":
+        labeler = "vlm" if _vlm_available() else "court"
+    labels = (vlm_label(video_ids) if labeler == "vlm" else court_label(video_ids)).dropna(subset=["main_camera"])
     X, y = [], []
     for vid, grp in labels.groupby("video_id"):
         emb = np.load(match_dir(vid) / "scene_embeddings.npz")["emb"]
@@ -107,9 +150,10 @@ def train_classifier(video_ids: list[str]) -> dict:
     clf.fit(X, y)
     np.savez(CLASSIFIER_PATH, coef=clf.coef_, intercept=clf.intercept_)
     return {
+        "labeler": labeler,
         "n_labels": int(len(y)),
         "positive_rate": float(y.mean()),
-        "cv_accuracy_vs_vlm": float((cv_pred == y).mean()),
+        "cv_accuracy_vs_labels": float((cv_pred == y).mean()),
     }
 
 

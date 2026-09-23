@@ -69,8 +69,22 @@ FINETUNED_BALL = WEIGHTS / "tracknet_ft.pt"
 
 def device() -> torch.device:
     if torch.cuda.is_available():
+        torch.backends.cudnn.benchmark = True  # fixed input shapes per chunk
         return torch.device("cuda")
     return torch.device("mps" if torch.backends.mps.is_available() else "cpu")
+
+
+def yolo_device() -> str:
+    """Device string in the form Ultralytics expects."""
+    dev = device()
+    return "0" if dev.type == "cuda" else dev.type
+
+
+def empty_cache():
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+    elif torch.backends.mps.is_available():
+        torch.mps.empty_cache()
 
 
 def ball_weights(path: str | Path | None = None) -> Path:
