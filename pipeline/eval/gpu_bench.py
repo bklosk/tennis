@@ -80,6 +80,8 @@ class GpuSampler:
 def sync():
     if torch.cuda.is_available():
         torch.cuda.synchronize()
+    elif torch.backends.mps.is_available():
+        torch.mps.synchronize()
 
 
 def main():
@@ -102,10 +104,11 @@ def main():
 
     dur = video.probe(args.video)["duration"]
     import os as _os
-    _os.environ["TENNIS_HWACCEL"] = "cuda"
+    import sys as _sys
+    _os.environ["TENNIS_HWACCEL"] = "videotoolbox" if _sys.platform == "darwin" else "cuda"
     video.hwaccel.cache_clear()
     hw = video.hwaccel()
-    _os.environ["TENNIS_HWACCEL"] = "auto"
+    _os.environ["TENNIS_HWACCEL"] = "none"
     video.hwaccel.cache_clear()
     for name, accel in (("cpu", ()), ("hw", hw)):
         if name == "hw" and not accel:
@@ -128,7 +131,7 @@ def main():
     dev = tracknet.device()
     import os
     os.environ["TENNIS_COMPILE"] = "0"
-    ball = BallTracker(dev)
+    ball = BallTracker(dev, "torch")
     ball(frames[:64])
     t = time.time()
     np.stack([cv2.resize(f, (640, 360))[:, 64:576] for f in frames])

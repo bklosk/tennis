@@ -146,7 +146,7 @@ def snap_to_audio(hits: pd.DataFrame, onsets) -> pd.DataFrame:
 
 
 def track_match(video_id: str, video_path: Path, limit_segments: int | None = None,
-                ball_backend: str = "mps", ball_weights: str | None = None, inline_crops: bool = True) -> dict:
+                ball_backend: str = "auto", ball_weights: str | None = None, inline_crops: bool = True) -> dict:
     """Track every main-camera chunk; chunks cached with other ball weights get the ball re-run only.
 
     Decoding of the next chunk overlaps GPU work on the current one. With `inline_crops`, each new

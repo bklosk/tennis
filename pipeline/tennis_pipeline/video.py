@@ -36,17 +36,15 @@ def probe(path: Path) -> dict:
 
 @lru_cache
 def hwaccel() -> tuple[str, ...]:
-    """ffmpeg hardware-decode flags: VideoToolbox on macOS, software elsewhere.
+    """ffmpeg hardware-decode flags; software decoding unless TENNIS_HWACCEL opts in.
 
-    On an L40S droplet (8 vCPUs), NVDEC was 2.3x slower than software decoding for this
-    workload (224 vs 525 fps for 720p60 -> 30 fps chunks) because every frame is copied back
-    and scaled on the CPU. TENNIS_HWACCEL=cuda opts in anyway; TENNIS_HWACCEL=none disables
-    VideoToolbox.
+    Hardware decoders lose here because every frame is copied back and scaled on the CPU.
+    720p60 -> 30 fps chunks: NVDEC 224 vs software 525 fps on an L40S droplet (8 vCPUs);
+    VideoToolbox 290 vs software 989 fps on an M3 Pro. The 2 fps scene sampling is worse still
+    on VideoToolbox: 5x vs 86x realtime. TENNIS_HWACCEL=cuda or =videotoolbox opts in anyway.
     """
-    mode = os.environ.get("TENNIS_HWACCEL", "auto")
-    if mode == "none":
-        return ()
-    if sys.platform == "darwin":
+    mode = os.environ.get("TENNIS_HWACCEL", "none")
+    if mode == "videotoolbox" and sys.platform == "darwin":
         return ("-hwaccel", "videotoolbox")
     if mode == "cuda" and shutil.which("nvidia-smi"):
         out = subprocess.run(["ffmpeg", "-hide_banner", "-hwaccels"], capture_output=True, text=True).stdout

@@ -25,17 +25,22 @@ End-to-end tracking (court + TrackNet + players, 30 s chunks, 720p60 source):
 | + compiled TrackNet, lighter court and player passes | 141.9 | 48% |
 | + player detection overlapped with TrackNet | **191.7** | 64% |
 
-For comparison, the M3 Pro ran the whole tracking stage at 11–12 fps.
+For comparison, the M3 Pro ran the whole tracking stage at 11–12 fps, and now runs it at 32 fps with
+TrackNet on the Neural Engine ([`m3-pilot.md`](m3-pilot.md)).
 
 | Component | Before | After | Change |
 |---|---|---|---|
 | TrackNet | 170 fps (eager FP16) | 275 fps | `torch.compile`, batches padded to a fixed size |
 | Player detection | 19.7 ms per sampled frame | 13.6 ms | near player at 640 px, batches of 32 |
-| Court calibration | 201 ms per probe | 6.6 ms | FP16, power-of-two probe batches, probes every 2 s |
+| Court calibration | 201 ms per probe | 6.6 ms | FP16*, power-of-two probe batches, probes every 2 s |
 | TrackNet input downscale | 0.32 s per 30 s chunk (CPU) | on GPU | bit-exact with `cv2.resize` |
 | Chunk decode (720p60 → 30 fps) | 525 fps software | — | NVDEC was slower (224 fps), so software is the Linux default |
 | Scene-pass decode (2 fps samples) | 35× realtime | 150× realtime | optional `--scene-keyframes` (samples once per keyframe interval) |
 | Hitter crops | one seek-and-decode per hit | from frames in memory during tracking | crops stage now only decodes leftovers, one span per chunk |
+
+\* FP16 turned out to lose every court keypoint on real broadcasts (the benchmark used a fixed
+calibration, so it did not show). The court model is back to FP32, which by estimate adds 2–3% to
+end-to-end tracking time and about $1 to the cost below.
 
 ## Revised full-dataset cost (178 matches)
 

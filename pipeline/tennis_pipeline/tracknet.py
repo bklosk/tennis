@@ -65,6 +65,55 @@ class BallTrackerNet(nn.Module):
 
 PRETRAINED_BALL = WEIGHTS / "tracknet.pt"
 FINETUNED_BALL = WEIGHTS / "tracknet_ft.pt"
+COREML_DIR = WEIGHTS / "coreml"
+
+
+class BallMask(nn.Module):
+    """Ball model for the Neural Engine.
+
+    Takes the current and two previous frames as separate (1, H, W, 3) BGR pixel arrays (0-255),
+    so the CPU does no channel reordering, concatenation or scaling. Returns one channel that is
+    positive exactly where the heatmap argmax exceeds 127, which is all the tracker thresholds on;
+    returning the 256-class heatmap made the Neural Engine 4x slower (11 vs 44 fps on an M3 Pro).
+    """
+
+    def __init__(self, net: BallTrackerNet):
+        super().__init__()
+        self.net = net
+
+    def forward(self, cur, prev1, prev2):
+        x = torch.cat([cur, prev1, prev2], 3).permute(0, 3, 1, 2) / 255
+        y = self.net(x)
+        return y[:, 128:].amax(1) - y[:, :128].amax(1)
+
+
+def coreml_ball(path: Path, height: int = 360, width: int = 512):
+    """Core ML (Neural Engine) conversion of the given ball weights, cached by weights tag."""
+    import coremltools as ct
+    import numpy as np
+
+    out = COREML_DIR / f"{weights_tag(path).replace(':', '_')}_{width}x{height}_hwc_mask.mlpackage"
+    if not out.exists():
+        example = [torch.zeros(1, height, width, 3)] * 3
+        with torch.no_grad():
+            traced = torch.jit.trace(BallMask(load("ball", torch.device("cpu"), path)).eval(), example)
+        model = ct.convert(traced, inputs=[ct.TensorType(name=k, shape=example[0].shape, dtype=np.float16)
+                                           for k in ("cur", "prev1", "prev2")],
+                           outputs=[ct.TensorType(name="margin", dtype=np.float16)],
+                           minimum_deployment_target=ct.target.macOS14, convert_to="mlprogram")
+        COREML_DIR.mkdir(parents=True, exist_ok=True)
+        tmp = out.with_name("tmp_" + out.name)
+        model.save(str(tmp))
+        tmp.rename(out)
+    return ct.models.MLModel(str(out), compute_units=ct.ComputeUnit.CPU_AND_NE)
+
+
+def coreml_available() -> bool:
+    try:
+        import coremltools  # noqa: F401
+    except ImportError:
+        return False
+    return torch.backends.mps.is_available()
 
 
 def device() -> torch.device:

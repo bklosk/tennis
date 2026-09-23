@@ -109,8 +109,10 @@ def _refine(img: np.ndarray, x: float, y: float, crop: int = 40) -> tuple[float,
 class CourtDetector:
     def __init__(self, dev: torch.device | None = None):
         self.dev = dev or tracknet.device()
-        self.dtype = torch.float32 if self.dev.type == "cpu" else torch.float16
-        self.model = tracknet.load("court", self.dev).to(self.dtype).to(memory_format=torch.channels_last)
+        # FP32 only: this model's BatchNorm subtracts running means up to ~11,000 from activations
+        # of the same size, and FP16 (spacing 8 at that magnitude) loses every keypoint.
+        self.fmt = torch.channels_last if self.dev.type == "cuda" else torch.contiguous_format
+        self.model = tracknet.load("court", self.dev).to(memory_format=self.fmt)
 
     @torch.no_grad()
     def keypoints(self, frames_bgr: list[np.ndarray]) -> list[list]:
@@ -120,8 +122,8 @@ class CourtDetector:
         padded = 1 << (n - 1).bit_length()  # power-of-two batches limit cuDNN re-tuning to a few shapes
         if padded > n:
             small = np.concatenate([small, np.repeat(small[-1:], padded - n, 0)])
-        inp = torch.from_numpy(small).to(self.dev).permute(0, 3, 1, 2).to(self.dtype) / 255
-        heat = torch.sigmoid(self.model(inp.contiguous(memory_format=torch.channels_last)).float())[:n, :14]
+        inp = torch.from_numpy(small).to(self.dev).permute(0, 3, 1, 2).float() / 255
+        heat = torch.sigmoid(self.model(inp.contiguous(memory_format=self.fmt)))[:n, :14]
         present = (heat.amax((2, 3)) >= 0.67).cpu().numpy()
         maps_present = heat[torch.from_numpy(present).to(heat.device)].cpu().numpy()  # only copy detected maps
         results, j = [], 0

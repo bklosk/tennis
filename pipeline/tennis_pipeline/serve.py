@@ -7,7 +7,7 @@ instead:
 
 - stance: settled behind the baseline near the centre mark for about a second;
 - extension: the person box grows upward as the tossing and hitting arms go above the
-  head (contact is at the box's tallest point);
+  head (tallest at the toss; contact is the server's next hit or sound, up to 1.5 s later);
 - quiet: the opponent has not hit the ball in the previous 2 s (not a rally shot).
 
 At least one piece of ball or sound evidence is also required: a tracked toss, a racket
@@ -22,9 +22,11 @@ import numpy as np
 from .court import HALF_LENGTH, SINGLES_HALF_WIDTH
 from .track import FPS, SegmentTracks
 
-FEATURES = ("ext", "still", "toss", "audio", "response", "returner_back", "hit_near")
-DEFAULT_WEIGHTS = {"bias": -3.0, "ext": 1.5, "still": 1.0, "toss": 1.5, "audio": 1.0,
-                   "response": 1.2, "returner_back": 0.8, "hit_near": 1.0}
+FEATURES = ("ext", "still", "toss", "audio", "response", "returner_back", "hit_near", "behind", "off_mark")
+# Fitted against official point data with eval/serve_fit.py; re-fit rather than hand-edit.
+DEFAULT_WEIGHTS = {"bias": -2.26, "ext": 1.64, "still": 0.28, "toss": 1.38, "audio": 0.52, "response": 1.16,
+                   "returner_back": -0.28, "hit_near": 1.56, "behind": -1.1, "off_mark": -1.76}
+SERVE_X_M = 1.05  # typical distance of a singles server's feet from the centre mark
 
 
 @dataclass
@@ -33,8 +35,11 @@ class ServeParams:
     behind_baseline_m: float = 0.8  # stance feet at least HALF_LENGTH - this from the net
     max_abs_x_m: float = SINGLES_HALF_WIDTH + 1.0
     quiet_s: float = 2.0
-    threshold: float = 0.5
+    threshold: float = 0.6  # lower finds more serves but splits more rallies with false ones
     merge_frames: int = 12
+    # The box is tallest at the toss: contact follows by a median 0.4 s, up to ~1.3 s.
+    contact_after: int = 45
+    contact_lag: int = 12
 
 
 def _feet_court(tr: SegmentTracks, side: str) -> tuple[np.ndarray, np.ndarray]:
@@ -122,10 +127,11 @@ def detect(tr: SegmentTracks, b: np.ndarray, raw_hits: list[dict], onsets: tuple
                         toss = 1.0
                         break
             t_c = tr.t0 + f / FPS
-            lo, hi = np.searchsorted(on_t, [t_c - 0.3, t_c + 0.3])
-            onset_t = float(on_t[lo + int(np.argmax(on_s[lo:hi]))]) if hi > lo else None
+            lo, hi = np.searchsorted(on_t, [t_c - 0.3, t_c + p.contact_after / FPS])
+            onset_t = float(on_t[lo]) if hi > lo else None  # the racket is the first sound after the toss
             ret_hits = [hh for hh in raw_hits if hh["side"] == other[side] and f + 12 <= hh["frame"] <= f + 60]
-            near_hits = [hh for hh in raw_hits if hh["side"] == side and abs(hh["frame"] - f) <= p.merge_frames]
+            near_hits = [hh for hh in raw_hits if hh["side"] == side
+                         and f - p.merge_frames <= hh["frame"] <= f + p.contact_after]
             opp_feet = _nanmedian(feet_by_side[other[side]][1][max(0, f - 30):f + 1])
             feats = {
                 "ext": float(np.clip((ext[f] - 1.05) / 0.3, 0, 1)),
@@ -135,6 +141,10 @@ def detect(tr: SegmentTracks, b: np.ndarray, raw_hits: list[dict], onsets: tuple
                 "response": max(_ball_leaves(b, f, side), float(bool(ret_hits))),
                 "returner_back": float(not np.isnan(opp_feet).any() and abs(opp_feet[1]) >= HALF_LENGTH - 3.5),
                 "hit_near": float(bool(near_hits)),
+                # Servers stand right at the baseline beside the centre mark; rally players are
+                # typically 1-2 m further back and wider.
+                "behind": float(np.clip(abs(stance[1]) - HALF_LENGTH, -0.5, 3.0)),
+                "off_mark": float(np.clip(abs(abs(stance[0]) - SERVE_X_M), 0.0, 4.0)),
             }
             logit = w["bias"] + sum(w[k] * feats[k] for k in FEATURES)
             score = float(1 / (1 + np.exp(-logit)))
@@ -149,11 +159,11 @@ def detect(tr: SegmentTracks, b: np.ndarray, raw_hits: list[dict], onsets: tuple
             elif score < p.threshold:
                 reject = "low_score"
             if near_hits:
-                contact = min(near_hits, key=lambda hh: abs(hh["frame"] - f))["frame"]
+                contact = min(hh["frame"] for hh in near_hits)
             elif onset_t is not None:
                 contact = int(np.clip(round((onset_t - tr.t0) * FPS), 0, n - 1))
             else:
-                contact = f
+                contact = min(f + p.contact_lag, n - 1)
             cands.append({"frame": int(contact), "peak_frame": int(f), "side": side, "t": tr.t0 + contact / FPS,
                           "score": score, "extension": float(ext[f]), "stance_x_m": float(stance[0]),
                           "stance_y_m": float(stance[1]), "accepted": reject is None, "reject": reject, **feats})

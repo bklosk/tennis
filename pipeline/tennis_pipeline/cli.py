@@ -28,7 +28,8 @@ def main():
     parser.add_argument("stage", choices=STAGES)
     parser.add_argument("video_ids", nargs="*")
     parser.add_argument("--limit-segments", type=int)
-    parser.add_argument("--ball-backend", choices=["mps", "coreml"], default="mps")
+    parser.add_argument("--ball-backend", choices=["auto", "torch", "ane"], default="auto",
+                        help="track: TrackNet on PyTorch (CUDA/MPS) or the Apple Neural Engine (auto: ANE on a Mac)")
     parser.add_argument("--ball-weights", help="track/balltrain: TrackNet weights (default: fine-tuned if present)")
     parser.add_argument("--no-inline-crops", action="store_true",
                         help="track: skip cropping hitters from in-memory frames (crops stage decodes them)")
@@ -42,8 +43,8 @@ def main():
     parser.add_argument("--no-serve-detector", action="store_true", help="events: rule-only serve detection")
     parser.add_argument("--ocr-engine", choices=["rapidocr", "vlm"], default="rapidocr")
     parser.add_argument("--rebuild", action="store_true", help="ocr: re-derive points from cached reads")
-    parser.add_argument("--action", choices=["sample", "export", "review", "summary"], default="summary",
-                        help="balllabels step")
+    parser.add_argument("--action", choices=["sample", "export", "review", "auto", "summary"], default="summary",
+                        help="balllabels step (auto: trajectory-teacher labels, no review needed)")
     parser.add_argument("--n", type=int, default=2000, help="balllabels: total frames to label")
     parser.add_argument("--holdout", nargs="*", default=[], help="balllabels: matches kept entirely for validation")
     parser.add_argument("--labeler", default="reviewer", help="balllabels review: name stored with labels")
@@ -118,6 +119,12 @@ def main():
             print(ball_labels.export(video_path, args.video_ids or None), "frames exported")
         elif args.action == "review":
             ball_labels.Reviewer(args.labeler).run()
+        elif args.action == "auto":
+            from . import ball_teacher
+
+            if not args.video_ids:
+                parser.error("balllabels --action auto needs video ids")
+            ball_teacher.auto_label(args.video_ids, video_path, holdout=args.holdout)
         print(json.dumps(ball_labels.summary(), indent=2))
     elif args.stage == "balltrain":
         from . import tracknet_train
