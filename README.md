@@ -36,7 +36,14 @@ uv run pytest                                                                   
 ```
 
 Pilot results on three 2024 matches (accuracy, cost projection, next steps) are in
-[`docs/charting-pilot.md`](docs/charting-pilot.md).
+[`docs/charting-pilot.md`](docs/charting-pilot.md). GPU throughput on a DigitalOcean L40S, the
+revised full-dataset cost, and the budget-capped droplet launcher are in
+[`docs/gpu-pilot.md`](docs/gpu-pilot.md):
+
+```bash
+uv run python -m tennis_pipeline.cloud pilot VIDEO_ID ... --budget 4   # full pipeline on an L40S droplet
+uv run python -m tennis_pipeline.cloud bench VIDEO.mp4 --budget 0.6    # throughput benchmark
+```
 
 Videos are read from `downloads/VIDEO_ID.mp4`; outputs go to `outputs/VIDEO_ID/`. Pretrained
 weights (TrackNet ball, court keypoints, CatBoost bounce) come from the yastrebksv
