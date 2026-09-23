@@ -310,6 +310,80 @@ def bench(video: Path, budget: float, size: str, region: str, out: Path) -> dict
     return result
 
 
+PILOT_JOB = """set -e
+cd {remote}/pipeline
+UV=$HOME/.local/bin/uv
+TIMES={remote}/outputs/pilot_stage_times.jsonl
+stage() {{ local name=$1; shift; local s=$(date +%s.%N); "$@"; \
+  echo "{{\\"stage\\": \\"$name\\", \\"seconds\\": $(python3 -c "print(round($(date +%s.%N)-$s,1))")}}" >> $TIMES; }}
+cli() {{ $UV run python -m tennis_pipeline.cli "$@"; }}
+NEED=""
+for v in {vids}; do [ -f {remote}/outputs/$v/segments.csv ] || NEED="$NEED $v"; done
+if [ -n "$NEED" ]; then stage scenes cli scenes $NEED --reuse-classifier {scene_flags}; fi
+for v in {vids}; do stage "track:$v" cli track $v; done
+for v in {vids}; do
+  stage "events:$v" cli events $v
+  stage "crops:$v" cli crops $v
+  stage "align:$v" cli align $v || echo "align failed for $v"
+done
+stage strokes cli strokes {vids} || echo "strokes failed"
+stage report cli report {vids} || echo "report failed"
+PYTHONPATH=. $UV run python eval/pilot_metrics.py {vids} > {remote}/outputs/pilot_metrics.json || echo "metrics failed"
+echo PILOT_DONE
+"""
+
+
+def pilot(video_ids: list[str], videos_dir: Path, budget: float, size: str, region: str,
+          scene_keyframes: bool = False) -> dict:
+    """Full pipeline on a GPU droplet for videos on this machine; results sync to outputs/."""
+    import threading
+
+    missing = [v for v in video_ids if not (videos_dir / f"{v}.mp4").exists()]
+    if missing:
+        raise FileNotFoundError(f"videos not found in {videos_dir}: {missing}")
+    do = DO()
+    left = cleanup_leftovers(do)
+    if left:
+        print(f"destroyed leftover pilot droplets: {left}")
+    outputs = REPO / "outputs"
+    with Droplet(do, size, region, budget, name="tennis-gpu-pilot") as d:
+        t = time.time()
+        d.ssh(SETUP, timeout=900)
+        upload_code(d)
+        # Install dependencies on the droplet while the videos upload.
+        installer = threading.Thread(target=lambda: print(d.ssh(INSTALL, timeout=1800).stdout.strip(), flush=True))
+        installer.start()
+        for v in video_ids:
+            d.rsync_up(videos_dir / f"{v}.mp4", f"{REMOTE}/downloads/")
+            cached = [p for p in ("segments.csv", "scene_embeddings.npz", "audio_onsets.npz")
+                      if (outputs / v / p).exists()]
+            if cached:
+                d.ssh(f"mkdir -p {REMOTE}/outputs/{v}", timeout=30)
+                for p in cached:
+                    d.rsync_up(outputs / v / p, f"{REMOTE}/outputs/{v}/")
+        clf = REPO / ".cache" / "scene_classifier.npz"
+        if clf.exists():
+            d.rsync_up(clf, f"{REMOTE}/.cache/")
+        installer.join()
+        print(f"setup + upload took {time.time() - t:.0f} s (${d.budget.spent():.2f} so far)", flush=True)
+        script = PILOT_JOB.format(remote=REMOTE, vids=" ".join(video_ids),
+                                  scene_flags="--scene-keyframes" if scene_keyframes else "")
+
+        def fetch():
+            d.rsync_down(f"{REMOTE}/outputs/", outputs, excludes=("_bench",))
+            d.rsync_down(f"{REMOTE}/.cache/hit_crops", REPO / ".cache")
+
+        finished = run_logged(d, script, "/root/pilot.log", sync=fetch)
+        fetch()
+        spent = d.budget.spent()
+    summary = {"videos": video_ids, "finished": finished, "size": size, "cost_usd": round(spent, 3)}
+    times = outputs / "pilot_stage_times.jsonl"
+    if times.exists():
+        summary["stage_seconds"] = [json.loads(line) for line in times.read_text().splitlines()]
+    (outputs / "gpu_pilot_summary.json").write_text(json.dumps(summary, indent=2))
+    return summary
+
+
 def main():
     import argparse
 
@@ -321,11 +395,21 @@ def main():
     b.add_argument("--size", default="gpu-l40sx1-48gb")
     b.add_argument("--region", default="tor1")
     b.add_argument("--out", type=Path, default=REPO / "outputs" / "gpu_bench.json")
+    p = sub.add_parser("pilot", help="full pipeline on a GPU droplet for local videos")
+    p.add_argument("video_ids", nargs="+")
+    p.add_argument("--videos-dir", type=Path, default=REPO / "downloads")
+    p.add_argument("--budget", type=float, default=4.0, help="hard cap in USD for this droplet")
+    p.add_argument("--size", default="gpu-l40sx1-48gb")
+    p.add_argument("--region", default="tor1")
+    p.add_argument("--scene-keyframes", action="store_true", help="keyframe-only scene decoding (~6x faster)")
     sub.add_parser("cleanup", help="destroy droplets left by earlier runs")
     args = ap.parse_args()
     if args.cmd == "bench":
         args.out.parent.mkdir(parents=True, exist_ok=True)
         print(json.dumps(bench(args.video, args.budget, args.size, args.region, args.out), indent=2))
+    elif args.cmd == "pilot":
+        print(json.dumps(pilot(args.video_ids, args.videos_dir, args.budget, args.size, args.region,
+                               args.scene_keyframes), indent=2))
     elif args.cmd == "cleanup":
         print(cleanup_leftovers(DO()))
 

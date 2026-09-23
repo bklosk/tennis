@@ -36,6 +36,8 @@ def main():
                         help="scenes: label sample frames with the MLX VLM or the court-keypoint model")
     parser.add_argument("--scene-keyframes", action="store_true",
                         help="scenes: decode keyframes only (~6x faster, coarser segment boundaries)")
+    parser.add_argument("--reuse-classifier", action="store_true",
+                        help="scenes: keep an existing scene classifier instead of retraining")
     parser.add_argument("--vlm", action="store_true", help="strokes: also run the Qwen3-VL labeling experiment")
     parser.add_argument("--no-serve-detector", action="store_true", help="events: rule-only serve detection")
     parser.add_argument("--ocr-engine", choices=["rapidocr", "vlm"], default="rapidocr")
@@ -61,7 +63,10 @@ def main():
 
         for vid in args.video_ids:
             scenes.embed_video(vid, video_path(vid), keyframes_only=args.scene_keyframes)
-        print(json.dumps(scenes.train_classifier(args.video_ids, args.scene_labeler)))
+        if args.reuse_classifier and scenes.CLASSIFIER_PATH.exists():
+            print("reusing", scenes.CLASSIFIER_PATH)
+        else:
+            print(json.dumps(scenes.train_classifier(args.video_ids, args.scene_labeler)))
         for vid in args.video_ids:
             segs = scenes.predict_segments(vid)
             print(vid, len(segs), "segments", round(segs.duration.sum() / 60, 1), "min kept")
