@@ -312,6 +312,8 @@ def fix_identity(shots: pd.DataFrame, points: pd.DataFrame) -> tuple[pd.DataFram
 def run(video_id: str) -> dict:
     out_dir = match_dir(video_id)
     hits = pd.read_parquet(out_dir / "hits_raw.parquet")
+    if hits.empty:
+        raise ValueError(f"{video_id}: no hits were detected, so there is nothing to align")
     feats_path = out_dir / "hit_features.parquet"
     meta, pts = official_points(video_id)
     vps = video_points(hits)

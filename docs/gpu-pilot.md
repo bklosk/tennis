@@ -44,6 +44,9 @@ end-to-end tracking time and about $1 to the cost below.
 
 ## Revised full-dataset cost (178 matches)
 
+The dataset has since grown to 198 matches, and the batch runner does scenes on the Mac; see
+[`batch-run.md`](batch-run.md) for the current estimate (about $52).
+
 The scene filter keeps 47.7% of broadcast time, so 369 h of video is 176 h of main-camera footage,
 or 19.0M frames at 30 fps.
 

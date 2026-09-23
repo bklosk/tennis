@@ -17,10 +17,11 @@ STAGES = ["scenes", "track", "events", "crops", "strokes", "align", "report", "o
 
 
 def video_path(video_id: str):
-    path = DOWNLOADS / f"{video_id}.mp4"
-    if not path.exists():
-        path = DOWNLOADS / f"{video_id}.f298.mp4"
-    return path
+    """The match video: the full download, else a main-camera pack (`video.pack_segments`)."""
+    for name in (f"{video_id}.mp4", f"{video_id}.f298.mp4", f"{video_id}.pack"):
+        if (DOWNLOADS / name).exists():
+            return DOWNLOADS / name
+    return DOWNLOADS / f"{video_id}.mp4"
 
 
 def main():

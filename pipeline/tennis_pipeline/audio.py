@@ -8,6 +8,7 @@ from pathlib import Path
 import numpy as np
 from scipy.signal import butter, find_peaks, sosfilt
 
+from . import video
 from .paths import match_dir
 
 SR = 16000
@@ -19,6 +20,9 @@ def onsets(video_id: str, video_path: Path) -> tuple[np.ndarray, np.ndarray]:
     if cache.exists():
         z = np.load(cache)
         return z["t"], z["strength"]
+    if video.is_pack(video_path):
+        raise FileNotFoundError(f"{video_id}: a main-camera pack has no audio; compute onsets from the full "
+                                "video first (batch prep does this)")
     raw = subprocess.run(["ffmpeg", "-v", "error", "-i", str(video_path), "-ac", "1", "-ar", str(SR),
                           "-f", "f32le", "-"], check=True, capture_output=True).stdout
     x = np.frombuffer(raw, np.float32)

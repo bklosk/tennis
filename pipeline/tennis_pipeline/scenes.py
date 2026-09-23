@@ -158,11 +158,24 @@ def train_classifier(video_ids: list[str], labeler: str = "auto") -> dict:
 
 
 def scene_prob(video_id: str) -> np.ndarray:
-    """Main-camera probability for each 2 fps sample (index = t * SAMPLE_FPS)."""
-    z = np.load(match_dir(video_id) / "scene_embeddings.npz")
+    """Main-camera probability for each 2 fps sample (index = t * SAMPLE_FPS).
+
+    Uses the cached probabilities from `save_scene_prob` when the embeddings are not present
+    (batch runs upload the probabilities, not the much larger embeddings).
+    """
+    emb_path = match_dir(video_id) / "scene_embeddings.npz"
+    if not emb_path.exists() and (match_dir(video_id) / "scene_prob.npz").exists():
+        return np.load(match_dir(video_id) / "scene_prob.npz")["prob"]
+    z = np.load(emb_path)
     c = np.load(CLASSIFIER_PATH)
     logits = z["emb"] @ c["coef"].ravel() + c["intercept"][0]
     return 1 / (1 + np.exp(-logits))
+
+
+def save_scene_prob(video_id: str) -> np.ndarray:
+    prob = scene_prob(video_id)
+    np.savez_compressed(match_dir(video_id) / "scene_prob.npz", prob=prob.astype(np.float32))
+    return prob
 
 
 def predict_segments(video_id: str, min_len: float = 2.5, pad: float = 0.75,

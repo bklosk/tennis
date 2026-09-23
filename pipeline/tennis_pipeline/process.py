@@ -145,12 +145,27 @@ def snap_to_audio(hits: pd.DataFrame, onsets) -> pd.DataFrame:
     return hits
 
 
+@dataclass
+class TrackModels:
+    """Tracking models. Batch runs load them once for every match (TrackNet compiles on first use)."""
+    ball: BallTracker
+    court: CourtDetector | None = None
+    players: PlayerDetector | None = None
+
+    @classmethod
+    def load(cls, ball_backend: str = "auto", ball_weights: str | None = None) -> "TrackModels":
+        dev = tracknet.device()
+        return cls(BallTracker(dev, ball_backend, ball_weights), CourtDetector(dev), PlayerDetector())
+
+
 def track_match(video_id: str, video_path: Path, limit_segments: int | None = None,
-                ball_backend: str = "auto", ball_weights: str | None = None, inline_crops: bool = True) -> dict:
+                ball_backend: str = "auto", ball_weights: str | None = None, inline_crops: bool = True,
+                models: TrackModels | None = None) -> dict:
     """Track every main-camera chunk; chunks cached with other ball weights get the ball re-run only.
 
     Decoding of the next chunk overlaps GPU work on the current one. With `inline_crops`, each new
-    chunk's hitter crops and pose features are taken from the frames already in memory.
+    chunk's hitter crops and pose features are taken from the frames already in memory. `models`
+    reuses loaded models (the backend and weights arguments are then ignored).
     """
     out_dir = match_dir(video_id)
     tdir = _tracks_dir(video_id)
@@ -158,8 +173,8 @@ def track_match(video_id: str, video_path: Path, limit_segments: int | None = No
     if limit_segments:
         segs = segs.head(limit_segments)
     dev = tracknet.device()
-    ball = BallTracker(dev, ball_backend, ball_weights)
-    court_det = players = None
+    models = models or TrackModels(BallTracker(dev, ball_backend, ball_weights))
+    ball = models.ball
 
     jobs = []
     for seg in segs.itertuples():
@@ -189,15 +204,15 @@ def track_match(video_id: str, video_path: Path, limit_segments: int | None = No
         n_frames += len(frames)
         t0 = time.time()
         if cached is None:
-            if court_det is None:
-                court_det, players = CourtDetector(dev), PlayerDetector()
-            tr = track_segment(frames, t, court_det, ball, players)
+            if models.court is None:
+                models.court, models.players = CourtDetector(dev), PlayerDetector()
+            tr = track_segment(frames, t, models.court, ball, models.players)
             save_tracks(path, tr)
             timing["track"] += time.time() - t0
             if crops is not None and tr.court_ok >= 0.5:
                 t1 = time.time()
                 _, _, hits, _ = chunk_events(tr, path.stem, ctx)
-                crops.add(snap_to_audio(pd.DataFrame(hits), ctx.onsets), frames, t, players)
+                crops.add(snap_to_audio(pd.DataFrame(hits), ctx.onsets), frames, t, models.players)
                 timing["inline_crops"] += time.time() - t1
         else:
             n_retracked += 1
@@ -320,6 +335,8 @@ def crops_match(video_id: str, video_path: Path, players: PlayerDetector | None 
     out_dir = match_dir(video_id)
     hits = pd.read_parquet(out_dir / "hits_raw.parquet")
     writer = CropWriter(video_id)
+    if hits.empty:
+        return writer.save(keep=set())
     todo = hits[~hits.hit_id.map(writer.done)]
     if len(todo):
         players = players or PlayerDetector()

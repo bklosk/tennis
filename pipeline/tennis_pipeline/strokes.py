@@ -132,7 +132,7 @@ def vlm_experiment(shots: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
     return shots, report
 
 
-def run(video_ids: list[str], vlm: bool = False) -> dict:
+def run(video_ids: list[str], vlm: bool = False, report_path: Path | None = None) -> dict:
     frames = []
     for vid in video_ids:
         s = pd.read_parquet(match_dir(vid) / "shots_aligned.parquet")
@@ -171,5 +171,5 @@ def run(video_ids: list[str], vlm: bool = False) -> dict:
         grp.to_parquet(match_dir(vid) / "shots_strokes.parquet", index=False)
     report["stroke_counts"] = shots.stroke.value_counts().to_dict()
     report["volleys"] = int(shots.is_volley.sum())
-    (CACHE / "stroke_report.json").write_text(json.dumps(report, indent=2))
+    (report_path or CACHE / "stroke_report.json").write_text(json.dumps(report, indent=2))
     return report
