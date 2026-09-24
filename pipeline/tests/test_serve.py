@@ -97,6 +97,17 @@ def test_no_extension_no_candidate():
     assert serve.detect(tr, b, [], onsets_at(CONTACT)) == []
 
 
+def test_audio_shot_count_stops_when_the_court_goes_quiet():
+    from tennis_pipeline.audio import GAP_STOP, Onsets, court_provenance, shot_count, PROV_COURT, PROV_DEAD
+
+    score = court_provenance(np.array([PROV_DEAD, PROV_COURT, 0.0, 1.0]))
+    assert score[0] == 0 and score[1] == 1 and score[2] == 0 and score[3] == 1
+    t = np.array([0.0, 0.8, 1.5, 1.5 + GAP_STOP + 0.2])
+    impacts = Onsets(t, np.ones(4), np.ones(4), np.full(4, 6.0))
+    assert shot_count(impacts, 0.0, 20.0) == 3
+    assert shot_count(None, 0.0, 20.0) is None
+
+
 def test_court_geometry_sanity():
     c = calib()
     x, y = c.to_court_m(c.to_img(np.array([[1.0, 12.0]])))[0]

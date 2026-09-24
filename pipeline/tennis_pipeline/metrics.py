@@ -54,6 +54,8 @@ def match_metrics(vid: str) -> dict:
         if align["server_side_agreement"] is not None else None,
         "rally_exact": round(float((diff == 0).mean()), 3) if len(diff) else None,
         "rally_within_1": round(float((diff.abs() <= 1).mean()), 3) if len(diff) else None,
+        "rally_audio_exact": round(float((rally.n_shots_audio == rally.official_rally_count).mean()), 3) if "n_shots_audio" in rally and rally.n_shots_audio.notna().any() else None,
+        "rally_audio_within_1": round(float(((rally.n_shots_audio - rally.official_rally_count).abs() <= 1).mean()), 3) if "n_shots_audio" in rally and rally.n_shots_audio.notna().any() else None,
         "ball_detected_in_play": round(float(ball.raw_detected[in_play].mean()), 3) if in_play.any() else None,
         "near_player_coverage": round(cover["near"], 3),
         "far_player_coverage": round(cover["far"], 3),

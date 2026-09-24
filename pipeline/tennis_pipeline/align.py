@@ -112,7 +112,7 @@ def handedness() -> dict:
     return hands
 
 
-def video_points(hits: pd.DataFrame) -> list[dict]:
+def video_points(hits: pd.DataFrame, impacts=None) -> list[dict]:
     """Group hits into serve attempts, then merge faults with the following second serve."""
     hits = hits.sort_values("t").reset_index(drop=True)
     attempts = []
@@ -150,8 +150,20 @@ def video_points(hits: pd.DataFrame) -> list[dict]:
         elif not last["serve_detected"]:
             n += 1  # serve itself was missed
         out.append({"vp": i, "t_start": p["t_start"], "t_end": p["t_last"], "server_side": p["server_side"],
-                    "n_serves": len(p["attempts"]), "n_shots": n,
+                    "n_serves": len(p["attempts"]), "n_shots": n, "n_shots_audio": None,
                     "hit_ids": [h.hit_id for a in p["attempts"] for h in a["hits"]]})
+    if impacts is not None:
+        from . import audio
+
+        for i, v in enumerate(out):
+            nxt = out[i + 1]["t_start"] if i + 1 < len(out) else None
+            # A short gap is usually a false serve splitting this rally, so keep listening.
+            # A long gap is the next point; stop before its serve.
+            if nxt is not None and nxt - v["t_end"] > audio.GAP_STOP:
+                limit = nxt - 0.3
+            else:
+                limit = v["t_start"] + 12
+            v["n_shots_audio"] = audio.shot_count(impacts, v["t_start"], limit)
     return out
 
 
@@ -182,6 +194,11 @@ def _align(vps: list[dict], pts: pd.DataFrame, p1_start: str):
             sc += 1.5 if v["server_side"] == exp_side[j] else -2.5
         if rally[j] >= 0:
             sc += 1.5 - 0.6 * min(abs(v["n_shots"] - rally[j]), 5)
+            # Court-mic impacts after the last tracked hit. Weaker than the visual
+            # count (it also hears bounces) and only a tie-break beside it.
+            na = v.get("n_shots_audio")
+            if na is not None:
+                sc += 0.35 * (1 - min(abs(na - rally[j]), 4) / 4)
         if not np.isnan(t_hi[j]):
             sc += 1.5 if t_hi[j] - 40 <= v["t_end"] <= t_hi[j] + 2 else -2.0
         return sc
@@ -316,7 +333,11 @@ def run(video_id: str) -> dict:
         raise ValueError(f"{video_id}: no hits were detected, so there is nothing to align")
     feats_path = out_dir / "hit_features.parquet"
     meta, pts = official_points(video_id)
-    vps = video_points(hits)
+    from . import audio
+    from .cli import video_path
+
+    impacts = audio.onsets(video_id, video_path(video_id))
+    vps = video_points(hits, impacts)
     _, pairs, exp_side, p1_start, pts, ambiguous = best_alignment(vps, pts, meta["source"])
 
     matched = {i: j for i, j in pairs}
@@ -325,7 +346,7 @@ def run(video_id: str) -> dict:
     rows = []
     for v in vps:
         j = matched.get(v["vp"])
-        rec = {k: v[k] for k in ("vp", "t_start", "t_end", "server_side", "n_serves", "n_shots")}
+        rec = {k: v[k] for k in ("vp", "t_start", "t_end", "server_side", "n_serves", "n_shots", "n_shots_audio")}
         if j is not None:
             p = pts.iloc[j]
             server = int(p.PointServer)
@@ -381,6 +402,8 @@ def run(video_id: str) -> dict:
         "server_side_agreement": float((served.server_side == served.official_server_side).mean()) if len(served) else None,
         "rally_count_exact": float((both.n_shots == both.official_rally_count).mean()) if len(both) else None,
         "rally_count_within_1": float(((both.n_shots - both.official_rally_count).abs() <= 1).mean()) if len(both) else None,
+        "rally_audio_exact": float((both.n_shots_audio == both.official_rally_count).mean()) if len(both) and both.n_shots_audio.notna().any() else None,
+        "rally_audio_within_1": float(((both.n_shots_audio - both.official_rally_count).abs() <= 1).mean()) if len(both) and both.n_shots_audio.notna().any() else None,
         **identity,
     }
     (out_dir / "align_summary.json").write_text(json.dumps(summary, indent=2))
