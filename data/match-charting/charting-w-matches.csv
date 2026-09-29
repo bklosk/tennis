@@ -1,0 +1,825 @@
+match_id,Player 1,Player 2,Pl 1 hand,Pl 2 hand,Date,Tournament,Round,Time,Court,Surface,Umpire,Best of,Final TB?,Charted by
+20260909-W-US_Open-QF-Coco_Gauff-Mirra_Andreeva,Coco Gauff,Mirra Andreeva,R,R,20260909,US Open,QF,,Arthur Ashe Stadium,Hard,,3,A,stard54
+20260907-W-US_Open-R16-Elena_Rybakina-Naomi_Osaka,Elena Rybakina,Naomi Osaka,R,R,20260907,US Open,R16,4:15 PM,Louis Armstrong Stadium,Hard,Louise Azemar Engzell,3,A,KleineBiere
+20260907-W-US_Open-R16-Coco_Gauff-Iva_Jovic,Coco Gauff,Iva Jovic,R,R,20260907,US Open,R16,7:00 PM,Arthur Ashe Stadium,Hard,Eva Asderaki-Moore,3,A,KleineBiere
+20260907-W-US_Open-R16-Anastasia_Potapova-Mirra_Andreeva,Anastasia Potapova,Mirra Andreeva,R,R,20260907,US Open,R16,11:00 AM,Armstrong,Hard,,3,A,stard54
+20260905-W-US_Open-R32-Nikola_Bartunkova-Mirra_Andreeva,Nikola Bartunkova,Mirra Andreeva,R,R,20260905,US Open,R32,,Stadium 17,Hard,,3,A,stard54
+20260905-W-US_Open-R32-Elena_Rybakina-Yuliia_Starodubtseva,Elena Rybakina,Yuliia Starodubtseva,R,R,20260905,US Open,R32,9:00 PM,Grandstand,Hard,Marijana Veljovic,3,A,KleineBiere
+20260905-W-US_Open-R32-Coco_Gauff-Cristina_Bucsa,Coco Gauff,Cristina Bucsa,R,R,20260905,US Open,R32,3:45 PM,Arthur Ashe Stadium,Hard,Miriam Bley,3,A,KleineBiere
+20260905-W-US_Open-R32-Alexandra_Eala-Iva_Jovic,Alexandra Eala,Iva Jovic,L,R,20260905,US Open,R32,7:00 PM,Arthur Ashe Stadium,Hard,Kasia Radwan-Cho,3,A,KleineBiere
+20260904-W-US_Open-R64-Eva_Lys-Mirra_Andreeva,Eva Lys,Mirra Andreeva,R,R,20260904,US Open,R64,,Stadium 17,Hard,,3,A,stard54
+20260903-W-US_Open-R64-Francesca_Jones-Iva_Jovic,Francesca Jones,Iva Jovic,R,R,20260903,US Open,R64,7:00 PM,Stadium 17,Hard,Paula Vieira Souza,3,A,KleineBiere
+20260902-W-US_Open-R64-Diana_Shnaider-Karolina_Pliskova,Diana Shnaider,Karolina Pliskova,L,R,20260902,US Open,R64,11:00 AM,6,Hard,,3,A,KleineBiere
+20260901-W-US_Open-R128-Madison_Keys-Alina_Korneeva,Madison Keys,Alina Korneeva,R,R,20260901,US Open,R128,11:30 AM,Arthur Ashe Stadium,Hard,Julie Kjendlie,3,A,KleineBiere
+20260901-W-US_Open-R128-Janice_Tjen-Mirra_Andreeva,Janice Tjen,Mirra Andreeva,R,R,20260901,US Open,R128,,Louis Armstrong Stadium,Hard,,3,A,stard54
+20260901-W-US_Open-R128-Iva_Jovic-Magdalena_Frech,Iva Jovic,Magdalena Frech,R,R,20260901,US Open,R128,9:00 PM,Grandstand,Hard,Aurelie Tourte,3,A,KleineBiere
+20260901-W-US_Open-R128-Coco_Gauff-Zeynep_Sonmez,Coco Gauff,Zeynep Sonmez,R,R,20260901,US Open,R128,7:00 PM,Arthur Ashe Stadium,Hard,Kader Nouni,3,A,KleineBiere
+20260831-W-US_Open-R128-Karolina_Muchova-Sinja_Kraus,Karolina Muchova,Sinja Kraus,R,R,20260831,US Open,R128,11:00 AM,Grandstand,Hard,Chase Urban,3,A,KleineBiere
+20260831-W-US_Open-R128-Caty_Mcnally-Anouk_Koevermans,Caty Mcnally,Anouk Koevermans,R,R,20260831,US Open,R128,,11,Hard,Fergus Murphy,3,A,Zindaras
+20260831-W-US_Open-R128-Anna_Kalinskaya-Anna_Blinkova,Anna Kalinskaya,Anna Blinkova,R,R,20260831,US Open,R128,1:30 PM,5,Hard,Jan Kaye,3,A,KleineBiere
+20260831-W-US_Open-R128-Amanda_Anisimova-Ashlyn_Krueger,Amanda Anisimova,Ashlyn Krueger,R,R,20260831,US Open,R128,2:30 PM,Louis Armstrong Stadium,Hard,Marija Cicak,3,A,KleineBiere
+20260830-W-US_Open-R128-Talia_Gibson-Donna_Vekic,Talia Gibson,Donna Vekic,R,R,20260830,US Open,R128,11:00 AM,5,Hard,Kelly Rask,3,A,KleineBiere
+20260830-W-US_Open-R128-Emiliana_Arango-Xin_Yu_Wang,Emiliana Arango,Xin Yu Wang,R,R,20260830,US Open,R128,,6,Hard,Jan Kaye,3,A,KleineBiere
+20260830-W-US_Open-R128-Elina_Svitolina-Solana_Sierra,Elina Svitolina,Solana Sierra,R,R,20260830,US Open,R128,7:00 PM,Louis Armstrong Stadium,Hard,Julie Kjendlie,3,A,KleineBiere
+20260827-W-US_Open-Q3-Tamara_Zidansek-Bianca_Andreescu,Tamara Zidansek,Bianca Andreescu,R,R,20260827,US Open,Q3,,7,Hard,Aline Rocha,3,A,Zindaras
+20260827-W-US_Open-Q2-Arantxa_Rus-Suzan_Lamens,Arantxa Rus,Suzan Lamens,L,R,20260827,US Open,Q2,,15,Hard,Robin Lambours,3,A,Zindaras
+20260826-W-US_Open-Q2-Bianca_Andreescu-Veronika_Podrez,Bianca Andreescu,Veronika Podrez,R,R,20260826,US Open,Q2,15:50,7,Hard,Julie Kjendlie,3,A,Zindaras
+20260824-W-US_Open-Q1-Lisa_Pigato-Linda_Klimovicova,Lisa Pigato,Linda Klimovicova,R,R,20260824,US Open,Q1,1:15 PM,5,Hard,Joshua Brace,3,A,KleineBiere
+20260824-W-US_Open-Q1-Bianca_Andreescu-Eva_Vedder,Bianca Andreescu,Eva Vedder,R,R,20260824,US Open,Q1,,7,Hard,Jonas Welte,3,A,Zindaras
+20260129-W-Australian_Open-SF-Elena_Rybakina-Jessica_Pegula,Elena Rybakina,Jessica Pegula,R,R,20260129,Australian Open,SF,,,Hard,,3,A,Isaac
+20260128-W-Australian_Open-QF-Elena_Rybakina-Iga_Swiatek,Elena Rybakina,Iga Swiatek,R,R,20260128,Australian Open,QF,11:45 PM,Rod Laver Arena,Hard,Timo Janzen,3,A,Carrie
+20260127-W-Australian_Open-QF-Coco_Gauff-Elina_Svitolina,Coco Gauff,Elina Svitolina,R,R,20260127,Australian Open,QF,19:05,Rod Laver Arena,Hard,,3,A,Zindaras
+20260127-W-Australian_Open-QF-Amanda_Anisimova-Jessica_Pegula,Amanda Anisimova,Jessica Pegula,R,R,20260127,Australian Open,QF,,,Hard,,3,A,Isaac
+20260126-W-Australian_Open-R16-Jessica_Pegula-Madison_Keys,Jessica Pegula,Madison Keys,R,R,20260126,Australian Open,R16,11:30 AM,Rod Laver Arena,Hard,,3,A,KleineBiere
+20260126-W-Australian_Open-R16-Iga_Swiatek-Maddison_Inglis,Iga Swiatek,Maddison Inglis,R,R,20260126,Australian Open,R16,7:15 PM,Rod Laver Arena,Hard,Marija Cicak,3,A,Carrie
+20260125-W-Australian_Open-R16-Iva_Jovic-Yulia_Putintseva,Iva Jovic,Yulia Putintseva,R,R,20260125,Australian Open,R16,1:30 PM,John Cain Arena,Hard,Julie Kjendlie,3,A,KleineBiere
+20260125-W-Australian_Open-R16-Elina_Svitolina-Mirra_Andreeva,Elina Svitolina,Mirra Andreeva,R,R,20260125,Australian Open,R16,9:10 PM,Rod Laver Arena,Hard,,3,A,stard54
+20260124-W-Australian_Open-R32-Linda_Noskova-Xin_Yu_Wang,Linda Noskova,Xin Yu Wang,R,R,20260124,Australian Open,R32,2:30 PM,Kia Arena,Hard,,3,A,KleineBiere
+20260124-W-Australian_Open-R32-Iga_Swiatek-Anna_Kalinskaya,Iga Swiatek,Anna Kalinskaya,R,R,20260124,Australian Open,R32,7:10 PM,Margaret Court Arena,Hard,Alison Hughes,3,A,Carrie
+20260124-W-Australian_Open-R32-Elena_Rybakina-Tereza_Valentova,Elena Rybakina,Tereza Valentova,R,R,20260124,Australian Open,R32,9:00 PM,John Cain Arena,Hard,Marija Cicak,3,A,KleineBiere
+20260123-W-Australian_Open-R32-Mirra_Andreeva-Elena_Gabriela_Ruse,Mirra Andreeva,Elena Gabriela Ruse,R,R,20260123,Australian Open,R32,10:15 PM,Rod Laver Arena,Hard,,3,A,stard54
+20260123-W-Australian_Open-R32-Magda_Linette-Karolina_Muchova,Magda Linette,Karolina Muchova,R,R,20260123,Australian Open,R32,4:30 PM,Kia Arena,Hard,Christian Rask,3,A,KleineBiere
+20260123-W-Australian_Open-R32-Jasmine_Paolini-Iva_Jovic,Jasmine Paolini,Iva Jovic,R,R,20260123,Australian Open,R32,,,Hard,,3,1,Isaac
+20260123-W-Australian_Open-R32-Diana_Shnaider-Elina_Svitolina,Diana Shnaider,Elina Svitolina,L,R,20260123,Australian Open,R32,19:10,Margaret Court Arena,Hard,Julie Kjendlie,3,A,Zindaras
+20260122-W-Australian_Open-R64-Mccartney_Kessler-Jessica_Pegula,Mccartney Kessler,Jessica Pegula,R,R,20260122,Australian Open,R64,11:30 AM,Rod Laver Arena,Hard,,3,A,KleineBiere
+20260122-W-Australian_Open-R64-Iga_Swiatek-Marie_Bouzkova,Iga Swiatek,Marie Bouzkova,R,R,20260122,Australian Open,R64,5:10 PM,John Cain Arena,Hard,Damien Dumusois,3,A,Carrie
+20260122-W-Australian_Open-R64-Elena_Rybakina-Varvara_Gracheva,Elena Rybakina,Varvara Gracheva,R,R,20260122,Australian Open,R64,9:30 PM,Rod Laver Arena,Hard,,3,A,KleineBiere
+20260121-W-Australian_Open-R64-Victoria_Mboko-Caty_Mcnally,Victoria Mboko,Caty Mcnally,R,R,20260121,Australian Open,R64,1:30 PM,1573 Arena,Hard,Morgane Lara,3,A,KleineBiere
+20260121-W-Australian_Open-R64-Maria_Sakkari-Mirra_Andreeva,Maria Sakkari,Mirra Andreeva,R,R,20260121,Australian Open,R64,7:00 PM,Margaret Court Arena,Hard,,3,A,stard54
+20260121-W-Australian_Open-R64-Iva_Jovic-Priscilla_Hon,Iva Jovic,Priscilla Hon,R,R,20260121,Australian Open,R64,11:00 PM,Rod Laver Arena,Hard,,3,A,KleineBiere
+20260121-W-Australian_Open-R64-Diana_Shnaider-Talia_Gibson,Diana Shnaider,Talia Gibson,L,R,20260121,Australian Open,R64,11:00 AM,Kia Arena,Hard,Kelly Rask,3,A,KleineBiere
+20260121-W-Australian_Open-R64-Coco_Gauff-Olga_Danilovic,Coco Gauff,Olga Danilovic,R,L,20260121,Australian Open,R64,3:00 PM,MCA,Hard,Fergus Murphy,3,A,KleineBiere
+20260121-W-Australian_Open-R64-Anastasia_Potapova-Emma_Raducanu,Anastasia Potapova,Emma Raducanu,R,R,20260121,Australian Open,R64,15:25,ANZ Arena,Hard,,3,A,Sid
+20260121-W-Australian_Open-R64-Alycia_Parks-Karolina_Muchova,Alycia Parks,Karolina Muchova,R,R,20260121,Australian Open,R64,6:45 PM,1573 Arena,Hard,Scott Noble,3,A,KleineBiere
+20260120-W-Australian_Open-R64-Elina_Svitolina-Linda_Klimovicova,Elina Svitolina,Linda Klimovicova,R,R,20260120,Australian Open,R64,,John Cain Arena,Hard,,3,A,Isaac
+20260120-W-Australian_Open-R128-Maya_Joint-Tereza_Valentova,Maya Joint,Tereza Valentova,R,R,20260120,Australian Open,R128,11:00 AM,John Cain Arena,Hard,Meruyert Kaukeyeva,3,A,KleineBiere
+20260120-W-Australian_Open-R128-Madison_Keys-Oleksandra_Oliynykova,Madison Keys,Oleksandra Oliynykova,R,R,20260120,Australian Open,R128,11:45,Rod Laver Arena,Hard,John Blom,3,A,Zindaras
+20260120-W-Australian_Open-R128-Leylah_Fernandez-Janice_Tjen,Leylah Fernandez,Janice Tjen,L,R,20260120,Australian Open,R128,11:05,ANZ Arena,Hard,Morgane Lara,3,A,Zindaras
+20260120-W-Australian_Open-R128-Elena_Rybakina-Kaja_Juvan,Elena Rybakina,Kaja Juvan,R,R,20260120,Australian Open,R128,3:15 PM,MCA,Hard,,3,A,KleineBiere
+20260119-W-Australian_Open-R128-Solana_Sierra-Moyuka_Uchijima,Solana Sierra,Moyuka Uchijima,R,R,20260119,Australian Open,R128,,,Hard,,3,A,Isaac
+20260119-W-Australian_Open-R128-Mirra_Andreeva-Donna_Vekic,Mirra Andreeva,Donna Vekic,R,R,20260119,Australian Open,R128,7:00 PM,Margaret Court Arena,Hard,,3,A,stard54
+20260119-W-Australian_Open-R128-Iva_Jovic-Katie_Volynets,Iva Jovic,Katie Volynets,R,R,20260119,Australian Open,R128,,13,Hard,Damien Dumusois,3,A,KleineBiere
+20260119-W-Australian_Open-R128-Iga_Swiatek-Yue_Yuan,Iga Swiatek,Yue Yuan,R,R,20260119,Australian Open,R128,7:15 PM,Rod Laver Arena,Hard,Marija Cicak,3,A,Carrie
+20260119-W-Australian_Open-R128-Emerson_Jones-Victoria_Mboko,Emerson Jones,Victoria Mboko,R,R,20260119,Australian Open,R128,5:00 PM,1573 Arena,Hard,Scotty Moore,3,A,KleineBiere
+20260118-W-Australian_Open-R128-Venus_Williams-Olga_Danilovic,Venus Williams,Olga Danilovic,R,L,20260118,Australian Open,R128,20:00,John Cain Arena,Hard,Louise Azemar Engzell,3,A,Zindaras
+20260118-W-Australian_Open-R128-Emma_Raducanu-Mananchaya_Sawangkaew,Emma Raducanu,Mananchaya Sawangkaew,R,R,20260118,Australian Open,R128,,Margaret Court Arena,Hard,,3,A,Isaac
+20260118-W-Australian_Open-R128-Emma_Navarro-Magda_Linette,Emma Navarro,Magda Linette,R,R,20260118,Australian Open,R128,,,Hard,,3,A,Isaac
+20260118-W-Australian_Open-R128-Elsa_Jacquemot-Marta_Kostyuk,Elsa Jacquemot,Marta Kostyuk,R,R,20260118,Australian Open,R128,13:20,ANZ Arena,Hard,Kevin Horner,3,A,Zindaras
+20260118-W-Australian_Open-R128-Anna_Blinkova-Talia_Gibson,Anna Blinkova,Talia Gibson,R,R,20260118,Australian Open,R128,11:00 AM,Kia Arena,Hard,Morgane Lara,3,A,KleineBiere
+20260118-W-Australian_Open-R128-Anastasia_Potapova-Suzan_Lamens,Anastasia Potapova,Suzan Lamens,R,R,20260118,Australian Open,R128,19:50,ANZ Arena,Hard,Louis Boucharinc,3,A,Zindaras
+20250906-W-US_Open-F-Aryna_Sabalenka-Amanda_Anisimova,Aryna Sabalenka,Amanda Anisimova,R,R,20250906,US Open,F,9pm,Ashe,Hard,Marijana Veljovic,3,A,Edo
+20250904-W-US_Open-SF-Aryna_Sabalenka-Jessica_Pegula,Aryna Sabalenka,Jessica Pegula,R,R,20250904,US Open,SF,,,Hard,,3,A,Isaac
+20250904-W-US_Open-SF-Amanda_Anisimova-Naomi_Osaka,Amanda Anisimova,Naomi Osaka,R,R,20250904,US Open,SF,,Arthur Ashe,Hard,,3,A,alexstrout
+20250903-W-US_Open-QF-Amanda_Anisimova-Iga_Swiatek,Amanda Anisimova,Iga Swiatek,R,R,20250903,US Open,QF,4:15 PM,Arthur Ashe Stadium,Hard,Damien Dumusois,3,A,Lowell
+20250902-W-US_Open-QF-Jessica_Pegula-Barbora_Krejcikova,Jessica Pegula,Barbora Krejcikova,R,R,20250902,US Open,QF,11:40 AM,Arthur Ashe Stadium,Hard,Katarzyna Radwan-Cho,3,A,Lowell
+20250901-W-US_Open-R16-Karolina_Muchova-Marta_Kostyuk,Karolina Muchova,Marta Kostyuk,R,R,20250901,US Open,R16,1:35 PM,Grandstand,Hard,,3,1,Lowell
+20250901-W-US_Open-R16-Coco_Gauff-Naomi_Osaka,Coco Gauff,Naomi Osaka,R,R,20250901,US Open,R16,,,Hard,,3,1,alexstrout
+20250901-W-US_Open-R16-Beatriz_Haddad_Maia-Amanda_Anisimova,Beatriz Haddad Maia,Amanda Anisimova,L,R,20250901,US Open,R16,9:05 PM,Arthur Ashe,Hard,Louise Azemar Engzell,3,A,Lowell
+20250831-W-US_Open-R16-Barbora_Krejcikova-Taylor_Townsend,Barbora Krejcikova,Taylor Townsend,R,L,20250831,US Open,R16,2:45 PM,Louis Armstrong Stadium,Hard,,3,A,Lowell
+20250830-W-US_Open-R32-Naomi_Osaka-Daria_Kasatkina,Naomi Osaka,Daria Kasatkina,R,R,20250830,US Open,R32,,,Hard,,3,1,alexstrout
+20250830-W-US_Open-R32-Karolina_Muchova-Linda_Noskova,Karolina Muchova,Linda Noskova,R,R,20250830,US Open,R32,11:10 AM,Grandstand,Hard,Timo Janzen,3,A,Lowell
+20250830-W-US_Open-R32-Jaqueline_Cristian-Amanda_Anisimova,Jaqueline Cristian,Amanda Anisimova,R,R,20250830,US Open,R32,5:30 PM,Grandstand,Hard,Miriam Bley,3,A,Lowell
+20250830-W-US_Open-R32-Diane_Parry-Marta_Kostyuk,Diane Parry,Marta Kostyuk,R,R,20250830,US Open,R32,,5,Hard,,3,A,Matt
+20250829-W-US_Open-R32-Mirra_Andreeva-Taylor_Townsend,Mirra Andreeva,Taylor Townsend,R,L,20250829,US Open,R32,,Arthur Ashe Stadium,Hard,,3,A,stard54
+20250829-W-US_Open-R32-Elena_Rybakina-Emma_Raducanu,Elena Rybakina,Emma Raducanu,R,R,20250829,US Open,R32,11:10 AM,Louis Armstrong Stadium,Hard,Aline Rocha,3,A,Lowell
+20250828-W-US_Open-R64-Naomi_Osaka-Hailey_Baptiste,Naomi Osaka,Hailey Baptiste,R,R,20250828,US Open,R64,,,Hard,,3,A,alexstrout
+20250828-W-US_Open-R64-Marta_Kostyuk-Zeynep_Sonmez,Marta Kostyuk,Zeynep Sonmez,R,R,20250828,US Open,R64,12:40 PM,12,Hard,Jan Kaye,3,A,Lowell
+20250828-W-US_Open-R64-Maria_Sakkari-Anna_Bondar,Maria Sakkari,Anna Bondar,R,R,20250828,US Open,R64,,7,Hard,,3,A,Isaac
+20250828-W-US_Open-R64-Amanda_Anisimova-Maya_Joint,Amanda Anisimova,Maya Joint,R,R,20250828,US Open,R64,10:00 PM,Louis Armstrong Stadium,Hard,Timo Janzen,3,A,Lowell
+20250827-W-US_Open-R64-Jasmine_Paolini-Iva_Jovic,Jasmine Paolini,Iva Jovic,R,R,20250827,US Open,R64,7:10 PM,Louis Armstrong Stadium,Hard,Kader Nouni,3,A,Lowell
+20250827-W-US_Open-R64-Emma_Raducanu-Janice_Tjen,Emma Raducanu,Janice Tjen,R,R,20250827,US Open,R64,,Louis Armstrong,Hard,,3,A,MV
+20250827-W-US_Open-R64-Elena_Rybakina-Tereza_Valentova,Elena Rybakina,Tereza Valentova,R,R,20250827,US Open,R64,4:50 PM,17,Hard,,3,1,Lowell
+20250827-W-US_Open-R64-Caty_Mcnally-Emma_Navarro,Caty Mcnally,Emma Navarro,R,R,20250827,US Open,R64,11:10 AM,Grandstand,Hard,Louise Engzell,3,A,Lowell
+20250827-W-US_Open-R64-Anastasia_Potapova-Mirra_Andreeva,Anastasia Potapova,Mirra Andreeva,R,R,20250827,US Open,R64,,Grandstand,Hard,,3,A,stard54
+20250827-W-US_Open-R64-Anastasia_Pavlyuchenkova-Victoria_Azarenka,Anastasia Pavlyuchenkova,Victoria Azarenka,R,R,20250827,US Open,R64,,,Hard,,3,A,Isaac
+20250827-W-US_Open-R64 -Emma_Raducanu-Janice_Tjen,Emma Raducanu,Janice Tjen,R,R,20250827,US Open,R64 ,,Louis Armstrong,Hard,,3,A,MV
+20250826-W-US_Open-R128-Valerie_Glozman-Suzan_Lamens,Valerie Glozman,Suzan Lamens,R,R,20250826,US Open,R128,11:10,11,Hard,Anis Ressaissi,3,A,Zindaras
+20250826-W-US_Open-R128-Maya_Joint-Victoria_Jimenez_Kasintseva,Maya Joint,Victoria Jimenez Kasintseva,R,L,20250826,US Open,R128,11:05 AM,5,Hard,Eva Asderaki-Moore,3,A,Lowell
+20250826-W-US_Open-R128-Amanda_Anisimova-Kimberly_Birrell,Amanda Anisimova,Kimberly Birrell,R,R,20250826,US Open,R128,2:00 PM,Louis Armstrong Stadium,Hard,Anastasia Petrarca,3,A,Lowell
+20250825-W-US_Open-R128-Victoria_Mboko-Barbora_Krejcikova,Victoria Mboko,Barbora Krejcikova,R,R,20250825,US Open,R128,,,Hard,,3,A,alexstrout
+20250825-W-US_Open-R128-Venus_Williams-Karolina_Muchova,Venus Williams,Karolina Muchova,R,R,20250825,US Open,R128,,Arthur Ashe,Hard,Katarzyna Radwan-Cho,3,A,Zindaras
+20250825-W-US_Open-R128-Iva_Jovic-Aliaksandra_Sasnovich,Iva Jovic,Aliaksandra Sasnovich,R,R,20250825,US Open,R128,1:20 PM,9,Hard,,3,A,Lowell
+20250825-W-US_Open-R128-Emma_Raducanu-Ena_Shibahara,Emma Raducanu,Ena Shibahara,R,R,20250825,US Open,R128,11:00 AM,Louis Armstrong,Hard,,3,1,MV
+20250825-W-US_Open-R128-Elina_Svitolina-Anna_Bondar,Elina Svitolina,Anna Bondar,R,R,20250825,US Open,R128,,,Hard,,3,A,Isaac
+20250825-W-US_Open-R128-Clervie_Ngounoue-Anna_Kalinskaya,Clervie Ngounoue,Anna Kalinskaya,R,R,20250825,US Open,R128,1:45 PM,12,Hard,,3,A,Lowell
+20250825-W-US_Open-R128-Alycia_Parks-Mirra_Andreeva,Alycia Parks,Mirra Andreeva,R,R,20250825,US Open,R128,,Louis Armstrong,Hard,,3,A,stard54
+20250824-W-US_Open-R128-Tereza_Valentova-Lucia_Bronzetti,Tereza Valentova,Lucia Bronzetti,R,R,20250824,US Open,R128,11:05 AM,5,Hard,,3,A,Lowell
+20250824-W-US_Open-R128-Clara_Tauson-Alexandra_Eala,Clara Tauson,Alexandra Eala,R,L,20250824,US Open,R128,11:10,Grandstand,Hard,Kader Nouni,3,A,Zindaras
+20250822-W-US_Open-Q3-Aoi_Ito-Janice_Tjen,Aoi Ito,Janice Tjen,R,R,20250822,US Open,Q3,11:00 AM,16,Hard,,3,A,stard54
+20250822-W-US_Open-Q2-Darja_Semenistaja-Linda_Klimovicova,Darja Semenistaja,Linda Klimovicova,L,R,20250822,US Open,Q2,,14,Hard,,3,A,Isaac
+20250123-W-Australian_Open-SF-Iga_Swiatek-Madison_Keys,Iga Swiatek,Madison Keys,R,R,20250123,Australian Open,SF,,Rod Laver Arena,Hard,,3,A,Zindaras
+20250122-W-Australian_Open-QF-Emma_Navarro-Iga_Swiatek,Emma Navarro,Iga Swiatek,R,R,20250122,Australian Open,QF,1:55 PM,Rod Laver Arena,Hard,Eva Asderaki-Moore,3,A,Carrie
+20250122-W-Australian_Open-QF-Elina_Svitolina-Madison_Keys,Elina Svitolina,Madison Keys,R,R,20250122,Australian Open,QF,,Rod Laver Arena,Hard,,3,A,Isaac
+20250120-W-Australian_Open-R16-Iga_Swiatek-Eva_Lys,Iga Swiatek,Eva Lys,R,R,20250120,Australian Open,R16,7:15 PM,Rod Laver Arena,Hard,Greg Allensworth,3,A,Carrie
+20250119-W-Australian_Open-R16-Coco_Gauff-Belinda_Bencic,Coco Gauff,Belinda Bencic,R,R,20250119,Australian Open,R16,1:00 PM,RLA,Hard,Eva Asderaki-Moore,3,A,KleineBiere
+20250118-W-Australian_Open-R32-Iga_Swiatek-Emma_Raducanu,Iga Swiatek,Emma Raducanu,R,R,20250118,Australian Open,R32,11:45 AM,Rod Laver Arena,Hard,Marija Cicak,3,A,Carrie
+20250118-W-Australian_Open-R32-Eva_Lys-Jaqueline_Cristian,Eva Lys,Jaqueline Cristian,R,R,20250118,Australian Open,R32,12:45 PM,3,Hard,,3,A,KleineBiere
+20250118-W-Australian_Open-R32-Danielle_Collins-Madison_Keys,Danielle Collins,Madison Keys,R,R,20250118,Australian Open,R32,,,Hard,,3,A,Isaac
+20250118-W-Australian_Open-R16-Paula_Badosa-Olga_Danilovic,Paula Badosa,Olga Danilovic,R,L,20250118,Australian Open,R16,,,Hard,,3,A,Isaac
+20250117-W-Australian_Open-R32-Paula_Badosa-Marta_Kostyuk,Paula Badosa,Marta Kostyuk,R,R,20250117,Australian Open,R32,12:45,Kia Arena,Hard,Scotty Moore,3,A,Zindaras
+20250117-W-Australian_Open-R32-Mirra_Andreeva-Magdalena_Frech,Mirra Andreeva,Magdalena Frech,R,R,20250117,Australian Open,R32,2:50PM,1573 Arena,Hard,,3,A,stard54
+20250117-W-Australian_Open-R32-Leylah_Fernandez-Coco_Gauff,Leylah Fernandez,Coco Gauff,L,R,20250117,Australian Open,R32,7:00 PM,MCA,Hard,Miriam Bley,3,A,KleineBiere
+20250117-W-Australian_Open-R32-Diana_Shnaider-Donna_Vekic,Diana Shnaider,Donna Vekic,L,R,20250117,Australian Open,R32,11:40,Margaret Court Arena,Hard,Timo Janzen,3,A,Zindaras
+20250116-W-Australian_Open-R64-Iga_Swiatek-Rebecca_Sramkova,Iga Swiatek,Rebecca Sramkova,R,R,20250116,Australian Open,R64,11:45 AM,Rod Laver Arena,Hard,,3,A,Carrie
+20250116-W-Australian_Open-R64-Elena_Rybakina-Iva_Jovic,Elena Rybakina,Iva Jovic,R,R,20250116,Australian Open,R64,1:30 PM,John Cain Arena,Hard,,3,A,KleineBiere
+20250116-W-Australian_Open-R64-Daria_Kasatkina-Yafan_Wang,Daria Kasatkina,Yafan Wang,R,R,20250116,Australian Open,R64,11:00 AM,1573 Arena,Hard,Manuel Absolu,3,A,KleineBiere
+20250116-W-Australian_Open-R32-Aryna_Sabalenka-Clara_Tauson,Aryna Sabalenka,Clara Tauson,R,R,20250116,Australian Open,R32,,,Hard,,3,A,Isaac
+20250115-W-Australian_Open-R64-Paula_Badosa-Talia_Gibson,Paula Badosa,Talia Gibson,R,R,20250115,Australian Open,R64,,Margaret Court Arena,Hard,,3,A,Isaac
+20250115-W-Australian_Open-R64-Moyuka_Uchijima-Mirra_Andreeva,Moyuka Uchijima,Mirra Andreeva,R,R,20250115,Australian Open,R64,11:30am,3,Hard,,3,A,stard54
+20250115-W-Australian_Open-R64-Coco_Gauff-Jodie_Burrage,Coco Gauff,Jodie Burrage,R,R,20250115,Australian Open,R64,7:00 PM,RLA,Hard,Julie Kjendlie,3,A,KleineBiere
+20250115-W-Australian_Open-R64-Amanda_Anisimova-Emma_Raducanu,Amanda Anisimova,Emma Raducanu,R,R,20250115,Australian Open,R64,,,Hard,,3,A,Isaac
+20250114-W-Australian_Open-R64-Liudmila_Samsonova-Olga_Danilovic,Liudmila Samsonova,Olga Danilovic,R,L,20250114,Australian Open,R64,,,Hard,Morgane Lara,3,A,Isaac
+20250114-W-Australian_Open-R128-Olivia_Gadecki-Veronika_Kudermetova,Olivia Gadecki,Veronika Kudermetova,R,R,20250114,Australian Open,R128,,,Hard,,3,A,Isaac
+20250114-W-Australian_Open-R128-Eva_Lys-Kimberly_Birrell,Eva Lys,Kimberly Birrell,R,R,20250114,Australian Open,R128,2:45 PM,Kia Arena,Hard,Marija Cicak,3,A,KleineBiere
+20250114-W-Australian_Open-R128-Emma_Raducanu-Ekaterina_Alexandrova,Emma Raducanu,Ekaterina Alexandrova,R,R,20250114,Australian Open,R128,11:00 AM,3,Hard,,3,A,KleineBiere
+20250114-W-Australian_Open-R128-Elena_Rybakina-Emerson_Jones,Elena Rybakina,Emerson Jones,R,R,20250114,Australian Open,R128,3:15 PM,Margaret Court Arena,Hard,Kelly Rask,3,A,Carrie
+20250113-W-Australian_Open-R128-Viktoriya_Tomova-Daria_Kasatkina,Viktoriya Tomova,Daria Kasatkina,R,R,20250113,Australian Open,R128,,John Cain Arena,Hard,,3,A,Isaac
+20250113-W-Australian_Open-R128-Maya_Joint-Jessica_Pegula,Maya Joint,Jessica Pegula,R,R,20250113,Australian Open,R128,,Cain,Hard,,3,A,Isaac
+20250113-W-Australian_Open-R128-Marta_Kostyuk-Nao_Hibino,Marta Kostyuk,Nao Hibino,R,R,20250113,Australian Open,R128,,1573 Arena,Hard,Alessandro Germani,3,A,KleineBiere
+20250113-W-Australian_Open-R128-Iga_Swiatek-Katerina_Siniakova,Iga Swiatek,Katerina Siniakova,R,R,20250113,Australian Open,R128,2:20 PM,John Cain Arena,Hard,Julie Minori Kjendlie,3,A,Carrie
+20250113-W-Australian_Open-R128-Coco_Gauff-Sofia_Kenin,Coco Gauff,Sofia Kenin,R,R,20250113,Australian Open,R128,11:45,RLA,Hard,Timo Janzen,3,A,KleineBiere
+20250112-W-Australian_Open-R128-Suzan_Lamens-Veronika_Erjavec,Suzan Lamens,Veronika Erjavec,R,R,20250112,Australian Open,R128,,15,Hard,,3,A,Zindaras
+20250111-W-Australian_Open-R128-Marie_Bouzkova-Mirra_Andreeva,Marie Bouzkova,Mirra Andreeva,R,R,20250111,Australian Open,R128,,,Hard,,3,A,Isaac
+20250106-W-Australian_Open-Q1-Lucija_Ciric_Bagaric-Solana_Sierra,Lucija Ciric Bagaric,Solana Sierra,R,R,20250106,Australian Open,Q1,,,Hard,,3,A,Isaac
+20240907-W-US_Open-F-Aryna_Sabalenka-Jessica_Pegula,Aryna Sabalenka,Jessica Pegula,R,R,20240907,US Open,F,,,Hard,,3,A,Isaac
+20240905-W-US_Open-SF-Karolina_Muchova-Jessica_Pegula,Karolina Muchova,Jessica Pegula,R,R,20240905,US Open,SF,,,Hard,,3,A,Isaac
+20240905-W-US_Open-SF-Aryna_Sabalenka-Emma_Navarro,Aryna Sabalenka,Emma Navarro,R,R,20240905,US Open,SF,,,Hard,,3,A,Isaac
+20240904-W-US_Open-QF-Iga_Swiatek-Jessica_Pegula,Iga Swiatek,Jessica Pegula,R,R,20240904,US Open,QF,,,Hard,,3,A,Isaac
+20240903-W-US_Open-QF-Aryna_Sabalenka-Qinwen_Zheng,Aryna Sabalenka,Qinwen Zheng,R,R,20240903,US Open,QF,,,Hard,,3,A,Isaac
+20240902-W-US_Open-R16-Karolina_Muchova-Jasmine_Paolini,Karolina Muchova,Jasmine Paolini,R,R,20240902,US Open,R16,11:10 AM,Armstrong,Hard,Jennifer Zhang,3,A,Carrie
+20240902-W-US_Open-R16-Diana_Shnaider-Jessica_Pegula,Diana Shnaider,Jessica Pegula,L,R,20240902,US Open,R16,,,Hard,,3,A,Isaac
+20240901-W-US_Open-R16-Qinwen_Zheng-Donna_Vekic,Qinwen Zheng,Donna Vekic,R,R,20240901,US Open,R16,,,Hard,,3,A,Isaac
+20240901-W-US_Open-R16-Paula_Badosa-Yafan_Wang,Paula Badosa,Yafan Wang,R,R,20240901,US Open,R16,,,Hard,,3,A,Isaac
+20240901-W-US_Open-R16-Elise_Mertens-Aryna_Sabalenka,Elise Mertens,Aryna Sabalenka,R,R,20240901,US Open,R16,,,Hard,,3,A,Isaac
+20240831-W-US_Open-R32-Jessica_Bouzas_Maneiro-Jessica_Pegula,Jessica Bouzas Maneiro,Jessica Pegula,R,R,20240831,US Open,R32,,,Hard,,3,A,Isaac
+20240831-W-US_Open-R32-Jasmine_Paolini-Yulia_Putintseva,Jasmine Paolini,Yulia Putintseva,R,R,20240831,US Open,R32,11:15 AM,Armstrong,Hard,Marijana Veljovic,3,1,Carrie
+20240831-W-US_Open-R32-Caroline_Wozniacki-Jessika_Ponchet,Caroline Wozniacki,Jessika Ponchet,R,R,20240831,US Open,R32,3:15 PM,Grandstand,Hard,Cecilia Alberti,3,A,KleineBiere
+20240831-W-US_Open-R32-Ashlyn_Krueger-Liudmila_Samsonova,Ashlyn Krueger,Liudmila Samsonova,R,R,20240831,US Open,R32,,,Hard,,3,1,Isaac
+20240831-W-US_Open-R32-Aryna_Sabalenka-Ekaterina_Alexandrova,Aryna Sabalenka,Ekaterina Alexandrova,R,R,20240831,US Open,R32,,,Hard,Eva Asderaki-Moore,3,A,Isaac
+20240831-W-US_Open-R32-Anastasia_Potapova-Karolina_Muchova,Anastasia Potapova,Karolina Muchova,R,R,20240831,US Open,R32,,,Hard,,3,A,Isaac
+20240831-W-US_Open-R32-Anastasia_Pavlyuchenkova-Iga_Swiatek,Anastasia Pavlyuchenkova,Iga Swiatek,R,R,20240831,US Open,R32,,,Hard,,3,A,Isaac
+20240830-W-US_Open-R32-Jule_Niemeier-Qinwen_Zheng,Jule Niemeier,Qinwen Zheng,R,R,20240830,US Open,R32,,,Hard,,3,A,Isaac
+20240830-W-US_Open-R32-Elina_Svitolina-Coco_Gauff,Elina Svitolina,Coco Gauff,R,R,20240830,US Open,R32,,,Hard,,3,A,Isaac
+20240829-W-US_Open-R64-Xin_Yu_Wang-Yulia_Putintseva,Xin Yu Wang,Yulia Putintseva,R,R,20240829,US Open,R64,11:05 AM,Grandstand,Hard,,3,1,kookaburra
+20240829-W-US_Open-R64-Sofia_Kenin-Jessica_Pegula,Sofia Kenin,Jessica Pegula,R,R,20240829,US Open,R64,,,Hard,,3,A,Isaac
+20240829-W-US_Open-R64-Naomi_Osaka-Karolina_Muchova,Naomi Osaka,Karolina Muchova,R,R,20240829,US Open,R64,20:15,Ashe,Hard,Marijana Veljovic,3,A,Zindaras
+20240829-W-US_Open-R64-Iga_Swiatek-Ena_Shibahara,Iga Swiatek,Ena Shibahara,R,R,20240829,US Open,R64,,Arthur Ashe,Hard,,3,A,Optional13
+20240829-W-US_Open-R64-Caroline_Wozniacki-Renata_Zarazua,Caroline Wozniacki,Renata Zarazua,R,R,20240829,US Open,R64,9:30 PM,Louis Armstrong,Hard,Jaume Campistol,3,A,KleineBiere
+20240829-W-US_Open-R64-Ashlyn_Krueger-Mirra_Andreeva,Ashlyn Krueger,Mirra Andreeva,R,R,20240829,US Open,R64,,,Hard,,3,A,Isaac
+20240828-W-US_Open-R64-Iva_Jovic-Ekaterina_Alexandrova,Iva Jovic,Ekaterina Alexandrova,R,R,20240828,US Open,R64,,12,Hard,John Blom,3,A,Zindaras
+20240828-W-US_Open-R64-Erika_Andreeva-Qinwen_Zheng,Erika Andreeva,Qinwen Zheng,R,R,20240828,US Open,R64,,,Hard,,3,A,Isaac
+20240828-W-US_Open-R64-Aryna_Sabalenka-Lucia_Bronzetti,Aryna Sabalenka,Lucia Bronzetti,R,R,20240828,US Open,R64,,,Hard,,3,A,Isaac
+20240827-W-US_Open-R128-Taylah_Preston-Anastasia_Pavlyuchenkova,Taylah Preston,Anastasia Pavlyuchenkova,R,R,20240827,US Open,R128,,10,Hard,,3,1,Isaac
+20240827-W-US_Open-R128-Shuai_Zhang-Ashlyn_Krueger,Shuai Zhang,Ashlyn Krueger,R,R,20240827,US Open,R128,,12,Hard,Alison Hughes,3,A,Zindaras
+20240827-W-US_Open-R128-Naomi_Osaka-Jelena_Ostapenko,Naomi Osaka,Jelena Ostapenko,R,R,20240827,US Open,R128,,,Hard,,3,A,Isaac
+20240827-W-US_Open-R128-Jessica_Pegula-Shelby_Rogers,Jessica Pegula,Shelby Rogers,R,R,20240827,US Open,R128,,Ashe,Hard,Jennifer Zhang,3,A,Zindaras
+20240827-W-US_Open-R128-Jasmine_Paolini-Bianca_Andreescu,Jasmine Paolini,Bianca Andreescu,R,R,20240827,US Open,R128,19:30,Armstrong,Hard,Yamila Halle,3,A,Zindaras
+20240827-W-US_Open-R128-Emma_Raducanu-Sofia_Kenin,Emma Raducanu,Sofia Kenin,R,R,20240827,US Open,R128,,,Hard,,3,A,Isaac
+20240827-W-US_Open-R128-Elena_Rybakina-Destanee_Aiava,Elena Rybakina,Destanee Aiava,R,R,20240827,US Open,R128,,,Hard,,3,A,Isaac
+20240827-W-US_Open-R128-Danielle_Collins-Caroline_Dolehide,Danielle Collins,Caroline Dolehide,R,R,20240827,US Open,R128,11:10,Armstrong,Hard,Robert Balmforth,3,A,Zindaras
+20240827-W-US_Open-R128-Caroline_Wozniacki-Nao_Hibino,Caroline Wozniacki,Nao Hibino,R,R,20240827,US Open,R128,1:55 PM,17,Hard,Chase Urban,3,A,KleineBiere
+20240827-W-US_Open-R128-Alexa_Noel-Sara_Sorribes_Tormo,Alexa Noel,Sara Sorribes Tormo,R,R,20240827,US Open,R128,,4,Hard,Anis Ressaissi,3,A,Zindaras
+20240826-W-US_Open-R128-Varvara_Gracheva-Coco_Gauff,Varvara Gracheva,Coco Gauff,R,R,20240826,US Open,R128,,,Hard,,3,1,Isaac
+20240826-W-US_Open-R128-Tatjana_Maria-Solana_Sierra,Tatjana Maria,Solana Sierra,R,R,20240826,US Open,R128,,4,Hard,,3,A,Isaac
+20240826-W-US_Open-R128-Priscilla_Hon-Aryna_Sabalenka,Priscilla Hon,Aryna Sabalenka,R,R,20240826,US Open,R128,,,Hard,,3,A,Isaac
+20240826-W-US_Open-R128-Magda_Linette-Iva_Jovic,Magda Linette,Iva Jovic,R,R,20240826,US Open,R128,,15,Hard,Renaud Lichtenstein,3,A,Zindaras
+20240826-W-US_Open-R128-Arantxa_Rus-Ana_Bogdan,Arantxa Rus,Ana Bogdan,L,R,20240826,US Open,R128,,10,Hard,Nick Flentie,3,A,Zindaras
+20240826-W-US_Open-R128-Amanda_Anisimova-Qinwen_Zheng,Amanda Anisimova,Qinwen Zheng,R,R,20240826,US Open,R128,,,Hard,John Blom,3,A,Isaac
+20240822-W-US_Open-Q3-Arianne_Hartono-Ena_Shibahara,Arianne Hartono,Ena Shibahara,R,R,20240822,US Open,Q3,,12,Hard,Anis Ressaissi,3,A,Zindaras
+20240821-W-US_Open-Q2-Arianne_Hartono-Rebecca_Marino,Arianne Hartono,Rebecca Marino,R,R,20240821,US Open,Q2,,10,Hard,Scotty Moore,3,A,Zindaras
+20240820-W-US_Open-Q1-Arianne_Hartono-Suzan_Lamens,Arianne Hartono,Suzan Lamens,R,R,20240820,US Open,Q1,,7,Hard,Jon Williams,3,A,Zindaras
+20240125-W-Australian_Open-SF-Dayana_Yastremska-Qinwen_Zheng,Dayana Yastremska,Qinwen Zheng,R,R,20240125,Australian Open,SF,,Rod Laver Arena,Hard,,3,A,Isaac
+20240124-W-Australian_Open-QF-Dayana_Yastremska-Linda_Noskova,Dayana Yastremska,Linda Noskova,R,R,20240124,Australian Open,QF,12:10,Rod Laver Arena,Hard,Damien Dumusois,3,A,Zindaras
+20240124-W-Australian_Open-QF-Anna_Kalinskaya-Qinwen_Zheng,Anna Kalinskaya,Qinwen Zheng,R,R,20240124,Australian Open,QF,20:30,Rod Laver Arena,Hard,John Blom,3,A,Zindaras
+20240122-W-Australian_Open-R16-Qinwen_Zheng-Oceane_Dodin,Qinwen Zheng,Oceane Dodin,R,R,20240122,Australian Open,R16,21:30,Rod Laver Arena,Hard,,3,A,Zindaras
+20240121-W-Australian_Open-R16-Dayana_Yastremska-Victoria_Azarenka,Dayana Yastremska,Victoria Azarenka,R,R,20240121,Australian Open,R16,,Rod Laver Arena,Hard,,3,1,Isaac
+20240120-W-Australian_Open-R32-Victoria_Azarenka-Jelena_Ostapenko,Victoria Azarenka,Jelena Ostapenko,R,R,20240120,Australian Open,R32,,Margaret Court Arena,Hard,,3,1,Isaac
+20240120-W-Australian_Open-R32-Sloane_Stephens-Anna_Kalinskaya,Sloane Stephens,Anna Kalinskaya,R,R,20240120,Australian Open,R32,,Kia Arena,Hard,,3,1,Isaac
+20240120-W-Australian_Open-R32-Iga_Swiatek-Linda_Noskova,Iga Swiatek,Linda Noskova,R,R,20240120,Australian Open,R32,7:15 PM,Rod Laver Arena,Hard,,3,A,Carrie
+20240120-W-Australian_Open-R16-Marta_Kostyuk-Maria_Timofeeva,Marta Kostyuk,Maria Timofeeva,R,R,20240120,Australian Open,R16,,,Hard,,3,1,Isaac
+20240120-W-Australian_Open-R16-Magdalena_Frech-Coco_Gauff,Magdalena Frech,Coco Gauff,R,R,20240120,Australian Open,R16,,,Hard,,3,1,Isaac
+20240119-W-Australian_Open-R32-Yafan_Wang-Qinwen_Zheng,Yafan Wang,Qinwen Zheng,R,R,20240119,Australian Open,R32,,Rod Laver Arena,Hard,,3,A,Isaac
+20240119-W-Australian_Open-R32-Oceane_Dodin-Clara_Burel,Oceane Dodin,Clara Burel,R,R,20240119,Australian Open,R32,,,Hard,,3,1,Isaac
+20240119-W-Australian_Open-R32-Jasmine_Paolini-Anna_Blinkova,Jasmine Paolini,Anna Blinkova,R,R,20240119,Australian Open,R32,,,Hard,,3,A,Isaac
+20240119-W-Australian_Open-R32-Diane_Parry-Mirra_Andreeva,Diane Parry,Mirra Andreeva,R,R,20240119,Australian Open,R32,14:10,3,Hard,Thea Finke,3,A,Zindaras
+20240118-W-Australian_Open-R64-Katie_Boulter-Qinwen_Zheng,Katie Boulter,Qinwen Zheng,R,R,20240118,Australian Open,R64,,,Hard,,3,1,Isaac
+20240118-W-Australian_Open-R64-Elena_Rybakina-Anna_Blinkova,Elena Rybakina,Anna Blinkova,R,R,20240118,Australian Open,R64,20:05,Rod Laver Arena,Hard,Greg Allensworth,3,A,Zindaras
+20240118-W-Australian_Open-R64-Danielle_Collins-Iga_Swiatek,Danielle Collins,Iga Swiatek,R,R,20240118,Australian Open,R64,12:15 PM,Rod Laver Arena,Hard,,3,A,Carrie
+20240118-W-Australian_Open-R64-Clara_Burel-Jessica_Pegula,Clara Burel,Jessica Pegula,R,R,20240118,Australian Open,R64,4:30 PM,MCA,Hard,,3,S,KleineBiere
+20240117-W-Australian_Open-R64-Ons_Jabeur-Mirra_Andreeva,Ons Jabeur,Mirra Andreeva,R,R,20240117,Australian Open,R64,12:15 PM,Rod Laver Arena,Hard,Marija Cicak,3,1,Carrie
+20240117-W-Australian_Open-R64-Marta_Kostyuk-Elise_Mertens,Marta Kostyuk,Elise Mertens,R,R,20240117,Australian Open,R64,20:55,Kia Arena,Hard,Simon Cannavan,3,A,Zindaras
+20240117-W-Australian_Open-R64-Beatriz_Haddad_Maia-Alina_Korneeva,Beatriz Haddad Maia,Alina Korneeva,L,R,20240117,Australian Open,R64,,,Hard,,3,A,Isaac
+20240116-W-Australian_Open-R64-Coco_Gauff-Caroline_Dolehide,Coco Gauff,Caroline Dolehide,R,R,20240116,Australian Open,R64,,,Hard,,3,1,Isaac
+20240116-W-Australian_Open-R128-Iga_Swiatek-Sofia_Kenin,Iga Swiatek,Sofia Kenin,R,R,20240116,Australian Open,R128,12:15 PM,Rod Laver Arena,Hard,,3,1,Carrie
+20240116-W-Australian_Open-R128-Emma_Raducanu-Shelby_Rogers,Emma Raducanu,Shelby Rogers,R,R,20240116,Australian Open,R128,,,Hard,,3,1,Isaac
+20240115-W-Australian_Open-R128-Linda_Noskova-Marie_Bouzkova,Linda Noskova,Marie Bouzkova,R,R,20240115,Australian Open,R128,11:05,3,Hard,Timo Janzen,3,A,Zindaras
+20240115-W-Australian_Open-R128-Arantxa_Rus-Anhelina_Kalinina,Arantxa Rus,Anhelina Kalinina,L,R,20240115,Australian Open,R128,,1573 Arena,Hard,Ignacio Forcadell Gil,3,A,Zindaras
+20240114-W-Australian_Open-R128-Fiona_Ferro-Mccartney_Kessler,Fiona Ferro,Mccartney Kessler,R,R,20240114,Australian Open,R128,,5,Hard,,3,A,Zindaras
+20240114-W-Australian_Open-R128-Elina_Avanesyan-Zhuoxuan_Bai,Elina Avanesyan,Zhuoxuan Bai,R,R,20240114,Australian Open,R128,,7,Hard,Chase Urban,3,A,Zindaras
+20240114-W-Australian_Open-R128-Coco_Gauff-Anna_Karolina_Schmiedlova,Coco Gauff,Anna Karolina Schmiedlova,R,R,20240114,Australian Open,R128,,,Hard,,3,1,Isaac
+20240114-W-Australian_Open-R128-Alina_Korneeva-Sara_Sorribes_Tormo,Alina Korneeva,Sara Sorribes Tormo,R,R,20240114,Australian Open,R128,,6,Hard,Carlos Bernardes,3,A,Zindaras
+20240112-W-Australian_Open-Q3-Maya_Joint-Dayana_Yastremska,Maya Joint,Dayana Yastremska,R,R,20240112,Australian Open,Q3,,5,Hard,,3,A,Zindaras
+20240111-W-Australian_Open-Q3-Anna_Bondar-Alina_Korneeva,Anna Bondar,Alina Korneeva,R,R,20240111,Australian Open,Q3,,,Hard,,3,A,Isaac
+20240111-W-Australian_Open-Q2-Talia_Gibson-Brenda_Fruhvirtova,Talia Gibson,Brenda Fruhvirtova,R,R,20240111,Australian Open,Q2,13:10,3,Hard,,3,A,Zindaras
+20240109-W-Australian_Open-Q1-Rebecca_Marino-Ya_Yi_Yang,Rebecca Marino,Ya Yi Yang,R,R,20240109,Australian Open,Q1,,12,Hard,,3,A,Zindaras
+20240109-W-Australian_Open-Q1-Anna_Bondar-Su_Wei_Hsieh,Anna Bondar,Su Wei Hsieh,R,R,20240109,Australian Open,Q1,,6,Hard,Alex Robein,3,A,Zindaras
+20230906-W-US_Open-QF-Madison_Keys-Marketa_Vondrousova,Madison Keys,Marketa Vondrousova,R,L,20230906,US Open,QF,,Arthur Ashe,Hard,Jennifer Zhang,3,1,emile
+20230905-W-US_Open-QF-Sorana_Cirstea-Karolina_Muchova,Sorana Cirstea,Karolina Muchova,R,R,20230905,US Open,QF,,Ashe,Hard,,3,A,Isaac
+20230905-W-US_Open-QF-Jelena_Ostapenko-Coco_Gauff,Jelena Ostapenko,Coco Gauff,R,R,20230905,US Open,QF,,,Hard,,3,A,Isaac
+20230904-W-US_Open-R16-Ons_Jabeur-Qinwen_Zheng,Ons Jabeur,Qinwen Zheng,R,R,20230904,US Open,R16,,Louis Armstrong Stadium,Hard,,3,1,Isaac
+20230904-W-US_Open-R16-Madison_Keys-Jessica_Pegula,Madison Keys,Jessica Pegula,R,R,20230904,US Open,R16,,Arthur Ashe Stadium,Hard,,3,1,Isaac
+20230903-W-US_Open-R16-Xin_Yu_Wang-Karolina_Muchova,Xin Yu Wang,Karolina Muchova,R,R,20230903,US Open,R16,11:10 AM,Armstrong,Hard,Julie Kjendlie,3,1,emile
+20230903-W-US_Open-R16-Sorana_Cirstea-Belinda_Bencic,Sorana Cirstea,Belinda Bencic,R,R,20230903,US Open,R16,,,Hard,,3,1,Isaac
+20230903-W-US_Open-R16-Coco_Gauff-Caroline_Wozniacki,Coco Gauff,Caroline Wozniacki,R,R,20230903,US Open,R16,,Arthur Ashe Stadium,Hard,,3,1,Isaac
+20230901-W-US_Open-R32-Taylor_Townsend-Karolina_Muchova,Taylor Townsend,Karolina Muchova,L,R,20230901,US Open,R32,11:10,Armstrong,Hard,Arnaud Gabas,3,A,Zindaras
+20230901-W-US_Open-R32-Sorana_Cirstea-Elena_Rybakina,Sorana Cirstea,Elena Rybakina,R,R,20230901,US Open,R32,,,Hard,,3,1,Isaac
+20230901-W-US_Open-R32-Jennifer_Brady-Caroline_Wozniacki,Jennifer Brady,Caroline Wozniacki,R,R,20230901,US Open,R32,3:00 PM,Arthur Ashe,Hard,,3,A,KleineBiere
+20230831-W-US_Open-R64-Caroline_Wozniacki-Petra_Kvitova,Caroline Wozniacki,Petra Kvitova,R,L,20230831,US Open,R64,21:15,Arthur Ashe Stadium,Hard,Louise Azemar Engzell,3,A,Zindaras
+20230830-W-US_Open-R64-Jennifer_Brady-Magda_Linette,Jennifer Brady,Magda Linette,R,R,20230830,US Open,R64,,,Hard,,3,1,Isaac
+20230830-W-US_Open-R64-Coco_Gauff-Mirra_Andreeva,Coco Gauff,Mirra Andreeva,R,R,20230830,US Open,R64,,,Hard,,3,A,Isaac
+20230830-W-US_Open-R128-Barbora_Strycova-Kaia_Kanepi,Barbora Strycova,Kaia Kanepi,R,R,20230830,US Open,R128,,15,Hard,Christian Preston,3,A,Zindaras
+20230829-W-US_Open-R128-Martina_Trevisan-Yulia_Putintseva,Martina Trevisan,Yulia Putintseva,L,R,20230829,US Open,R128,,14,Hard,John Blom,3,A,Zindaras
+20230829-W-US_Open-R128-Elsa_Jacquemot-Lesia_Tsurenko,Elsa Jacquemot,Lesia Tsurenko,R,R,20230829,US Open,R128,,10,Hard,Julie Kjendlie,3,A,Zindaras
+20230829-W-US_Open-R128-Camila_Giorgi-Jessica_Pegula,Camila Giorgi,Jessica Pegula,R,R,20230829,US Open,R128,,,Hard,,3,1,Isaac
+20230829-W-US_Open-R128-Anastasia_Pavlyuchenkova-Fiona_Crawley,Anastasia Pavlyuchenkova,Fiona Crawley,R,R,20230829,US Open,R128,,13,Hard,,3,A,Zindaras
+20230828-W-US_Open-R128-Iga_Swiatek-Rebecca_Peterson,Iga Swiatek,Rebecca Peterson,R,R,20230828,US Open,R128,12:10 PM,Arthur Ashe Stadium,Hard,Aline Rocha,3,A,Carrie
+20230828-W-US_Open-R128-Coco_Gauff-Laura_Siegemund,Coco Gauff,Laura Siegemund,R,R,20230828,US Open,R128,,,Hard,,3,1,Isaac
+20230828-W-US_Open-R128-Anhelina_Kalinina-Sara_Sorribes_Tormo,Anhelina Kalinina,Sara Sorribes Tormo,R,R,20230828,US Open,R128,,7,Hard,,3,A,Zindaras
+20230826-W-US_Open-Q3-Elsa_Jacquemot-Arianne_Hartono,Elsa Jacquemot,Arianne Hartono,R,R,20230826,US Open,Q3,15:05,15,Hard,Nick Flentie,3,A,Zindaras
+20230824-W-US_Open-Q2-Celine_Naef-Katie_Volynets,Celine Naef,Katie Volynets,R,R,20230824,US Open,Q2,,7,Hard,Nico Helwerth,3,A,KleineBiere
+20230822-W-US_Open-Q1-Liv_Hovde-Darja_Semenistaja,Liv Hovde,Darja Semenistaja,R,L,20230822,US Open,Q1,4:00 PM,,Hard,,3,A,KleineBiere
+20230126-W-Australian_Open-SF-Elena_Rybakina-Victoria_Azarenka,Elena Rybakina,Victoria Azarenka,R,R,20230126,Australian Open,SF,7:45 PM,Rod Laver Arena,Hard,Alison Hughes,3,A,Lowell
+20230125-W-Australian_Open-R32-Camila_Giorgi-Belinda_Bencic,Camila Giorgi,Belinda Bencic,R,R,20230125,Australian Open,R32,2pm,Rod Laver,Hard,Eva Asderaki,3,A,Edo
+20230125-W-Australian_Open-QF-Magda_Linette-Karolina_Pliskova,Magda Linette,Karolina Pliskova,R,R,20230125,Australian Open,QF,11:10 AM,Rod Laver Arena,Hard,Jaume Campistol,3,A,Lowell
+20230124-W-Australian_Open-QF-Victoria_Azarenka-Jessica_Pegula,Victoria Azarenka,Jessica Pegula,R,R,20230124,Australian Open,QF,7:15 PM,Rod Laver Arena,Hard,,3,A,Lowell
+20230124-W-Australian_Open-QF-Jelena_Ostapenko-Elena_Rybakina,Jelena Ostapenko,Elena Rybakina,R,R,20230124,Australian Open,QF,,Rod Laver Arena,Hard,,3,A,Isaac
+20230123-W-Australian_Open-R16-Magda_Linette-Caroline_Garcia,Magda Linette,Caroline Garcia,R,R,20230123,Australian Open,R16,12:55,Laver,Hard,Kelly Rask,3,A,Zindaras
+20230123-W-Australian_Open-R16-Linda_Fruhvirtova-Donna_Vekic,Linda Fruhvirtova,Donna Vekic,R,R,20230123,Australian Open,R16,12:45,Margaret Court Arena,Hard,Miriam Bley,3,A,Zindaras
+20230122-W-Australian_Open-R16-Victoria_Azarenka-Lin_Zhu,Victoria Azarenka,Lin Zhu,R,R,20230122,Australian Open,R16,23:35,Rod Laver Arena,Hard,Richard Haigh,3,A,Zindaras
+20230122-W-Australian_Open-R16-Iga_Swiatek-Elena_Rybakina,Iga Swiatek,Elena Rybakina,R,R,20230122,Australian Open,R16,12:40 PM,Rod Laver Arena,Hard,Juan Zhang,3,A,Lowell
+20230122-W-Australian_Open-R16-Barbora_Krejcikova-Jessica_Pegula,Barbora Krejcikova,Jessica Pegula,R,R,20230122,Australian Open,R16,5:10 PM,John Cain Arena,Hard,Alison Hughes,3,A,Lowell
+20230121-W-Australian_Open-R32-Nuria_Parrizas_Diaz-Donna_Vekic,Nuria Parrizas Diaz,Donna Vekic,R,R,20230121,Australian Open,R32,11:00 AM,,Hard,,3,1,KleineBiere
+20230121-W-Australian_Open-R32-Magda_Linette-Ekaterina_Alexandrova,Magda Linette,Ekaterina Alexandrova,R,R,20230121,Australian Open,R32,,Rod Laver Arena,Hard,,3,A,Isaac
+20230121-W-Australian_Open-R32-Linda_Fruhvirtova-Marketa_Vondrousova,Linda Fruhvirtova,Marketa Vondrousova,R,L,20230121,Australian Open,R32,,1573 Arena,Hard,,3,A,Lowell
+20230121-W-Australian_Open-R32-Laura_Siegemund-Caroline_Garcia,Laura Siegemund,Caroline Garcia,R,R,20230121,Australian Open,R32,7:05 PM,Kia Arena,Hard,Ignacio Forcadell Gil,3,A,Lowell
+20230121-W-Australian_Open-R16-Jelena_Ostapenko-Coco_Gauff,Jelena Ostapenko,Coco Gauff,R,R,20230121,Australian Open,R16,,Margaret Court Arena,Hard,,3,A,Isaac
+20230120-W-Australian_Open-R32-Marta_Kostyuk-Jessica_Pegula,Marta Kostyuk,Jessica Pegula,R,R,20230120,Australian Open,R32,3:00 PM,Margaret Court Arena,Hard,Mohamed Lahyani,3,A,Lowell
+20230120-W-Australian_Open-R32-Madison_Keys-Victoria_Azarenka,Madison Keys,Victoria Azarenka,R,R,20230120,Australian Open,R32,,Rod Laver Arena,Hard,Miriam Bley,3,A,Lowell
+20230120-W-Australian_Open-R32-Jelena_Ostapenko-Kateryna_Baindl,Jelena Ostapenko,Kateryna Baindl,R,R,20230120,Australian Open,R32,,1573 Arena,Hard,Carlos Bernardes,3,A,Lowell
+20230120-W-Australian_Open-R32-Iga_Swiatek-Cristina_Bucsa,Iga Swiatek,Cristina Bucsa,R,R,20230120,Australian Open,R32,4:30 PM,Margaret Court Arena,Hard,Aurelie Tourte,3,A,Lowell
+20230120-W-Australian_Open-R32-Danielle_Collins-Elena_Rybakina,Danielle Collins,Elena Rybakina,R,R,20230120,Australian Open,R32,2:15 PM,Kia Arena,Hard,Alison Hughes,3,A,Lowell
+20230120-W-Australian_Open-R32-Coco_Gauff-Bernarda_Pera,Coco Gauff,Bernarda Pera,R,L,20230120,Australian Open,R32,3:30 PM,Rod Laver Arena,Hard,Julie Minori Kjendlie,3,A,Lowell
+20230119-W-Australian_Open-R64-Marketa_Vondrousova-Ons_Jabeur,Marketa Vondrousova,Ons Jabeur,L,R,20230119,Australian Open,R64,11:25 PM,Rod Laver Arena,Hard,Katarzyna Radwan-Cho,3,A,Lowell
+20230119-W-Australian_Open-R64-Donna_Vekic-Liudmila_Samsonova,Donna Vekic,Liudmila Samsonova,R,R,20230119,Australian Open,R64,3:30 PM,3,Hard,Julie Minori Kjendlie,3,A,Lowell
+20230119-W-Australian_Open-R64-Claire_Liu-Belinda_Bencic,Claire Liu,Belinda Bencic,R,R,20230119,Australian Open,R64,8:10 PM,Margaret Court Arena,Hard,John Blom,3,A,Lowell
+20230119-W-Australian_Open-R64-Caroline_Garcia-Leylah_Fernandez,Caroline Garcia,Leylah Fernandez,R,L,20230119,Australian Open,R64,5:15 PM,Rod Laver Arena,Hard,Louise Azemar Engzell,3,A,Lowell
+20230119-W-Australian_Open-R64-Anna_Karolina_Schmiedlova-Camila_Giorgi,Anna Karolina Schmiedlova,Camila Giorgi,R,R,20230119,Australian Open,R64,2pm,7,Hard,,3,A,Edo
+20230119-W-Australian_Open-R64-Anett_Kontaveit-Magda_Linette,Anett Kontaveit,Magda Linette,R,R,20230119,Australian Open,R64,1:40 PM,Margaret Court Arena,Hard,Juan Zhang,3,A,Lowell
+20230118-W-Australian_Open-R64-Veronika_Kudermetova-Katie_Volynets,Veronika Kudermetova,Katie Volynets,R,R,20230118,Australian Open,R64,,Margaret Court Arena,Hard,,3,A,Isaac
+20230118-W-Australian_Open-R64-Petra_Kvitova-Anhelina_Kalinina,Petra Kvitova,Anhelina Kalinina,L,R,20230118,Australian Open,R64,1:20 PM,Cain,Hard,Arnaud Gabas,3,A,Lowell
+20230118-W-Australian_Open-R64-Olivia_Gadecki-Marta_Kostyuk,Olivia Gadecki,Marta Kostyuk,R,R,20230118,Australian Open,R64,9:20 PM,Kia Arena,Hard,Emmanuel Joseph,3,A,Lowell
+20230118-W-Australian_Open-R64-Nadia_Podoroska-Victoria_Azarenka,Nadia Podoroska,Victoria Azarenka,R,R,20230118,Australian Open,R64,11:05 PM,Kia Arena,Hard,Morgane Lara,3,A,Lowell
+20230118-W-Australian_Open-R64-Madison_Keys-Xin_Yu_Wang,Madison Keys,Xin Yu Wang,R,R,20230118,Australian Open,R64,5:30 PM,Margaret Court Arena,Hard,Katarzyna Radwan-Cho,3,A,Lowell
+20230118-W-Australian_Open-R64-Iga_Swiatek-Camila_Osorio,Iga Swiatek,Camila Osorio,R,R,20230118,Australian Open,R64,11:15 AM,Laver,Hard,Kelly Rask,3,A,Lowell
+20230118-W-Australian_Open-R64-Elena_Rybakina-Kaja_Juvan,Elena Rybakina,Kaja Juvan,R,R,20230118,Australian Open,R64,9:20 PM,John Cain Arena,Hard,Gregory Allensworth,3,A,Lowell
+20230118-W-Australian_Open-R64-Danielle_Collins-Karolina_Muchova,Danielle Collins,Karolina Muchova,R,R,20230118,Australian Open,R64,10:15 PM,Margaret Court Arena,Hard,Eva Asderaki-Moore,3,A,Lowell
+20230118-W-Australian_Open-R64-Cristina_Bucsa-Bianca_Andreescu,Cristina Bucsa,Bianca Andreescu,R,R,20230118,Australian Open,R64,17:30,Kia Arena,Hard,Rosario Corvaia,3,A,Zindaras
+20230118-W-Australian_Open-R64-Coco_Gauff-Emma_Raducanu,Coco Gauff,Emma Raducanu,R,R,20230118,Australian Open,R64,7:15 PM,Laver,Hard,Thomas Sweeney,3,A,Lowell
+20230118-W-Australian_Open-R64-Aliaksandra_Sasnovich-Jessica_Pegula,Aliaksandra Sasnovich,Jessica Pegula,R,R,20230118,Australian Open,R64,1:00 PM,Rod Laver Arena,Hard,Miriam Bley,3,A,Lowell
+20230118-W-Australian_Open-R128-Varvara_Gracheva-Daria_Kasatkina,Varvara Gracheva,Daria Kasatkina,R,R,20230118,Australian Open,R128,,5,Hard,,3,A,Lowell
+20230118-W-Australian_Open-R128-Magda_Linette-Mayar_Sherif,Magda Linette,Mayar Sherif,R,R,20230118,Australian Open,R128,,17,Hard,,3,A,Lowell
+20230118-W-Australian_Open-R128-Beatriz_Haddad_Maia-Nuria_Parrizas_Diaz,Beatriz Haddad Maia,Nuria Parrizas Diaz,L,R,20230118,Australian Open,R128,,15,Hard,,3,A,Lowell
+20230117-W-Australian_Open-R128-Ons_Jabeur-Tamara_Zidansek,Ons Jabeur,Tamara Zidansek,R,R,20230117,Australian Open,R128,8:00 PM,Laver,Hard,Simon Cannavan,3,A,Lowell
+20230117-W-Australian_Open-R128-Oksana_Selekhmeteva-Donna_Vekic,Oksana Selekhmeteva,Donna Vekic,L,R,20230117,Australian Open,R128,,15,Hard,Matthew Kellert,3,A,Zindaras
+20230117-W-Australian_Open-R128-Leylah_Fernandez-Alize_Cornet,Leylah Fernandez,Alize Cornet,L,R,20230117,Australian Open,R128,11:05 AM,3,Hard,Katarzyna Radwan-Cho,3,A,Lowell
+20230117-W-Australian_Open-R128-Evgeniya_Rodina-Katie_Volynets,Evgeniya Rodina,Katie Volynets,R,R,20230117,Australian Open,R128,,5,Hard,Emmanuel Joseph,3,A,Zindaras
+20230117-W-Australian_Open-R128-Caroline_Garcia-Katherine_Sebov,Caroline Garcia,Katherine Sebov,R,R,20230117,Australian Open,R128,1:45 PM,Laver,Hard,Marijana Veljovic,3,A,Lowell
+20230117-W-Australian_Open-R128-Camila_Giorgi-Anastasia_Pavlyuchenkova,Camila Giorgi,Anastasia Pavlyuchenkova,R,R,20230117,Australian Open,R128,2pm,6,Hard,Fergus Murphy,3,A,Edo
+20230117-W-Australian_Open-R128-Anett_Kontaveit-Julia_Grabher,Anett Kontaveit,Julia Grabher,R,R,20230117,Australian Open,R128,,1573 Arena,Hard,,3,A,Lowell
+20230116-W-Australian_Open-R128-Yue_Yuan-Maria_Sakkari,Yue Yuan,Maria Sakkari,R,R,20230116,Australian Open,R128,12:50 PM,Rod Laver Arena,Hard,Emmanuel Joseph,3,A,Lowell
+20230116-W-Australian_Open-R128-Tamara_Korpatsch-Emma_Raducanu,Tamara Korpatsch,Emma Raducanu,R,R,20230116,Australian Open,R128,,2,Hard,,3,A,Isaac
+20230116-W-Australian_Open-R128-Sofia_Kenin-Victoria_Azarenka,Sofia Kenin,Victoria Azarenka,R,R,20230116,Australian Open,R128,3:45 PM,Margaret Court Arena,Hard,Aline Rocha,3,A,Lowell
+20230116-W-Australian_Open-R128-Selena_Janicijevic-Kaja_Juvan,Selena Janicijevic,Kaja Juvan,R,R,20230116,Australian Open,R128,,6,Hard,Matthew Kellert,3,A,Zindaras
+20230116-W-Australian_Open-R128-Sara_Bejlek-Barbora_Krejcikova,Sara Bejlek,Barbora Krejcikova,L,R,20230116,Australian Open,R128,,1573 Arena,Hard,Thea Finke,3,A,Lowell
+20230116-W-Australian_Open-R128-Olivia_Gadecki-Polina_Kudermetova,Olivia Gadecki,Polina Kudermetova,R,R,20230116,Australian Open,R128,,,Hard,Richard Haigh,3,A,Zindaras
+20230116-W-Australian_Open-R128-Marta_Kostyuk-Amanda_Anisimova,Marta Kostyuk,Amanda Anisimova,R,R,20230116,Australian Open,R128,11:15 AM,7,Hard,Damien Dumusois,3,A,Lowell
+20230116-W-Australian_Open-R128-Jessica_Pegula-Jaqueline_Cristian,Jessica Pegula,Jaqueline Cristian,R,R,20230116,Australian Open,R128,11:00 AM,Court,Hard,Kelly Rask,3,A,Lowell
+20230116-W-Australian_Open-R128-Iga_Swiatek-Jule_Niemeier,Iga Swiatek,Jule Niemeier,R,R,20230116,Australian Open,R128,7:30 PM,Laver,Hard,Alison Hughes,3,A,Lowell
+20230116-W-Australian_Open-R128-Eva_Lys-Cristina_Bucsa,Eva Lys,Cristina Bucsa,R,R,20230116,Australian Open,R128,,6,Hard,Mohamed Lahyani,3,A,Zindaras
+20230116-W-Australian_Open-R128-Elena_Rybakina-Elisabetta_Cocciaretto,Elena Rybakina,Elisabetta Cocciaretto,R,R,20230116,Australian Open,R128,,13,Hard,,3,A,Lowell
+20230116-W-Australian_Open-R128-Diana_Shnaider-Kristina_Kucova,Diana Shnaider,Kristina Kucova,L,R,20230116,Australian Open,R128,,16,Hard,Marijana Veljovic,3,A,Zindaras
+20230116-W-Australian_Open-R128-Coco_Gauff-Katerina_Siniakova,Coco Gauff,Katerina Siniakova,R,R,20230116,Australian Open,R128,11:15 AM,Rod Laver Arena,Hard,Juan Zhang,3,A,Lowell
+20230116-W-Australian_Open-R128-Bianca_Andreescu-Marie_Bouzkova,Bianca Andreescu,Marie Bouzkova,R,R,20230116,Australian Open,R128,11:10,3,Hard,Thea Finke,3,A,Zindaras
+20230116-W-Australian_Open-R128-Aliaksandra_Sasnovich-Brenda_Fruhvirtova,Aliaksandra Sasnovich,Brenda Fruhvirtova,R,R,20230116,Australian Open,R128,,17,Hard,,3,A,Lowell
+20230109-W-Australian_Open-Q1-Ashlyn_Krueger-Eugenie_Bouchard,Ashlyn Krueger,Eugenie Bouchard,R,R,20230109,Australian Open,Q1,,,Hard,,3,A,KleineBiere
+20220910-W-US_Open-F-Iga_Swiatek-Ons_Jabeur,Iga Swiatek,Ons Jabeur,R,R,20220910,US Open,F,16:15,Ashe,Hard,Louise Azemar-Engzell,3,A,Zindaras
+20220907-W-US_Open-QF-Iga_Swiatek-Jessica_Pegula,Iga Swiatek,Jessica Pegula,R,R,20220907,US Open,QF,19:15,Ashe,Hard,Kader Nouni,3,A,tsitsi
+20220906-W-US_Open-QF-Caroline_Garcia-Coco_Gauff,Caroline Garcia,Coco Gauff,R,R,20220906,US Open,QF,19:15,Ashe,Hard,Carlos Bernardes,3,A,tsitsi
+20220905-W-US_Open-R16-Petra_Kvitova-Jessica_Pegula,Petra Kvitova,Jessica Pegula,L,R,20220905,US Open,R16,,Ashe,Hard,,3,1,Isaac
+20220905-W-US_Open-R16-Karolina_Pliskova-Victoria_Azarenka,Karolina Pliskova,Victoria Azarenka,R,R,20220905,US Open,R16,,,Hard,,3,1,Isaac
+20220905-W-US_Open-R16-Iga_Swiatek-Jule_Niemeier,Iga Swiatek,Jule Niemeier,R,R,20220905,US Open,R16,14:00,Armstrong,Hard,Zhang Juan,3,A,tsitsi
+20220905-W-US_Open-R16-Danielle_Collins-Aryna_Sabalenka,Danielle Collins,Aryna Sabalenka,R,R,20220905,US Open,R16,19:40,Ashe,Hard,Alison Hughes,3,A,Zindaras
+20220904-W-US_Open-R16-Shuai_Zhang-Coco_Gauff,Shuai Zhang,Coco Gauff,R,R,20220904,US Open,R16,,,Hard,,3,A,KleineBiere
+20220904-W-US_Open-R16-Liudmila_Samsonova-Ajla_Tomljanovic,Liudmila Samsonova,Ajla Tomljanovic,R,R,20220904,US Open,R16,,Louis Armstrong Stadium,Hard,Kader Nouni,3,A,Zindaras
+20220904-W-US_Open-R16-Caroline_Garcia-Alison_Riske_Amritraj,Caroline Garcia,Alison Riske Amritraj,R,R,20220904,US Open,R16,,Armstrong,Hard,,3,1,Isaac
+20220903-W-US_Open-R32-Serena_Williams-Ajla_Tomljanovic,Serena Williams,Ajla Tomljanovic,R,R,20220903,US Open,R32,19:20,Ashe,Hard,Juan Zhang,3,A,Zindaras
+20220903-W-US_Open-R32-Petra_Kvitova-Garbine_Muguruza,Petra Kvitova,Garbine Muguruza,L,R,20220903,US Open,R32,11:10,Louis Armstrong Stadium,Hard,Miriam Bley,3,A,Zindaras
+20220903-W-US_Open-R32-Iga_Swiatek-Lauren_Davis,Iga Swiatek,Lauren Davis,R,R,20220903,US Open,R32,,Louis Armstrong,Hard,Carlos Bernardes,3,A,Elephant
+20220902-W-US_Open-R32-Coco_Gauff-Madison_Keys,Coco Gauff,Madison Keys,R,R,20220902,US Open,R32,,,Hard,,3,1,KleineBiere
+20220902-W-US_Open-R32-Caroline_Garcia-Bianca_Andreescu,Caroline Garcia,Bianca Andreescu,R,R,20220902,US Open,R32,,Armstrong,Hard,Isabell Seefried,3,A,Zindaras
+20220901-W-US_Open-R64-Linda_Fruhvirtova-Garbine_Muguruza,Linda Fruhvirtova,Garbine Muguruza,R,R,20220901,US Open,R64,,,Hard,,3,A,KleineBiere
+20220901-W-US_Open-R64-Iga_Swiatek-Sloane_Stephens,Iga Swiatek,Sloane Stephens,R,R,20220901,US Open,R64,,Arthur Ashe,Hard,Julie Kjendlie,3,A,Elephant
+20220901-W-US_Open-R64-Beatriz_Haddad_Maia-Bianca_Andreescu,Beatriz Haddad Maia,Bianca Andreescu,L,R,20220901,US Open,R64,23:35,Louis Armstrong Stadium,Hard,Christian Rask,3,A,Zindaras
+20220831-W-US_Open-R64-Rebecca_Marino-Daria_Snigur,Rebecca Marino,Daria Snigur,R,R,20220831,US Open,R64,,11,Hard,,3,A,Zindaras
+20220831-W-US_Open-R64-Anett_Kontaveit-Serena_Williams,Anett Kontaveit,Serena Williams,R,R,20220831,US Open,R64,19:15,Arthur Ashe,Hard,Alison Hughes,3,A,Zindaras
+20220830-W-US_Open-R128-Venus_Williams-Alison_Van_Uytvanck,Venus Williams,Alison Van Uytvanck,R,R,20220830,US Open,R128,15:20,Ashe,Hard,Kader Nouni,3,A,Zindaras
+20220830-W-US_Open-R128-Peyton_Stearns-Ekaterina_Alexandrova,Peyton Stearns,Ekaterina Alexandrova,R,R,20220830,US Open,R128,,7,Hard,Thomas Sweeney,3,A,Zindaras
+20220830-W-US_Open-R128-Naomi_Osaka-Danielle_Collins,Naomi Osaka,Danielle Collins,R,R,20220830,US Open,R128,,,Hard,,3,1,Isaac
+20220830-W-US_Open-R128-Marie_Bouzkova-Linda_Noskova,Marie Bouzkova,Linda Noskova,R,R,20220830,US Open,R128,,8,Hard,Christian Rask,3,A,Zindaras
+20220830-W-US_Open-R128-Kaja_Juvan-Cristina_Bucsa,Kaja Juvan,Cristina Bucsa,R,R,20220830,US Open,R128,,6,Hard,Timothee Mevel,3,A,Zindaras
+20220830-W-US_Open-R128-Jasmine_Paolini-Iga_Swiatek,Jasmine Paolini,Iga Swiatek,R,R,20220830,US Open,R128,,Louis Armstrong,Hard,Isabell Seefried,3,A,Elephant
+20220830-W-US_Open-R128-Andrea_Petkovic-Belinda_Bencic,Andrea Petkovic,Belinda Bencic,R,R,20220830,US Open,R128,,7,Hard,Juan Zhang,3,A,Zindaras
+20220830-W-US_Open-R128-Alize_Cornet-Emma_Raducanu,Alize Cornet,Emma Raducanu,R,R,20220830,US Open,R128,19:35,Armstrong,Hard,Miriam Bley,3,A,Zindaras
+20220829-W-US_Open-R128-Serena_Williams-Danka_Kovinic,Serena Williams,Danka Kovinic,R,R,20220829,US Open,R128,19:30,Ashe,Hard,Marija Cicak,3,A,Zindaras
+20220829-W-US_Open-R128-Sara_Bejlek-Liudmila_Samsonova,Sara Bejlek,Liudmila Samsonova,L,R,20220829,US Open,R128,,7,Hard,Miriam Bley,3,A,Zindaras
+20220829-W-US_Open-R128-Martina_Trevisan-Evgeniya_Rodina,Martina Trevisan,Evgeniya Rodina,L,R,20220829,US Open,R128,,11,Hard,Damien Dumusois,3,A,Zindaras
+20220829-W-US_Open-R128-Madison_Brengle-Ons_Jabeur,Madison Brengle,Ons Jabeur,R,R,20220829,US Open,R128,16:20,5,Hard,Yamila Halle,3,A,Zindaras
+20220829-W-US_Open-R128-Harmony_Tan-Bianca_Andreescu,Harmony Tan,Bianca Andreescu,R,R,20220829,US Open,R128,13:25,Grandstand,Hard,Alexander Franke,3,A,Zindaras
+20220829-W-US_Open-R128-Eleana_Yu-Alison_Riske_Amritraj,Eleana Yu,Alison Riske Amritraj,R,R,20220829,US Open,R128,,12,Hard,Josh Brace,3,A,Zindaras
+20220824-W-US_Open-Q1-Tara_Wurth-Maja_Chwalinska,Tara Wurth,Maja Chwalinska,R,L,20220824,US Open,Q1,,6,Hard,,3,A,Zindaras
+20220824-W-US_Open-Q1-Elsa_Jacquemot-Moyuka_Uchijima,Elsa Jacquemot,Moyuka Uchijima,R,R,20220824,US Open,Q1,,8,Hard,,3,1,Zindaras
+20220823-W-US_Open-Q1-Yuki_Naito-Eugenie_Bouchard,Yuki Naito,Eugenie Bouchard,R,R,20220823,US Open,Q1,4:00 PM,,Hard,,3,1,KleineBiere
+20220126-W-Australian_Open-QF-Iga_Swiatek-Kaia_Kanepi,Iga Swiatek,Kaia Kanepi,R,R,20220126,Australian Open,QF,13:15,Rod Laver Arena,Hard,Marija Cicak,3,A,Zindaras
+20220125-W-Australian_Open-QF-Jessica_Pegula-Ashleigh_Barty,Jessica Pegula,Ashleigh Barty,R,R,20220125,Australian Open,QF,19:25,Rod Laver Arena,Hard,Aurelie Tourte,3,A,Zindaras
+20220122-W-Australian_Open-R32-Ashleigh_Barty-Camila_Giorgi,Ashleigh Barty,Camila Giorgi,R,R,20220122,Australian Open,R32,6pm,Rod Laver Arena,Hard,Marijana Veljovi?,3,A,Edo
+20220121-W-Australian_Open-R32-Marta_Kostyuk-Paula_Badosa,Marta Kostyuk,Paula Badosa,R,R,20220121,Australian Open,R32,13:00,Margaret Court Arena,Hard,Thomas Sweeney,3,A,Zindaras
+20220120-W-Australian_Open-R64-Samantha_Stosur-Anastasia_Pavlyuchenkova,Samantha Stosur,Anastasia Pavlyuchenkova,R,R,20220120,Australian Open,R64,11:20,Kia Arena,Hard,Marijana Veljovic,3,A,Zindaras
+20220120-W-Australian_Open-R64-Alize_Cornet-Garbine_Muguruza,Alize Cornet,Garbine Muguruza,R,R,20220120,Australian Open,R64,11:15,Rod Laver Arena,Hard,Julie Kjendlie,3,A,Zindaras
+20220119-W-Australian_Open-R64-Tereza_Martincova-Camila_Giorgi,Tereza Martincova,Camila Giorgi,R,R,20220119,Australian Open,R64,2pm,John Cain,Hard,Timothee Mevel,3,A,Edo
+20220118-W-Australian_Open-R128-Robin_Anderson-Samantha_Stosur,Robin Anderson,Samantha Stosur,R,R,20220118,Australian Open,R128,11:10,Kia Arena,Hard,Isabell Seefried,3,A,Zindaras
+20220118-W-Australian_Open-R128-Rebecca_Marino-Marie_Bouzkova,Rebecca Marino,Marie Bouzkova,R,R,20220118,Australian Open,R128,,14,Hard,Mohamed Lahyani,3,A,Zindaras
+20220118-W-Australian_Open-R128-Arantxa_Rus-Tamara_Zidansek,Arantxa Rus,Tamara Zidansek,L,R,20220118,Australian Open,R128,,17,Hard,Juan Zhang,3,A,Zindaras
+20220117-W-Australian_Open-R128-Viktoria_Hruncakova-Xiyu_Wang,Viktoria Hruncakova,Xiyu Wang,R,L,20220117,Australian Open,R128,,,Hard,,3,A,andy
+20220117-W-Australian_Open-R128-Naomi_Osaka-Camila_Osorio,Naomi Osaka,Camila Osorio,R,R,20220117,Australian Open,R128,13:20,Rod Laver Arena,Hard,Katarzyna Radwan-Cho,3,A,Zindaras
+20220117-W-Australian_Open-R128-Madison_Keys-Sofia_Kenin,Madison Keys,Sofia Kenin,R,R,20220117,Australian Open,R128,,John Caine Arena,Hard,Isabell Seefried,3,1,Angel Moreno
+20220117-W-Australian_Open-R128-Kirsten_Flipkens-Sara_Sorribes_Tormo,Kirsten Flipkens,Sara Sorribes Tormo,R,R,20220117,Australian Open,R128,,6,Hard,Timo Janzen,3,A,Zindaras
+20220117-W-Australian_Open-R128-Dayana_Yastremska-Madison_Brengle,Dayana Yastremska,Madison Brengle,R,R,20220117,Australian Open,R128,14:20,3,Hard,Manuel Absolu,3,A,Zindaras
+20220117-W-Australian_Open-R128-Camila_Giorgi-Anastasia_Potapova,Camila Giorgi,Anastasia Potapova,R,R,20220117,Australian Open,R128,2pm,6,Hard,,3,A,Edo
+20220117-W-Australian_Open-R128-Amanda_Anisimova-Arianne_Hartono,Amanda Anisimova,Arianne Hartono,R,R,20220117,Australian Open,R128,,1573 Arena,Hard,Anis Rsayssi,3,A,Zindaras
+20220114-W-Australian_Open-Q3-Arianne_Hartono-Jule_Niemeier,Arianne Hartono,Jule Niemeier,R,R,20220114,Australian Open,Q3,,13,Hard,Marko Savic,3,A,Zindaras
+20220112-W-Australian_Open-Q2-Indy_De_Vroome-Dalma_Galfi,Indy De Vroome,Dalma Galfi,R,R,20220112,Australian Open,Q2,,5,Hard,Alina da Rocha Nocinto,3,A,Zindaras
+20220111-W-Australian_Open-Q1-Urszula_Radwanska-Indy_De_Vroome,Urszula Radwanska,Indy De Vroome,R,R,20220111,Australian Open,Q1,,14,Hard,,3,A,Zindaras
+20220111-W-Australian_Open-Q1-Simona_Waltert-Paula_Ormaechea,Simona Waltert,Paula Ormaechea,R,R,20220111,Australian Open,Q1,,,Hard,,3,A,andy
+20220110-W-Australian_Open-Q1-Yuliya_Hatouka-Caroline_Dolehide,Yuliya Hatouka,Caroline Dolehide,R,R,20220110,Australian Open,Q1,,,Hard,,3,A,andy
+20210909-W-US_Open-SF-Emma_Raducanu-Maria_Sakkari,Emma Raducanu,Maria Sakkari,R,R,20210909,US Open,SF,10:15 PM,Arthur Ashe Stadium,Hard,,3,1,Lowell
+20210908-W-US_Open-QF-Karolina_Pliskova-Maria_Sakkari,Karolina Pliskova,Maria Sakkari,R,R,20210908,US Open,QF,,Arthur Ashe Stadium,Hard,,3,1,Lowell
+20210907-W-US_Open-QF-Leylah_Fernandez-Elina_Svitolina,Leylah Fernandez,Elina Svitolina,L,R,20210907,US Open,QF,15:00,Arthur Ashe,Hard,Julie Kjendlie,3,1,Zindaras
+20210906-W-US_Open-R16-Karolina_Pliskova-Anastasia_Pavlyuchenkova,Karolina Pliskova,Anastasia Pavlyuchenkova,R,R,20210906,US Open,R16,6:15 PM,Grandstand,Hard,,3,1,Lowell
+20210906-W-US_Open-R16-Iga_Swiatek-Belinda_Bencic,Iga Swiatek,Belinda Bencic,R,R,20210906,US Open,R16,11:10 AM,Louis Armstrong Stadium,Hard,,3,1,Lowell
+20210906-W-US_Open-R16-Bianca_Andreescu-Maria_Sakkari,Bianca Andreescu,Maria Sakkari,R,R,20210906,US Open,R16,22:40,Arthur Ashe,Hard,Louise Azemar Engzell,3,1,Zindaras
+20210905-W-US_Open-R16-Leylah_Fernandez-Angelique_Kerber,Leylah Fernandez,Angelique Kerber,L,L,20210905,US Open,R16,15:55,Louis Armstrong,Hard,Kelly Thompson,3,1,Zindaras
+20210905-W-US_Open-R16-Barbora_Krejcikova-Garbine_Muguruza,Barbora Krejcikova,Garbine Muguruza,R,R,20210905,US Open,R16,,Arthur Ashe Stadium,Hard,,3,1,Lowell
+20210904-W-US_Open-R32-Petra_Kvitova-Maria_Sakkari,Petra Kvitova,Maria Sakkari,L,R,20210904,US Open,R32,12:10 PM,Arthur Ashe Stadium,Hard,,3,1,Lowell
+20210904-W-US_Open-R32-Karolina_Pliskova-Ajla_Tomljanovic,Karolina Pliskova,Ajla Tomljanovic,R,R,20210904,US Open,R32,5:50 PM,Grandstand,Hard,Renaud Lichtenstein,3,1,Lowell
+20210904-W-US_Open-R32-Jessica_Pegula-Belinda_Bencic,Jessica Pegula,Belinda Bencic,R,R,20210904,US Open,R32,,Louis Armstrong Stadium,Hard,Tom Sweeney,3,1,Lowell
+20210904-W-US_Open-R32-Iga_Swiatek-Anett_Kontaveit,Iga Swiatek,Anett Kontaveit,R,R,20210904,US Open,R32,,Grandstand,Hard,,3,1,Lowell
+20210904-W-US_Open-R32-Bianca_Andreescu-Greet_Minnen,Bianca Andreescu,Greet Minnen,R,R,20210904,US Open,R32,11:10,Armstrong,Hard,James Keothavong,3,1,Zindaras
+20210904-W-US_Open-R32-Ashleigh_Barty-Shelby_Rogers,Ashleigh Barty,Shelby Rogers,R,R,20210904,US Open,R32,7:15 PM,Arthur Ashe Stadium,Hard,,3,1,Lowell
+20210903-W-US_Open-R32-Victoria_Azarenka-Garbine_Muguruza,Victoria Azarenka,Garbine Muguruza,R,R,20210903,US Open,R32,,,Hard,,3,1,Isaac
+20210903-W-US_Open-R32-Leylah_Fernandez-Naomi_Osaka,Leylah Fernandez,Naomi Osaka,R,R,20210903,US Open,R32,,Arthur Ashe Stadium,Hard,Alison Hughes,3,1,Lowell
+20210903-W-US_Open-R32-Daria_Kasatkina-Elina_Svitolina,Daria Kasatkina,Elina Svitolina,R,R,20210903,US Open,R32,1:15 PM,Grandstand,Hard,,3,1,Lowell
+20210902-W-US_Open-R64-Shuai_Zhang-Emma_Raducanu,Shuai Zhang,Emma Raducanu,R,R,20210902,US Open,R64,12.00 PM,10,Hard,,3,1,Colin
+20210902-W-US_Open-R64-Sara_Sorribes_Tormo-Su_Wei_Hsieh,Sara Sorribes Tormo,Su Wei Hsieh,R,R,20210902,US Open,R64,,12,Hard,Tim Mevel,3,1,Zindaras
+20210902-W-US_Open-R64-Maria_Sakkari-Katerina_Siniakova,Maria Sakkari,Katerina Siniakova,R,R,20210902,US Open,R64,,Grandstand,Hard,Isabell Seefried,3,1,Lowell
+20210902-W-US_Open-R64-Bianca_Andreescu-Lauren_Davis,Bianca Andreescu,Lauren Davis,R,R,20210902,US Open,R64,19:10,Louis Armstrong,Hard,Kelly Thomson,3,1,Zindaras
+20210901-W-US_Open-R64-Rebeka_Masarova-Elina_Svitolina,Rebeka Masarova,Elina Svitolina,R,R,20210901,US Open,R64,11:55 AM,17,Hard,,3,1,Lowell
+20210901-W-US_Open-R64-Leylah_Fernandez-Kaia_Kanepi,Leylah Fernandez,Kaia Kanepi,L,R,20210901,US Open,R64,,11,Hard,Aline Rocha,3,1,Lowell
+20210901-W-US_Open-R64-Coco_Gauff-Sloane_Stephens,Coco Gauff,Sloane Stephens,R,R,20210901,US Open,R64,,Arthur Ashe Stadium,Hard,,3,1,Isaac
+20210831-W-US_Open-R128-Sara_Sorribes_Tormo-Karolina_Muchova,Sara Sorribes Tormo,Karolina Muchova,R,R,20210831,US Open,R128,,6,Hard,Robert Balmforth,3,1,Zindaras
+20210831-W-US_Open-R128-Marta_Kostyuk-Maria_Sakkari,Marta Kostyuk,Maria Sakkari,R,R,20210831,US Open,R128,,10,Hard,Fabio Souza,3,1,Lowell
+20210831-W-US_Open-R128-Jil_Teichmann-Cristina_Bucsa,Jil Teichmann,Cristina Bucsa,R,L,20210831,US Open,R128,,15,Hard,Manuel Absolu,3,1,Zindaras
+20210831-W-US_Open-R128-Bianca_Andreescu-Viktorija_Golubic,Bianca Andreescu,Viktorija Golubic,R,R,20210831,US Open,R128,,Arthur Ashe,Hard,Julie Kjendlie,3,1,Zindaras
+20210830-W-US_Open-R128-Leylah_Fernandez-Ana_Konjuh,Leylah Fernandez,Ana Konjuh,L,R,20210830,US Open,R128,,14,Hard,Scott Elbin,3,1,Lowell
+20210830-W-US_Open-R128-Elina_Svitolina-Rebecca_Marino,Elina Svitolina,Rebecca Marino,R,R,20210830,US Open,R128,6:10 PM,17,Hard,,3,1,Lowell
+20210830-W-US_Open-R128-Donna_Vekic-Garbine_Muguruza,Donna Vekic,Garbine Muguruza,R,R,20210830,US Open,R128,11:00 AM,Louis Armstrong Stadium,Hard,Christian Rask,3,1,cefperry
+20210830-W-US_Open-R128-Carla_Suarez_Navarro-Danielle_Collins,Carla Suarez Navarro,Danielle Collins,R,R,20210830,US Open,R128,11:10,5,Hard,Josh Brace,3,T,Zindaras
+20210825-W-US_Open-Q1-Emma_Raducanu-Bibiane_Schoofs,Emma Raducanu,Bibiane Schoofs,R,R,20210825,US Open,Q1,,11,Hard,Yvette Kahn,3,1,Zindaras
+20210220-W-Australian_Open-F-Naomi_Osaka-Jennifer_Brady,Naomi Osaka,Jennifer Brady,R,R,20210220,Australian Open,F,7pm,Rod Laver Arena,Hard,Alison Hughes,3,A,Edo
+20210218-W-Australian_Open-SF-Naomi_Osaka-Serena_Williams,Naomi Osaka,Serena Williams,R,R,20210218,Australian Open,SF,2pm,Rod Laver Arena,Hard,,3,A,Edo
+20210218-W-Australian_Open-SF-Jennifer_Brady-Karolina_Muchova,Jennifer Brady,Karolina Muchova,R,R,20210218,Australian Open,SF,15:55,Rod Laver Arena,Hard,Louise Azemar Engzell,3,A,Zindaras
+20210217-W-Australian_Open-QF-Jennifer_Brady-Jessica_Pegula,Jennifer Brady,Jessica Pegula,R,R,20210217,Australian Open,QF,,Rod Laver Arena,Hard,,3,1,Isaac
+20210217-W-Australian_Open-QF-Ashleigh_Barty-Karolina_Muchova,Ashleigh Barty,Karolina Muchova,R,R,20210217,Australian Open,QF,11:15,Rod Lover Arena,Hard,Carlos Ramos,3,A,Zindaras
+20210214-W-Australian_Open-R16-Karolina_Muchova-Elise_Mertens,Karolina Muchova,Elise Mertens,R,R,20210214,Australian Open,R16,,,Hard,,3,A ,ARosenquist
+20210213-W-Australian_Open-R32-Karolina_Pliskova-Karolina_Muchova,Karolina Pliskova,Karolina Muchova,R,R,20210213,Australian Open,R32,11:10,Rod Laver Arena,Hard,Alison Hughes,3,A,Zindaras
+20210211-W-Australian_Open-R64-Samantha_Stosur-Jessica_Pegula,Samantha Stosur,Jessica Pegula,R,R,20210211,Australian Open,R64,21:35,Margaret Court Arena,Hard,,3,A,Zindaras
+20210211-W-Australian_Open-R64-Elina_Svitolina-Coco_Gauff,Elina Svitolina,Coco Gauff,R,R,20210211,Australian Open,R64,,,Hard,,3,1,Isaac
+20210211-W-Australian_Open-R32-Naomi_Osaka-Ons_Jabeur,Naomi Osaka,Ons Jabeur,R,R,20210211,Australian Open,R32,,Centre,Hard,,3,A,ARosenquist
+20210211-W-Australian_Open-R32-Anastasia_Potapova-Serena_Williams,Anastasia Potapova,Serena Williams,R,R,20210211,Australian Open,R32,,Centre,Hard,,3,A,ARosenquist
+20210210-W-Australian_Open-R64-Rebecca_Marino-Marketa_Vondrousova,Rebecca Marino,Marketa Vondrousova,R,L,20210210,Australian Open,R64,11:05,1573 Arena,Hard,Renaud Lichtenstein,3,A,Zindaras
+20210210-W-Australian_Open-R64-Bianca_Andreescu-Su_Wei_Hsieh,Bianca Andreescu,Su Wei Hsieh,R,R,20210210,Australian Open,R64,11:00 AM,Rod Laver Arena,Hard,Nacho Forcadell,3,A,ojustino
+20210209-W-Australian_Open-R128-Elina_Svitolina-Marie_Bouzkova,Elina Svitolina,Marie Bouzkova,R,R,20210209,Australian Open,R128,13:00,Rod Laver Arena,Hard,Simon Cannavan,3,A,Zindaras
+20210209-W-Australian_Open-R128-Destanee_Aiava-Samantha_Stosur,Destanee Aiava,Samantha Stosur,R,R,20210209,Australian Open,R128,18:20,John Cain Arena,Hard,Tom Sweeney,3,A,Zindaras
+20210209-W-Australian_Open-R128-Coco_Gauff-Jil_Teichmann,Coco Gauff,Jil Teichmann,R,L,20210209,Australian Open,R128,14:15,John Cain Arena,Hard,,3,A,Zindaras
+20210209-W-Australian_Open-R128-Chloe_Paquet-Mayar_Sherif,Chloe Paquet,Mayar Sherif,R,R,20210209,Australian Open,R128,,6,Hard,John Blom,3,A,ojustino
+20210209-W-Australian_Open-R128-Barbora_Strycova-Svetlana_Kuznetsova,Barbora Strycova,Svetlana Kuznetsova,R,R,20210209,Australian Open,R128,,14,Hard,Nico Helwerth,3,A,Zindaras
+20210208-W-Australian_Open-R128-Tsvetana_Pironkova-Su_Wei_Hsieh,Tsvetana Pironkova,Su Wei Hsieh,R,R,20210208,Australian Open,R128,,13,Hard,,3,A,Zindaras
+20210208-W-Australian_Open-R128-Serena_Williams-Laura_Siegemund,Serena Williams,Laura Siegemund,R,R,20210208,Australian Open,R128,,Rod Laver Arena,Hard,,3,1,Isaac
+20210208-W-Australian_Open-R128-Rebecca_Marino-Kimberly_Birrell,Rebecca Marino,Kimberly Birrell,R,R,20210208,Australian Open,R128,,7,Hard,,3,A,Zindaras
+20210208-W-Australian_Open-R128-Iga_Swiatek-Arantxa_Rus,Iga Swiatek,Arantxa Rus,R,L,20210208,Australian Open,R128,13:00,1573 Arena,Hard,Adel Nour,3,A,Zindaras
+20210207-W-Australian_Open-R128-Bianca_Andreescu-Mihaela_Buzarnescu,Bianca Andreescu,Mihaela Buzarnescu,R,L,20210207,Australian Open,R128,16:10,John Cain Arena,Hard,John Blom,3,A,Zindaras
+20200912-W-US_Open-F-Naomi_Osaka-Victoria_Azarenka,Naomi Osaka,Victoria Azarenka,R,R,20200912,US Open,F,4pm,Ashe,Hard,Jaume Campistol,3,1,Edo
+20200910-W-US_Open-SF-Victoria_Azarenka-Serena_Williams,Victoria Azarenka,Serena Williams,R,R,20200910,US Open,SF,21:50,Arthur Ashe Stadium,Hard,Alison Hughes,3,1,Carrie
+20200910-W-US_Open-SF-Naomi_Osaka-Jennifer_Brady,Naomi Osaka,Jennifer Brady,R,R,20200910,US Open,SF,7pm,Ashe,Hard,Eva Asderaki-Moore,3,1,Edo
+20200909-W-US_Open-QF-Victoria_Azarenka-Elise_Mertens,Victoria Azarenka,Elise Mertens,R,R,20200909,US Open,QF,,Arthur Ashe Stadium,Hard,,3,1,Isaac
+20200909-W-US_Open-QF-Serena_Williams-Tsvetana_Pironkova,Serena Williams,Tsvetana Pironkova,R,R,20200909,US Open,QF,12:20,Arthur Ashe Stadium,Hard,Juan Zhang,3,1,Carrie
+20200907-W-US_Open-R16-Victoria_Azarenka-Karolina_Muchova,Victoria Azarenka,Karolina Muchova,R,R,20200907,US Open,R16,20:05,Louis Armstrong Stadium,Hard,,3,1,Carrie
+20200907-W-US_Open-R16-Sofia_Kenin-Elise_Mertens,Sofia Kenin,Elise Mertens,R,R,20200907,US Open,R16,21:15,Arthur Ashe Stadium,Hard,Carlos Ramos,3,1,Carrie
+20200907-W-US_Open-R16-Serena_Williams-Maria_Sakkari,Serena Williams,Maria Sakkari,R,R,20200907,US Open,R16,,Arthur Ashe Stadium,Hard,,3,1,Isaac
+20200907-W-US_Open-R16-Alize_Cornet-Tsvetana_Pironkova,Alize Cornet,Tsvetana Pironkova,R,R,20200907,US Open,R16,13:50,Louis Armstrong Stadium,Hard,,3,1,Carrie
+20200906-W-US_Open-R16-Petra_Kvitova-Shelby_Rogers,Petra Kvitova,Shelby Rogers,L,R,20200906,US Open,R16,15:10,Louis Armstrong Stadium,Hard,James Keothavong,3,1,Carrie
+20200906-W-US_Open-R16-Jennifer_Brady-Angelique_Kerber,Jennifer Brady,Angelique Kerber,R,L,20200906,US Open,R16,11:10,Louis Armstrong Stadium,Hard,Fergus Murphy,3,1,Carrie
+20200905-W-US_Open-R32-Victoria_Azarenka-Iga_Swiatek,Victoria Azarenka,Iga Swiatek,R,R,20200905,US Open,R32,18:35,Louis Armstrong Stadium,Hard,Marijana Veljovic,3,1,Carrie
+20200905-W-US_Open-R32-Ons_Jabeur-Sofia_Kenin,Ons Jabeur,Sofia Kenin,R,R,20200905,US Open,R32,,,Hard,,3,1,Isaac
+20200904-W-US_Open-R32-Jennifer_Brady-Caroline_Garcia,Jennifer Brady,Caroline Garcia,R,R,20200904,US Open,R32,,17,Hard,Julie Kjendlie,3,1,ojustino
+20200903-W-US_Open-R64-Katrina_Scott-Amanda_Anisimova,Katrina Scott,Amanda Anisimova,R,R,20200903,US Open,R64,,,Hard,,3,1,Jim Albert
+20200902-W-US_Open-R64-Shelby_Rogers-Elena_Rybakina,Shelby Rogers,Elena Rybakina,R,R,20200902,US Open,R64,,,Hard,,3,1,Roger
+20200902-W-US_Open-R64-Marta_Kostyuk-Anastasija_Sevastova,Marta Kostyuk,Anastasija Sevastova,R,R,20200902,US Open,R64,,12,Hard,,3,1,Isaac
+20200902-W-US_Open-R64-Caroline_Garcia-Karolina_Pliskova,Caroline Garcia,Karolina Pliskova,R,R,20200902,US Open,R64,16:30,Louis Armstrong Stadium,Hard,,3,1,Carrie
+20200902-W-US_Open-R64-Angelique_Kerber-Anna_Lena_Friedsam,Angelique Kerber,Anna Lena Friedsam,L,R,20200902,US Open,R64,,Louis Armstrong Stadium,Hard,Christian Rask,3,1,ojustino
+20200901-W-US_Open-R128-Victoria_Azarenka-Barbara_Haas,Victoria Azarenka,Barbara Haas,R,R,20200901,US Open,R128,,5,Hard,,3,1,Isaac
+20200831-W-US_Open-R128-Jennifer_Brady-Anna_Blinkova,Jennifer Brady,Anna Blinkova,R,R,20200831,US Open,R128,,17,Hard,,3,1,Isaac
+20200831-W-US_Open-R128-Ajla_Tomljanovic-Angelique_Kerber,Ajla Tomljanovic,Angelique Kerber,R,L,20200831,US Open,R128,,Louis Armstrong Stadium,Hard,,3,1,Isaac
+20200201-W-Australian_Open-F-Sofia_Kenin-Garbine_Muguruza,Sofia Kenin,Garbine Muguruza,R,R,20200201,Australian Open,F,7pm,Rod Laver Arena,Hard,Eva Asderaki-Moore,3,A,Edo
+20200130-W-Australian_Open-SF-Ashleigh_Barty-Sofia_Kenin,Ashleigh Barty,Sofia Kenin,R,R,20200130,Australian Open,SF,14:00 PM,Rod Laver Arena,Hard,,3,A,Isaac
+20200128-W-Australian_Open-QF-Ons_Jabeur-Sofia_Kenin,Ons Jabeur,Sofia Kenin,R,R,20200128,Australian Open,QF,11:15,Rod Laver,Hard,Juan Zhang,3,A,Zindaras
+20200127-W-Australian_Open-R16-Garbine_Muguruza-Kiki_Bertens,Garbine Muguruza,Kiki Bertens,R,R,20200127,Australian Open,R16,15:25,Rod Laver Arena,Hard,Nico Helwerth,3,A,Zindaras
+20200125-W-Australian_Open-R32-Zarina_Diyas-Kiki_Bertens,Zarina Diyas,Kiki Bertens,R,R,20200125,Australian Open,R32,21:30,Margaret Court Arena,Hard,,3,A,Zindaras
+20200125-W-Australian_Open-R32-Iga_Swiatek-Donna_Vekic,Iga Swiatek,Donna Vekic,R,R,20200125,Australian Open,R32,13:00,1573 Arena,Hard,,3,A,tsitsi
+20200125-W-Australian_Open-R32-Garbine_Muguruza-Elina_Svitolina,Garbine Muguruza,Elina Svitolina,R,R,20200125,Australian Open,R32,19:15,Rod Laver Arena,Hard,,3,A,Carrie
+20200125-W-Australian_Open-R32-Camila_Giorgi-Angelique_Kerber,Camila Giorgi,Angelique Kerber,R,L,20200125,Australian Open,R32,11:10,Margaret Court Arena,Hard,,3,A,Carrie
+20200125-W-Australian_Open-R32-Anastasia_Pavlyuchenkova-Karolina_Pliskova,Anastasia Pavlyuchenkova,Karolina Pliskova,R,R,20200125,Australian Open,R32,11:10,Rod Laver Arena,Hard,,3,A,Carrie
+20200124-W-Australian_Open-R32-Madison_Keys-Maria_Sakkari,Madison Keys,Maria Sakkari,R,R,20200124,Australian Open,R32,15:00,,Hard,,3,A,Carrie
+20200124-W-Australian_Open-R32-Coco_Gauff-Naomi_Osaka,Coco Gauff,Naomi Osaka,R,R,20200124,Australian Open,R32,1915,Rod Laver Arena,Hard,Marijana Veljovic,3,A,Carrie
+20200124-W-Australian_Open-R32-Caroline_Wozniacki-Ons_Jabeur,Caroline Wozniacki,Ons Jabeur,R,R,20200124,Australian Open,R32,12:45,Melbourne Arena,Hard,Aurelie Tourte,3,A,Zindaras
+20200124-W-Australian_Open-R32-Ashleigh_Barty-Elena_Rybakina,Ashleigh Barty,Elena Rybakina,R,R,20200124,Australian Open,R32,11:15,Rod Laver Arena,Hard,Damien Dumusois,3,A,Carrie
+20200123-W-Australian_Open-R64-Lauren_Davis-Elina_Svitolina,Lauren Davis,Elina Svitolina,R,R,20200123,Australian Open,R64,23:10,,Hard,Manuel Absolu,3,A,Zindaras
+20200123-W-Australian_Open-R64-Karolina_Muchova-Catherine_Cartan_Bellis,Karolina Muchova,Catherine Cartan Bellis,R,R,20200123,Australian Open,R64,14:50,1573 Arena,Hard,Damien Dumusois,3,A,Zindaras
+20200123-W-Australian_Open-R64-Iga_Swiatek-Carla_Suarez_Navarro,Iga Swiatek,Carla Suarez Navarro,R,R,20200123,Australian Open,R64,,14,Hard,,3,A,Zindaras
+20200123-W-Australian_Open-R64-Arina_Rodionova-Kiki_Bertens,Arina Rodionova,Kiki Bertens,R,R,20200123,Australian Open,R64,16:55,8,Hard,Marijana Veljovic,3,A,Zindaras
+20200122-W-Australian_Open-R64-Garbine_Muguruza-Ajla_Tomljanovic,Garbine Muguruza,Ajla Tomljanovic,R,R,20200122,Australian Open,R64,,Rod Laver Arena,Hard,,3,1,Isaac
+20200122-W-Australian_Open-R64-Caroline_Wozniacki-Dayana_Yastremska,Caroline Wozniacki,Dayana Yastremska,R,R,20200122,Australian Open,R64,12:50,Margaret Court Arena,Hard,Miriam Bley,3,A,Zindaras
+20200122-W-Australian_Open-R64-Arantxa_Rus-Madison_Keys,Arantxa Rus,Madison Keys,L,R,20200122,Australian Open,R64,22:55,Rod Laver Arena,Hard,Thomas Sweeney,3,A,Zindaras
+20200121-W-Australian_Open-R64-Coco_Gauff-Sorana_Cirstea,Coco Gauff,Sorana Cirstea,R,R,20200121,Australian Open,R64,,,Hard,,3,1,Isaac
+20200121-W-Australian_Open-R128-Svetlana_Kuznetsova-Marketa_Vondrousova,Svetlana Kuznetsova,Marketa Vondrousova,R,L,20200121,Australian Open,R128,,7,Hard,,3,A,Zindaras
+20200121-W-Australian_Open-R128-Rebecca_Peterson-Polona_Hercog,Rebecca Peterson,Polona Hercog,R,R,20200121,Australian Open,R128,11:10,Melbourne Arena,Hard,John Blom,3,A,tsitsi
+20200121-W-Australian_Open-R128-Misaki_Doi-Harriet_Dart,Misaki Doi,Harriet Dart,L,R,20200121,Australian Open,R128,21:10,11,Hard,Katarzyna Radwan Cho,3,A,tsitsi
+20200121-W-Australian_Open-R128-Magda_Linette-Arantxa_Rus,Magda Linette,Arantxa Rus,R,L,20200121,Australian Open,R128,13:55,5,Hard,,3,A,Zindaras
+20200121-W-Australian_Open-R128-Kirsten_Flipkens-Karolina_Muchova,Kirsten Flipkens,Karolina Muchova,R,R,20200121,Australian Open,R128,,13,Hard,Tiago Sturmer,3,A,Zindaras
+20200121-W-Australian_Open-R128-Kiki_Bertens-Irina_Camelia_Begu,Kiki Bertens,Irina Camelia Begu,R,R,20200121,Australian Open,R128,18:50,3,Hard,Gregory Allensworth,3,A,Zindaras
+20200121-W-Australian_Open-R128-Kateryna_Bondarenko-Arina_Rodionova,Kateryna Bondarenko,Arina Rodionova,R,R,20200121,Australian Open,R128,,8,Hard,,3,A,Zindaras
+20200121-W-Australian_Open-R128-Donna_Vekic-Maria_Sharapova,Donna Vekic,Maria Sharapova,R,R,20200121,Australian Open,R128,13:00,Rod Laver Arena,Hard,,3,A,Carrie
+20200121-W-Australian_Open-R128-Anna_Blinkova-Jasmine_Paolini,Anna Blinkova,Jasmine Paolini,R,R,20200121,Australian Open,R128,,14,Hard,,3,A,Zindaras
+20200121-W-Australian_Open-R128-Alize_Cornet-Monica_Niculescu,Alize Cornet,Monica Niculescu,R,R,20200121,Australian Open,R128,,12,Hard,,3,A,Zindaras
+20200120-W-Australian_Open-R128-Marie_Bouzkova-Naomi_Osaka,Marie Bouzkova,Naomi Osaka,R,R,20200120,Australian Open,R128,11:15,Rod Laver Arena,Hard,Mohamed Lahyani,3,A,Zindaras
+20200120-W-Australian_Open-R128-Jil_Teichmann-Ekaterina_Alexandrova,Jil Teichmann,Ekaterina Alexandrova,L,R,20200120,Australian Open,R128,,19,Hard,,3,A,Zindaras
+20200120-W-Australian_Open-R128-Caroline_Wozniacki-Kristie_Ahn,Caroline Wozniacki,Kristie Ahn,R,R,20200120,Australian Open,R128,13:25,Melbourne Arena,Hard,,3,A,Zindaras
+20200120-W-Australian_Open-R128-Ashleigh_Barty-Lesia_Tsurenko,Ashleigh Barty,Lesia Tsurenko,R,R,20200120,Australian Open,R128,19:15,Rod Laver Arena,Hard,,3,A,Carrie
+20200117-W-Australian_Open-Q2-Leylah_Fernandez-Mayo_Hibi,Leylah Fernandez,Mayo Hibi,L,R,20200117,Australian Open,Q2,,5,Hard,Dorin Ursu,3,A,Zindaras
+20200115-W-Australian_Open-Q1-Lesley_Pattinama_Kerkhove-Eva_Guerrero_Alvarez,Lesley Pattinama Kerkhove,Eva Guerrero Alvarez,R,R,20200115,Australian Open,Q1,,14,Hard,,3,A,Zindaras
+20200114-W-Australian_Open-Q1-Rebecca_Sramkova-Maddison_Inglis,Rebecca Sramkova,Maddison Inglis,R,R,20200114,Australian Open,Q1,,8,Hard,Luca Laugero,3,A,Zindaras
+20190907-W-US_Open-F-Serena_Williams-Bianca_Andreescu,Serena Williams,Bianca Andreescu,R,R,20190907,US Open,F,16:20,Arthur Ashe,Hard,Alison Hughes,3,1,Zindaras
+20190905-W-US_Open-SF-Belinda_Bencic-Bianca_Andreescu,Belinda Bencic,Bianca Andreescu,R,R,20190905,US Open,SF,21:00,Arthur Ashe,Hard,Nico Helwerth,3,1,Zindaras
+20190904-W-US_Open-QF-Elise_Mertens-Bianca_Andreescu,Elise Mertens,Bianca Andreescu,R,R,20190904,US Open,QF,19:20,Arthur Ashe,Hard,Gregory Allensworth,3,1,Zindaras
+20190903-W-US_Open-QF-Serena_Williams-Qiang_Wang,Serena Williams,Qiang Wang,R,R,20190903,US Open,QF,7:20 PM,Arthur Ashe Stadium,Hard,,3,1,Carrie
+20190902-W-US_Open-R16-Bianca_Andreescu-Taylor_Townsend,Bianca Andreescu,Taylor Townsend,R,L,20190902,US Open,R16,10:45 PM,Arthur Ashe Stadium,Hard,,3,1,Carrie
+20190831-W-US_Open-R32-Sorana_Cirstea-Taylor_Townsend,Sorana Cirstea,Taylor Townsend,R,L,20190831,US Open,R32,11:10 AM,Louis Armstrong Stadium,Hard,,3,1,Carrie
+20190831-W-US_Open-R32-Naomi_Osaka-Coco_Gauff,Naomi Osaka,Coco Gauff,R,R,20190831,US Open,R32,7:15 PM,Arthur Ashe Stadium,Hard,,3,1,Carrie
+20190831-W-US_Open-R32-Kristie_Ahn-Jelena_Ostapenko,Kristie Ahn,Jelena Ostapenko,R,R,20190831,US Open,R32,12:50 PM,Grandstand,Hard,,3,1,Carrie
+20190831-W-US_Open-R32-Julia_Goerges-Kiki_Bertens,Julia Goerges,Kiki Bertens,R,R,20190831,US Open,R32,13:00,Louis Armstrong,Hard,Kader Nouni,3,1,Zindaras
+20190831-W-US_Open-R32-Donna_Vekic-Yulia_Putintseva,Donna Vekic,Yulia Putintseva,R,R,20190831,US Open,R32,12:55 PM,17,Hard,,3,1,Carrie
+20190831-W-US_Open-R32-Caroline_Wozniacki-Bianca_Andreescu,Caroline Wozniacki,Bianca Andreescu,R,R,20190831,US Open,R32,12:10,Arthur Ashe,Hard,Paula Vieira Souza,3,1,Zindaras
+20190830-W-US_Open-R32-Madison_Keys-Sofia_Kenin,Madison Keys,Sofia Kenin,R,R,20190830,US Open,R32,,,Hard,,3,1,Isaac
+20190829-W-US_Open-R64-Taylor_Townsend-Simona_Halep,Taylor Townsend,Simona Halep,L,R,20190829,US Open,R64,4:50 PM,Arthur Ashe Stadium,Hard,,3,1,Carrie
+20190829-W-US_Open-R64-Su_Wei_Hsieh-Karolina_Muchova,Su Wei Hsieh,Karolina Muchova,R,R,20190829,US Open,R64,12:10,4,Hard,,3,1,Zindaras
+20190829-W-US_Open-R64-Laura_Siegemund-Sofia_Kenin,Laura Siegemund,Sofia Kenin,R,R,20190829,US Open,R64,11:15,Grandstand,Hard,Paula Veira Souza,3,1,Zindaras
+20190829-W-US_Open-R64-Kirsten_Flipkens-Bianca_Andreescu,Kirsten Flipkens,Bianca Andreescu,R,R,20190829,US Open,R64,14:45,5,Hard,Jaume Campistol,3,1,Zindaras
+20190829-W-US_Open-R64-Kaia_Kanepi-Donna_Vekic,Kaia Kanepi,Donna Vekic,R,R,20190829,US Open,R64,,10,Hard,,3,1,dryt
+20190829-W-US_Open-R64-Iga_Swiatek-Anastasija_Sevastova,Iga Swiatek,Anastasija Sevastova,R,R,20190829,US Open,R64,11:10,9,Hard,,3,1,Zindaras
+20190829-W-US_Open-R64-Francesca_Di_Lorenzo-Julia_Goerges,Francesca Di Lorenzo,Julia Goerges,L,R,20190829,US Open,R64,17:55,4,Hard,,3,1,Zindaras
+20190829-W-US_Open-R64-Anastasia_Pavlyuchenkova-Kiki_Bertens,Anastasia Pavlyuchenkova,Kiki Bertens,R,R,20190829,US Open,R64,16:40,13,Hard,,3,1,Zindaras
+20190827-W-US_Open-R128-Paula_Badosa-Kiki_Bertens,Paula Badosa,Kiki Bertens,R,R,20190827,US Open,R128,12:55,17,Hard,,3,1,Zindaras
+20190827-W-US_Open-R128-Katie_Volynets-Bianca_Andreescu,Katie Volynets,Bianca Andreescu,R,R,20190827,US Open,R128,13:25,10,Hard,,3,1,Zindaras
+20190827-W-US_Open-R128-Donna_Vekic-Richel_Hogenkamp,Donna Vekic,Richel Hogenkamp,R,R,20190827,US Open,R128,,12,Hard,,3,1,Zindaras
+20190826-W-US_Open-R128-Whitney_Osuigwe-Elina_Svitolina,Whitney Osuigwe,Elina Svitolina,R,R,20190826,US Open,R128,4:55 PM,17,Hard,,3,1,Carrie
+20190826-W-US_Open-R128-Serena_Williams-Maria_Sharapova,Serena Williams,Maria Sharapova,R,R,20190826,US Open,R128,7:50 PM,Arthur Ashe Stadium,Hard,,3,1,Carrie
+20190826-W-US_Open-R128-Priscilla_Hon-Margarita_Gasparyan,Priscilla Hon,Margarita Gasparyan,R,R,20190826,US Open,R128,12:35 PM,14,Hard,,3,1,Carrie
+20190826-W-US_Open-R128-Iga_Swiatek-Ivana_Jorovic,Iga Swiatek,Ivana Jorovic,R,R,20190826,US Open,R128,,,Hard,,3,1,Isaac
+20190826-W-US_Open-R128-Angelique_Kerber-Kristina_Mladenovic,Angelique Kerber,Kristina Mladenovic,L,R,20190826,US Open,R128,12:35 PM,Grandstand,Hard,,3,1,Carrie
+20190123-W-Australian_Open-QF-Serena_Williams-Karolina_Pliskova,Serena Williams,Karolina Pliskova,R,R,20190123,Australian Open,QF,1:10 PM,Rod Laver Arena,Hard,Juan Zhang,3,A,MaGav
+20190122-W-Australian_Open-QF-Petra_Kvitova-Ashleigh_Barty,Petra Kvitova,Ashleigh Barty,L,R,20190122,Australian Open,QF,7:35 PM,Rod Laver Arena,Hard,Julie Kjendlie,3,A,MaGav
+20190120-W-Australian_Open-R16-Danielle_Collins-Angelique_Kerber,Danielle Collins,Angelique Kerber,R,L,20190120,Australian Open,R16,3:10 PM,Margaret Court Arena,Hard,Damien Dumusois,3,A,MaGav
+20190120-W-Australian_Open-R16-Ashleigh_Barty-Maria_Sharapova,Ashleigh Barty,Maria Sharapova,R,R,20190120,Australian Open,R16,12:40 PM,Rod Laver Arena,Hard,Alison Hughes,3,A,MaGav
+20190119-W-Australian_Open-R32-Dayana_Yastremska-Serena_Williams,Dayana Yastremska,Serena Williams,R,R,20190119,Australian Open,R32,2:30 PM,Rod Laver Arena,Hard,James Keothavong,3,A,MaGav
+20190118-W-Australian_Open-R32-Aryna_Sabalenka-Amanda_Anisimova,Aryna Sabalenka,Amanda Anisimova,R,R,20190118,Australian Open,R32,2:30 PM,Margaret Court Arena,Hard,Marija Cicak,3,A,MaGav
+20190117-W-Australian_Open-R64-Madison_Keys-Anastasia_Potapova,Madison Keys,Anastasia Potapova,R,R,20190117,Australian Open,R64,1:05 PM,Melbourne Arena,Hard,Simon Cannavan,3,A,MaGav
+20190117-W-Australian_Open-R64-Johanna_Konta-Garbine_Muguruza,Johanna Konta,Garbine Muguruza,R,R,20190117,Australian Open,R64,,Margaret Court Arena,Hard,,3,0,Isaac
+20190117-W-Australian_Open-R64-Camila_Giorgi-Iga_Swiatek,Camila Giorgi,Iga Swiatek,R,R,20190117,Australian Open,R64,11:10,1573 Arena,Hard,Miriam Bley,3,A,MaGav
+20190116-W-Australian_Open-R64-Marketa_Vondrousova-Petra_Martic,Marketa Vondrousova,Petra Martic,L,R,20190116,Australian Open,R64,11:00,8,Hard,Thomas Sweeney,3,A,MaGav
+20190116-W-Australian_Open-R64-Caroline_Wozniacki-Johanna_Larsson,Caroline Wozniacki,Johanna Larsson,R,R,20190116,Australian Open,R64,,,Hard,,3,1,KleineBiere
+20190115-W-Australian_Open-R128-Whitney_Osuigwe-Bianca_Andreescu,Whitney Osuigwe,Bianca Andreescu,R,R,20190115,Australian Open,R128,2:45 PM,15,Hard,Marta Mrozinska,3,A,MaGav
+20190115-W-Australian_Open-R128-Viktoria_Hruncakova-Kateryna_Baindl,Viktoria Hruncakova,Kateryna Baindl,R,R,20190115,Australian Open,R128,5:00 PM,20,Hard,,3,A,MaGav
+20190115-W-Australian_Open-R128-Veronika_Kudermetova-Sofia_Kenin,Veronika Kudermetova,Sofia Kenin,R,R,20190115,Australian Open,R128,6:40 PM,12,Hard,Simon Cannavan,3,A,tsitsi
+20190115-W-Australian_Open-R128-Samantha_Stosur-Dayana_Yastremska,Samantha Stosur,Dayana Yastremska,R,R,20190115,Australian Open,R128,,,Hard,,3,1,Isaac
+20190114-W-Australian_Open-R128-Shuai_Peng-Eugenie_Bouchard,Shuai Peng,Eugenie Bouchard,R,R,20190114,Australian Open,R128,,1573 Arena,Hard,Damien Dumusois,3,A,marct
+20190114-W-Australian_Open-R128-Maria_Sharapova-Harriet_Dart,Maria Sharapova,Harriet Dart,R,R,20190114,Australian Open,R128,,,Hard,,3,1,Isaac
+20190114-W-Australian_Open-R128-Kiki_Bertens-Alison_Riske_Amritraj,Kiki Bertens,Alison Riske Amritraj,R,R,20190114,Australian Open,R128,15:30,,Hard,Anastasia Kosheleva,5,A,Zindaras
+20190114-W-Australian_Open-R128-Caroline_Wozniacki-Alison_Van_Uytvanck,Caroline Wozniacki,Alison Van Uytvanck,R,R,20190114,Australian Open,R128,7:15 PM,,Hard,Alison Hughes,3,A,KleineBiere
+20190114-W-Australian_Open-R128-Beatriz_Haddad_Maia-Bernarda_Pera,Beatriz Haddad Maia,Bernarda Pera,L,L,20190114,Australian Open,R128,1:50 PM,Court 12,Hard,,3,A,MaGav
+20190114-W-Australian_Open-R128-Astra_Sharma-Priscilla_Hon,Astra Sharma,Priscilla Hon,R,R,20190114,Australian Open,R128,11:10,7,Hard,Renaud Lichtenstein,3,A,MaGav
+20190111-W-Australian_Open-Q3-Tereza_Smitkova-Bianca_Andreescu,Tereza Smitkova,Bianca Andreescu,R,R,20190111,Australian Open,Q3,,20,Hard,,3,1,Zindaras
+20190110-W-Australian_Open-Q2-Valentini_Grammatikopoulou-Bianca_Andreescu,Valentini Grammatikopoulou,Bianca Andreescu,R,R,20190110,Australian Open,Q2,18:00,22,Hard,,3,A,Zindaras
+20190108-W-Australian_Open-Q1-Isabelle_Wallace-Sabine_Lisicki,Isabelle Wallace,Sabine Lisicki,L,R,20190108,Australian Open,Q1,12:50,3,Hard,Marta Mrozinska,3,A,1HandBH
+20190108-W-Australian_Open-Q1-Iga_Swiatek-Olga_Danilovic,Iga Swiatek,Olga Danilovic,R,L,20190108,Australian Open,Q1,12:15 PM,13,Hard,,3,1,MaGav
+20180908-W-US_Open-F-Serena_Williams-Naomi_Osaka,Serena Williams,Naomi Osaka,R,R,20180908,US Open,F,4pm,Arthur Ashe,Hard,Carlos Ramos,3,1,Edo
+20180904-W-US_Open-QF-Serena_Williams-Karolina_Pliskova,Serena Williams,Karolina Pliskova,R,R,20180904,US Open,QF,,Arthur Ashe Stadium,Hard,Zhang Juan,3,1,ojustino
+20180903-W-US_Open-R16-Madison_Keys-Dominika_Cibulkova,Madison Keys,Dominika Cibulkova,R,R,20180903,US Open,R16,12:15 PM,Arthur Ashe Stadium,Hard,Louise Azemar Engzell,3,1,ChapelHeel66
+20180902-W-US_Open-R16-Ashleigh_Barty-Karolina_Pliskova,Ashleigh Barty,Karolina Pliskova,R,R,20180902,US Open,R16,2:10 PM,Louis Armstrong Stadium,Hard,Louise Azemar Engzell,3,1,ChapelHeel66
+20180830-W-US_Open-R64-Maria_Sharapova-Sorana_Cirstea,Maria Sharapova,Sorana Cirstea,R,R,20180830,US Open,R64,10:30 PM,Arthur Ashe Stadium,Hard,Louise Azemar Engzell,3,1,ChapelHeel66
+20180828-W-US_Open-R128-Samantha_Stosur-Caroline_Wozniacki,Samantha Stosur,Caroline Wozniacki,R,R,20180828,US Open,R128,,,Hard,,3,1,KleineBiere
+20180827-W-US_Open-R128-Venus_Williams-Svetlana_Kuznetsova,Venus Williams,Svetlana Kuznetsova,R,R,20180827,US Open,R128,3:00 PM,Arthur Ashe Stadium,Hard,Louise Engzell,3,1,MaGav
+20180127-W-Australian_Open-F-Caroline_Wozniacki-Simona_Halep,Caroline Wozniacki,Simona Halep,R,R,20180127,Australian Open,F,7:30 pm,Rod Laver Arena,Hard,Marijana Veljovic,3,0,Edo
+20180123-W-Australian_Open-QF-Caroline_Wozniacki-Carla_Suarez_Navarro,Caroline Wozniacki,Carla Suarez Navarro,R,R,20180123,Australian Open,QF,,,Hard,,3,0,KleineBiere
+20180122-W-Australian_Open-R16-Su_Wei_Hsieh-Angelique_Kerber,Su Wei Hsieh,Angelique Kerber,R,L,20180122,Australian Open,R16,1:00 PM,Rod Laver Arena,Hard,Simon Cannavan,3,1,MaGav
+20180122-W-Australian_Open-QF-Elina_Svitolina-Elise_Mertens,Elina Svitolina,Elise Mertens,R,R,20180122,Australian Open,QF,1:10 PM,Rod Laver Arena,Hard,Juan Zhang,3,0,Lowell
+20180121-W-Australian_Open-R16-Caroline_Wozniacki-Magdalena_Rybarikova,Caroline Wozniacki,Magdalena Rybarikova,R,R,20180121,Australian Open,R16,,,Hard,,3,1,KleineBiere
+20180119-W-Australian_Open-R32-Elina_Svitolina-Marta_Kostyuk,Elina Svitolina,Marta Kostyuk,R,R,20180119,Australian Open,R32,1:45PM,Rod Laver Arena,Hard,,3,1,Lowell
+20180119-W-Australian_Open-R32-Caroline_Wozniacki-Kiki_Bertens,Caroline Wozniacki,Kiki Bertens,R,R,20180119,Australian Open,R32,,,Hard,,3,0,KleineBiere
+20180117-W-Australian_Open-R64-Elina_Svitolina-Katerina_Siniakova,Elina Svitolina,Katerina Siniakova,R,R,20180117,Australian Open,R64,11:15 AM,Rod Laver Arena,Hard,Louise Azemar Engzell,3,0,Lowell
+20180115-W-Australian_Open-R32-Su_Wei_Hsieh-Agnieszka_Radwanska,Su Wei Hsieh,Agnieszka Radwanska,R,R,20180115,Australian Open,R32,21:55,Margaret Court,Hard,Thomas Sweeney,3,1,Zindaras
+20170907-W-US_Open-SF-Madison_Keys-Coco_Vandeweghe,Madison Keys,Coco Vandeweghe,R,R,20170907,US Open,SF,,,Hard,,3,1,Isaac
+20170904-W-US_Open-R16-Madison_Keys-Elina_Svitolina,Madison Keys,Elina Svitolina,R,R,20170904,US Open,R16,,Arthur Ashe,Hard,,3,1,Lowell
+20170904-W-US_Open-R16-Garbine_Muguruza-Petra_Kvitova,Garbine Muguruza,Petra Kvitova,R,L,20170904,US Open,R16,,Ashe,Hard,,3,1,Isaac
+20170902-W-US_Open-R32-Daria_Kasatkina-Jelena_Ostapenko,Daria Kasatkina,Jelena Ostapenko,R,R,20170902,US Open,R32,,Louis Armstrong Stadium,Hard,,3,1,Isaac
+20170901-W-US_Open-R32-Maria_Sharapova-Sofia_Kenin,Maria Sharapova,Sofia Kenin,R,R,20170901,US Open,R32,,,Hard,,3,1,Isaac
+20170122-W-Australian_Open-R16-Sorana_Cirstea-Garbine_Muguruza,Sorana Cirstea,Garbine Muguruza,R,R,20170122,Australian Open,R16,,,Hard,,3,1,Isaac
+20170121-W-Australian_Open-R32-Serena_Williams-Nicole_Gibbs,Serena Williams,Nicole Gibbs,R,R,20170121,Australian Open,R32,,,Hard,,3,1,Isaac
+20170121-W-Australian_Open-R32-Karolina_Pliskova-Jelena_Ostapenko,Karolina Pliskova,Jelena Ostapenko,R,R,20170121,Australian Open,R32,,,Hard,,3,0,Isaac
+20170121-W-Australian_Open-R32-Dominika_Cibulkova-Kate_Makarova,Dominika Cibulkova,Kate Makarova,R,L,20170121,Australian Open,R32,,,Hard,,3,1,Isaac
+20170120-W-Australian_Open-R32-Venus_Williams-Ying_Ying_Duan,Venus Williams,Ying Ying Duan,R,R,20170120,Australian Open,R32,,,Hard,,3,0,Isaac
+20170120-W-Australian_Open-R32-Eugenie_Bouchard-Coco_Vandeweghe,Eugenie Bouchard,Coco Vandeweghe,R,R,20170120,Australian Open,R32,,Rod Laver-Roof Closed,Hard,Juan Zhang,3,0,@CanuckKicker
+20170120-W-Australian_Open-R32-Ashleigh_Barty-Mona_Barthel,Ashleigh Barty,Mona Barthel,R,R,20170120,Australian Open,R32,18:15,Rod Laver Arena,Hard,Eva Asderaki-Moore,3,0,1HandBH
+20170119-W-Australian_Open-R64-Caroline_Wozniacki-Donna_Vekic,Caroline Wozniacki,Donna Vekic,R,R,20170119,Australian Open,R64,,,Hard,Carlos Ramos,3,0,KleineBiere
+20170119-W-Australian_Open-R64-Agnieszka_Radwanska-Mirjana_Lucic,Agnieszka Radwanska,Mirjana Lucic,R,R,20170119,Australian Open,R64,,,Hard,,3,1,Isaac
+20170118-W-Australian_Open-R64-Shuai_Peng-Eugenie_Bouchard,Shuai Peng,Eugenie Bouchard,R,R,20170118,Australian Open,R64,,,Hard,,3,0,@CanuckKicker
+20170118-W-Australian_Open-R64-Ashleigh_Barty-Shelby_Rogers,Ashleigh Barty,Shelby Rogers,R,R,20170118,Australian Open,R64,,,Hard,,3,0,Isaac
+20170116-W-Australian_Open-R128-Louisa_Chirico-Eugenie_Bouchard,Louisa Chirico,Eugenie Bouchard,R,R,20170116,Australian Open,R128,,,Hard,Simon Cannavan,3,0,@CanuckKicker
+20170116-W-Australian_Open-R128-Ashleigh_Barty-Annika_Beck,Ashleigh Barty,Annika Beck,R,R,20170116,Australian Open,R128,,Hisense Arena,Hard,,3,1,Isaac
+20160904-W-US_Open-R16-Caroline_Wozniacki-Madison_Keys,Caroline Wozniacki,Madison Keys,R,R,20160904,US Open,R16,,Centre,Hard,,3,1,KleineBiere
+20160902-W-US_Open-R32-Elina_Svitolina-Petra_Kvitova,Elina Svitolina,Petra Kvitova,R,L,20160902,US Open,R32,,Louis Armstrong Stadium,Hard,,3,1,Lowell
+20160831-W-US_Open-R64-Caroline_Wozniacki-Svetlana_Kuznetsova,Caroline Wozniacki,Svetlana Kuznetsova,R,R,20160831,US Open,R64,,,Hard,,3,1,KleineBiere
+20160829-W-US_Open-R128-Monica_Puig-Saisai_Zheng,Monica Puig,Saisai Zheng,R,R,20160829,US Open,R128,,P6/Old Grandstand,Hard,,3,1,Isaac
+20160128-W-Australian_Open-SF-Agnieszka_Radwanska-Serena_Williams,Agnieszka Radwanska,Serena Williams,R,R,20160128,Australian Open,SF,,Rod Laver Arena,Hard,,3,0,Isaac
+20160126-W-Australian_Open-QF-Serena_Williams-Maria_Sharapova,Serena Williams,Maria Sharapova,R,R,20160126,Australian Open,QF,1:00 PM,Rod Laver Arena,Hard,Alison Hughes,3,1,Lowell
+20160124-W-Australian_Open-R16-Serena_Williams-Margarita_Gasparyan,Serena Williams,Margarita Gasparyan,R,R,20160124,Australian Open,R16,,Rod Laver Arena,Hard,,3,0,Isaac
+20160123-W-Australian_Open-R32-Victoria_Azarenka-Naomi_Osaka,Victoria Azarenka,Naomi Osaka,R,R,20160123,Australian Open,R32,,,Hard,,3,1,Isaac
+20160123-W-Australian_Open-R16-Maria_Sharapova-Belinda_Bencic,Maria Sharapova,Belinda Bencic,R,R,20160123,Australian Open,R16,11:10 AM,Rod Laver Arena,Hard,Louise Engzell,3,0,Lowell
+20160122-W-Australian_Open-R32-Serena_Williams-Daria_Kasatkina,Serena Williams,Daria Kasatkina,R,R,20160122,Australian Open,R32,,,Hard,,3,1,Isaac
+20160122-W-Australian_Open-R32-Maria_Sharapova-Lauren_Davis,Maria Sharapova,Lauren Davis,R,R,20160122,Australian Open,R32,,,Hard,,3,0,Briton
+20160122-W-Australian_Open-R32-Kristina_Mladenovic-Daria_Saville,Kristina Mladenovic,Daria Saville,R,R,20160122,Australian Open,R32,,,Hard,,3,0,Isaac
+20160121-W-Australian_Open-R64-Danka_Kovinic-Victoria_Azarenka,Danka Kovinic,Victoria Azarenka,R,R,20160121,Australian Open,R64,,,Hard,,3,1,Isaac
+20160118-W-Australian_Open-R128-Carina_Witthoeft-Saisai_Zheng,Carina Witthoeft,Saisai Zheng,R,R,20160118,Australian Open,R128,,,Hard,James Keothavong,3,1,Isaac
+20160113-W-Australian_Open-Q1-Lin_Zhu-Elena_Vesnina,Lin Zhu,Elena Vesnina,R,R,20160113,Australian Open,Q1,,3,Hard,,3,0,Isaac
+20150912-W-US_Open-F-Roberta_Vinci-Flavia_Pennetta,Roberta Vinci,Flavia Pennetta,R,R,20150912,US Open,F,15:00:00,Arthur Ashe,Hard,Marija Cicak,3,1,Edo
+20150911-W-US_Open-SF-Serena_Williams-Roberta_Vinci,Serena Williams,Roberta Vinci,R,R,20150911,US Open,SF,,Arthur Ashe,Hard,,3,1,Amy
+20150909-W-US_Open-QF-Venus_Williams-Serena_Williams,Venus Williams,Serena Williams,R,R,20150909,US Open,QF,20:00:00,Arthur Ashe,Hard,Jake Garner,3,1,Edo
+20150906-W-US_Open-R16-Serena_Williams-Madison_Keys,Serena Williams,Madison Keys,R,R,20150906,US Open,R16,,,Hard,,3,1,Amy
+20150905-W-US_Open-R32-Angelique_Kerber-Victoria_Azarenka,Angelique Kerber,Victoria Azarenka,L,R,20150905,US Open,R32,,Arthur Ashe Stadium,Hard,,3,1,Lowell
+20150904-W-US_Open-R32-Venus_Williams-Belinda_Bencic,Venus Williams,Belinda Bencic,R,R,20150904,US Open,R32,,,Hard,,3,1,Isaac
+20150904-W-US_Open-R32-Dominika_Cibulkova-Eugenie_Bouchard,Dominika Cibulkova,Eugenie Bouchard,R,R,20150904,US Open,R32,3:45pm,Louis Armstrong,Hard,John Blom,3,1,@CanuckKicker
+20150904-W-US_Open-R32-Bethanie_Mattek_Sands-Serena_Williams,Bethanie Mattek Sands,Serena Williams,R,R,20150904,US Open,R32,,,Hard,,3,1,Amy
+20150903-W-US_Open-R64-Caroline_Wozniacki-Petra_Cetkovska,Caroline Wozniacki,Petra Cetkovska,R,R,20150903,US Open,R64,,Arthur Ashe Stadium,Hard,,3,1,Lowell
+20150902-W-US_Open-R64-Serena_Williams-Kiki_Bertens,Serena Williams,Kiki Bertens,R,R,20150902,US Open,R64,,,Hard,,3,1,Amy
+20150902-W-US_Open-R64-Mariana_Duque_Marino-Oceane_Dodin,Mariana Duque Marino,Oceane Dodin,R,R,20150902,US Open,R64,4:30 PM,Court 13,Hard,Carlos Ramos,3,1,Lowell
+20150902-W-US_Open-R64-Eugenie_Bouchard-Polona_Hercog,Eugenie Bouchard,Polona Hercog,R,R,20150902,US Open,R64,,Grandstand,Hard,,3,1,@CanuckKicker
+20150831-W-US_Open-R128-Serena_Williams-Vitalia_Diatchenko,Serena Williams,Vitalia Diatchenko,R,R,20150831,US Open,R128,,,Hard,,3,1,Amy
+20150831-W-US_Open-R128-Eugenie_Bouchard-Alison_Riske_Amritraj,Eugenie Bouchard,Alison Riske Amritraj,R,R,20150831,US Open,R128,4:35pm,Court 17,Hard,,3,1,@CanuckKicker
+20150831-W-US_Open-R128-Dominika_Cibulkova-Ana_Ivanovic,Dominika Cibulkova,Ana Ivanovic,R,R,20150831,US Open,R128,11:20 AM,Arthur Ashe,Hard,,3,1,Lowell
+20150831-W-US_Open-R128-Alison_Van_Uytvanck-Jessica_Pegula,Alison Van Uytvanck,Jessica Pegula,R,R,20150831,US Open,R128,,Court 7,Hard,,3,1,Lowell
+20150131-W-Australian_Open-F-Maria_Sharapova-Serena_Williams,Maria Sharapova,Serena Williams,R,R,20150131,Australian Open,F,7:45 PM,Rod Laver Arena,Hard,Alison Hughes,3,1,Lowell
+20150129-W-Australian_Open-SF-Maria_Sharapova-Kate_Makarova,Maria Sharapova,Kate Makarova,R,L,20150129,Australian Open,SF,1:40 PM,Rod Laver Arena,Hard,,3,0,Lowell
+20150127-W-Australian_Open-QF-Eugenie_Bouchard-Maria_Sharapova,Eugenie Bouchard,Maria Sharapova,R,R,20150127,Australian Open,QF,12:45 PM,Rod Laver Arena,Hard,,3,0,Lowell
+20150125-W-Australian_Open-R16-Madison_Brengle-Madison_Keys,Madison Brengle,Madison Keys,R,R,20150125,Australian Open,R16,,Margaret Court,Hard,,3,1,Isaac
+20150125-W-Australian_Open-R16-Eugenie_Bouchard-Irina_Camelia_Begu,Eugenie Bouchard,Irina Camelia Begu,R,R,20150125,Australian Open,R16,,Rod Laver Arena,Hard,,3,0,Lowell
+20150125-W-Australian_Open-R16-Agnieszka_Radwanska-Venus_Williams,Agnieszka Radwanska,Venus Williams,R,R,20150125,Australian Open,R16,6pm,Rod Laver Arena,Hard,Juan Zhang,3,0,Edo
+20150125-W-Australian_Open-QF-Dominika_Cibulkova-Serena_Williams,Dominika Cibulkova,Serena Williams,R,R,20150125,Australian Open,QF,,Rod Laver Arena,Hard,,3,1,Isaac
+20150124-W-Australian_Open-R32-Petra_Kvitova-Madison_Keys,Petra Kvitova,Madison Keys,L,R,20150124,Australian Open,R32,9:50 PM,Rod Laver Arena,Hard,Julie Kjendle,3,0,Lowell
+20150123-W-Australian_Open-R32-Zarina_Diyas-Maria_Sharapova,Zarina Diyas,Maria Sharapova,R,R,20150123,Australian Open,R32,,,Hard,,3,1,Isaac
+20150123-W-Australian_Open-R32-Eugenie_Bouchard-Caroline_Garcia,Eugenie Bouchard,Caroline Garcia,R,R,20150123,Australian Open,R32,,Rod Laver Arena,Hard,,3,1,Isaac
+20150122-W-Australian_Open-R64-Samantha_Stosur-Coco_Vandeweghe,Samantha Stosur,Coco Vandeweghe,R,R,20150122,Australian Open,R64,10:30 PM,Rod Laver Arena,Hard,,3,0,Lowell
+20150122-W-Australian_Open-R64-Daniela_Hantuchova-Garbine_Muguruza,Daniela Hantuchova,Garbine Muguruza,R,R,20150122,Australian Open,R64,11:00 AM,Court 6,Hard,,3,1,Lowell
+20150121-W-Australian_Open-R64-Eugenie_Bouchard-Kiki_Bertens,Eugenie Bouchard,Kiki Bertens,R,R,20150121,Australian Open,R64,,Margaret Court Arena,Hard,,3,0,Lowell
+20150121-W-Australian_Open-R64-Agnieszka_Radwanska-Johanna_Larsson,Agnieszka Radwanska,Johanna Larsson,R,R,20150121,Australian Open,R64,,Rod Laver,Hard,,3,0,Isaac
+20150120-W-Australian_Open-R128-Andrea_Petkovic-Madison_Brengle,Andrea Petkovic,Madison Brengle,R,R,20150120,Australian Open,R128,,Court 6,Hard,,3,1,Lowell
+20150120-W-Australian_Open-R128-Agnieszka_Radwanska-Kurumi_Nara,Agnieszka Radwanska,Kurumi Nara,R,R,20150120,Australian Open,R128,6:13 PM,Show Court 2,Hard,,3,0,Lowell
+20150119-W-Australian_Open-R128-Venus_Williams-Maria_Teresa_Torro_Flor,Venus Williams,Maria Teresa Torro Flor,R,R,20150119,Australian Open,R128,,Hisense Arena,Hard,,3,1,Isaac
+20150119-W-Australian_Open-R128-Sloane_Stephens-Victoria_Azarenka,Sloane Stephens,Victoria Azarenka,R,R,20150119,Australian Open,R128,,Hisense Arena,Hard,,3,1,Isaac
+20150119-W-Australian_Open-R128-Monica_Puig-Arina_Rodionova,Monica Puig,Arina Rodionova,R,R,20150119,Australian Open,R128,,Show Court 2,Hard,,3,0,Lowell
+20150119-W-Australian_Open-R128-Magdalena_Rybarikova-Ana_Konjuh,Magdalena Rybarikova,Ana Konjuh,R,R,20150119,Australian Open,R128,11:15 AM,Court 10,Hard,,3,0,Lowell
+20150119-W-Australian_Open-R128-Julia_Goerges-Belinda_Bencic,Julia Goerges,Belinda Bencic,R,R,20150119,Australian Open,R128,11:00 AM,Hisense Arena,Hard,,3,0,Lowell
+20150119-W-Australian_Open-R128-Carina_Witthoeft-Carla_Suarez_Navarro,Carina Witthoeft,Carla Suarez Navarro,R,R,20150119,Australian Open,R128,,Court 11,Hard,,3,1,Lowell
+20140907-W-US_Open-F-Serena_Williams-Caroline_Wozniacki,Serena Williams,Caroline Wozniacki,R,R,20140907,US Open,F,,Arthur Ashe Stadium,Hard,,3,1,Lowell
+20140903-W-US_Open-QF-Serena_Williams-Flavia_Pennetta,Serena Williams,Flavia Pennetta,R,R,20140903,US Open,QF,8:20 PM,Arthur Ashe,Hard,,3,1,Lowell
+20140902-W-US_Open-QF-Caroline_Wozniacki-Sara_Errani,Caroline Wozniacki,Sara Errani,R,R,20140902,US Open,QF,,,Hard,,3,1,KleineBiere
+20140901-W-US_Open-R16-Eugenie_Bouchard-Kate_Makarova,Eugenie Bouchard,Kate Makarova,R,L,20140901,US Open,R16,,Louis Armstrong,Hard,Tamara Vrhovec,3,1,Lowell
+20140831-W-US_Open-R32-Caroline_Wozniacki-Maria_Sharapova,Caroline Wozniacki,Maria Sharapova,R,R,20140831,US Open,R32,,Ashe,Hard,,3,1,Jim Albert
+20140831-W-US_Open-R16-Belinda_Bencic-Jelena_Jankovic,Belinda Bencic,Jelena Jankovic,R,R,20140831,US Open,R16,9:00 PM,Arthur Ashe Stadium,Hard,Leanne White,3,1,Lowell
+20140830-W-US_Open-R64-Ana_Ivanovic-Karolina_Pliskova,Ana Ivanovic,Karolina Pliskova,R,R,20140830,US Open,R64,,,Hard,,3,1,Isaac
+20140829-W-US_Open-R32-Venus_Williams-Sara_Errani,Venus Williams,Sara Errani,R,R,20140829,US Open,R32,,Ashe,Hard,Alison Hughes,3,1,Roger
+20140828-W-US_Open-R64-Zarina_Diyas-Catherine_Cartan_Bellis,Zarina Diyas,Catherine Cartan Bellis,R,R,20140828,US Open,R64,,Court 17,Hard,Leanne White,3,1,Lowell
+20140125-W-Australian_Open-F-Dominika_Cibulkova-Na_Li,Dominika Cibulkova,Na Li,R,R,20140125,Australian Open,F,,Rod Laver Arena,Hard,,3,1,Lowell
+20140119-W-Australian_Open-R16-Serena_Williams-Ana_Ivanovic,Serena Williams,Ana Ivanovic,R,R,20140119,Australian Open,R16,,Rod Laver Arena,Hard,,3,0,Amy
+20140119-W-Australian_Open-R16-Agnieszka_Radwanska-Garbine_Muguruza,Agnieszka Radwanska,Garbine Muguruza,R,R,20140119,Australian Open,R16,,,Hard,,3,1,Isaac
+20140118-W-Australian_Open-R32-Maria_Sharapova-Alize_Cornet,Maria Sharapova,Alize Cornet,R,R,20140118,Australian Open,R32,11:00 AM,Rod Laver Arena,Hard,Felix Torralba,3,1,Amy
+20140117-W-Australian_Open-R32-Serena_Williams-Daniela_Hantuchova,Serena Williams,Daniela Hantuchova,R,R,20140117,Australian Open,R32,11:00 AM,Rod Laver Arena,Hard,,3,0,Amy
+20140114-W-Australian_Open-R128-Caroline_Wozniacki-Lourdes_Dominguez_Lino,Caroline Wozniacki,Lourdes Dominguez Lino,R,R,20140114,Australian Open,R128,11:00 AM,,Hard,Juan Zhang,3,0,KleineBiere
+20140113-W-Australian_Open-R64-Alla_Kudryavtseva-Angelique_Kerber,Alla Kudryavtseva,Angelique Kerber,R,L,20140113,Australian Open,R64,,,Hard,,3,1,Amy
+20140113-W-Australian_Open-R128-Venus_Williams-Kate_Makarova,Venus Williams,Kate Makarova,R,L,20140113,Australian Open,R128,11:00 AM,Margaret Court Arena,Hard,,3,0,Amy
+20140113-W-Australian_Open-R128-Ana_Konjuh-Na_Li,Ana Konjuh,Na Li,R,R,20140113,Australian Open,R128,,Hisense,Hard,,3,1,Lowell
+20130826-W-US_Open-R128-Ying_Ying_Duan-Caroline_Wozniacki,Ying Ying Duan,Caroline Wozniacki,R,R,20130826,US Open,R128,,,Hard,,3,1,Amy
+20130826-W-US_Open-R128-Eugenie_Bouchard-Karolina_Pliskova,Eugenie Bouchard,Karolina Pliskova,R,R,20130826,US Open,R128,,Court 13,Hard,,3,1,Lowell
+20130826-W-US_Open-R128-Agnieszka_Radwanska-Silvia_Soler_Espinosa,Agnieszka Radwanska,Silvia Soler Espinosa,R,R,20130826,US Open,R128,,,Hard,,3,1,Isaac
+20130124-W-Australian_Open-SF-Sloane_Stephens-Victoria_Azarenka,Sloane Stephens,Victoria Azarenka,R,R,20130124,Australian Open,SF,,,Hard,,3,1,Amy
+20130123-W-Australian_Open-QF-Svetlana_Kuznetsova-Victoria_Azarenka,Svetlana Kuznetsova,Victoria Azarenka,R,R,20130123,Australian Open,QF,,,Hard,,3,1,Amy
+20130120-W-Australian_Open-R16-Serena_Williams-Maria_Kirilenko,Serena Williams,Maria Kirilenko,R,R,20130120,Australian Open,R16,,,Hard,,3,0,Isaac
+20130120-W-Australian_Open-R16-Elena_Vesnina-Victoria_Azarenka,Elena Vesnina,Victoria Azarenka,R,R,20130120,Australian Open,R16,,,Hard,Fergus Murphy,3,1,Amy
+20130120-W-Australian_Open-R16-Ana_Ivanovic-Agnieszka_Radwanska,Ana Ivanovic,Agnieszka Radwanska,R,R,20130120,Australian Open,R16,,,Hard,,3,1,Isaac
+20130119-W-Australian_Open-R32-Caroline_Wozniacki-Lesia_Tsurenko,Caroline Wozniacki,Lesia Tsurenko,R,R,20130119,Australian Open,R32,5:30 PM,Hisense Arena,Hard,,3,0,KleineBiere
+20130118-W-Australian_Open-R32-Victoria_Azarenka-Jamie_Hampton,Victoria Azarenka,Jamie Hampton,R,R,20130118,Australian Open,R32,,,Hard,,3,1,Amy
+20130118-W-Australian_Open-R32-Venus_Williams-Maria_Sharapova,Venus Williams,Maria Sharapova,R,R,20130118,Australian Open,R32,,,Hard,,3,0,Isaac
+20130117-W-Australian_Open-R64-Victoria_Azarenka-Eleni_Daniilidou,Victoria Azarenka,Eleni Daniilidou,R,R,20130117,Australian Open,R64,,,Hard,Carlos Ramos,3,1,Amy
+20130117-W-Australian_Open-R64-Laura_Robson-Petra_Kvitova,Laura Robson,Petra Kvitova,L,L,20130117,Australian Open,R64,9:30 PM,Rod Laver Arena,Hard,,3,0,Lowell
+20130117-W-Australian_Open-R64-Garbine_Muguruza-Serena_Williams,Garbine Muguruza,Serena Williams,R,R,20130117,Australian Open,R64,,Laver,Hard,,3,0,Isaac
+20130117-W-Australian_Open-R32-Jelena_Jankovic-Ana_Ivanovic,Jelena Jankovic,Ana Ivanovic,R,R,20130117,Australian Open,R32,,,Hard,,3,0,Isaac
+20130116-W-Australian_Open-R64-Julia_Goerges-Romina_Oprandi,Julia Goerges,Romina Oprandi,R,R,20130116,Australian Open,R64,,,Hard,,3,1,Isaac
+20130115-W-Australian_Open-R128-Victoria_Azarenka-Monica_Niculescu,Victoria Azarenka,Monica Niculescu,R,R,20130115,Australian Open,R128,,,Hard,,3,1,Amy
+20130115-W-Australian_Open-R128-Nadia_Petrova-Kimiko_Date_Krumm,Nadia Petrova,Kimiko Date Krumm,R,R,20130115,Australian Open,R128,11:10,6,Hard,Zsolt Beda,3,0,1HandBH
+20120907-W-US_Open-SF-Serena_Williams-Sara_Errani,Serena Williams,Sara Errani,R,R,20120907,US Open,SF,,Arthur Ashe Stadium,Hard,Marija Cicak,3,1,Salvo
+20120902-W-US_Open-R16-Andrea_Hlavackova-Serena_Williams,Andrea Hlavackova,Serena Williams,R,R,20120902,US Open,R16,,Arthur Ashe Stadium,Hard,,3,1,Isaac
+20120829-W-US_Open-R64-Maria_Sharapova-Lourdes_Dominguez_Lino,Maria Sharapova,Lourdes Dominguez Lino,R,R,20120829,US Open,R64,,,Hard,,3,1,Isaac
+20120828-W-US_Open-R128-Venus_Williams-Bethanie_Mattek_Sands,Venus Williams,Bethanie Mattek Sands,R,R,20120828,US Open,R128,,,Hard,,3,1,alexstrout
+20120128-W-Australian_Open-F-Victoria_Azarenka-Maria_Sharapova,Victoria Azarenka,Maria Sharapova,R,R,20120128,Australian Open,F,,Rod Laver Arena,Hard,Kerrilyn Cramer,3,0,Palaver
+20120126-W-Australian_Open-SF-Petra_Kvitova-Maria_Sharapova,Petra Kvitova,Maria Sharapova,L,R,20120126,Australian Open,SF,5pm,Rod Laver Arena,Hard,Enric Molina,3,0,Edo
+20120124-W-Australian_Open-QF-Caroline_Wozniacki-Kim_Clijsters,Caroline Wozniacki,Kim Clijsters,R,R,20120124,Australian Open,QF,,Rod Laver Arena,Hard,,3,0,chsv
+20120122-W-Australian_Open-R16-Kim_Clijsters-Na_Li,Kim Clijsters,Na Li,R,R,20120122,Australian Open,R16,,Rod Laver Arena,Hard,Carlos Ramos,3,0,ojustino
+20120122-W-Australian_Open-R16-Jelena_Jankovic-Caroline_Wozniacki,Jelena Jankovic,Caroline Wozniacki,R,R,20120122,Australian Open,R16,9:15 PM,Rod Laver Arena,Hard,Marija Cicak,3,0,KleineBiere
+20120120-W-Australian_Open-R32-Caroline_Wozniacki-Monica_Niculescu,Caroline Wozniacki,Monica Niculescu,R,R,20120120,Australian Open,R32,1:00 PM,,Hard,Emmanuel Joseph,3,0,KleineBiere
+20120120-W-Australian_Open-R32-Angelique_Kerber-Maria_Sharapova,Angelique Kerber,Maria Sharapova,L,R,20120120,Australian Open,R32,,,Hard,,3,1,Isaac
+20120116-W-Australian_Open-R128-Na_Li-Ksenia_Pervak,Na Li,Ksenia Pervak,R,L,20120116,Australian Open,R128,,Hisense Arena,Hard,,3,0,Isaac
+20120116-W-Australian_Open-R128-Caroline_Wozniacki-Anastasia_Rodionova,Caroline Wozniacki,Anastasia Rodionova,R,R,20120116,Australian Open,R128,9:45 PM,Rod Laver Arena,Hard,Louise Engzell,3,0,KleineBiere
+20110910-W-US_Open-SF-Samantha_Stosur-Angelique_Kerber,Samantha Stosur,Angelique Kerber,R,L,20110910,US Open,SF,18:20,Grandstand,Hard,Lynn Welch,3,1,tsitsi
+20110910-W-US_Open-F-Serena_Williams-Samantha_Stosur,Serena Williams,Samantha Stosur,R,R,20110910,US Open,F,,,Hard,Eva Asderaki,3,1,Amy
+20110127-W-Australian_Open-SF-Caroline_Wozniacki-Na_Li,Caroline Wozniacki,Na Li,R,R,20110127,Australian Open,SF,,,Hard,,3,0,Isaac
+20110126-W-Australian_Open-QF-Agnieszka_Radwanska-Kim_Clijsters,Agnieszka Radwanska,Kim Clijsters,R,R,20110126,Australian Open,QF,,Rod Laver Arena,Hard,Kader Nouni,3,1,chsv
+20110125-W-Australian_Open-QF-Francesca_Schiavone-Caroline_Wozniacki,Francesca Schiavone,Caroline Wozniacki,R,R,20110125,Australian Open,QF,3:00 PM,,Hard,Eva Asderaki,3,0,KleineBiere
+20110123-W-Australian_Open-R16-Francesca_Schiavone-Svetlana_Kuznetsova,Francesca Schiavone,Svetlana Kuznetsova,R,R,20110123,Australian Open,R16,15:22,Hisense Arena,Hard,Enric Molina,3,0,1HandBH
+20110123-W-Australian_Open-R16-Caroline_Wozniacki-Anastasija_Sevastova,Caroline Wozniacki,Anastasija Sevastova,R,R,20110123,Australian Open,R16,11:00 AM,,Hard,Kerrilyn Cramer,3,0,KleineBiere
+20110123-W-Australian_Open-R16-Andrea_Petkovic-Maria_Sharapova,Andrea Petkovic,Maria Sharapova,R,R,20110123,Australian Open,R16,,,Hard,,3,1,Isaac
+20110121-W-Australian_Open-R32-Caroline_Wozniacki-Dominika_Cibulkova,Caroline Wozniacki,Dominika Cibulkova,R,R,20110121,Australian Open,R32,11:00 AM,,Hard,Lynn Welch,3,0,KleineBiere
+20110119-W-Australian_Open-R64-Vania_King-Caroline_Wozniacki,Vania King,Caroline Wozniacki,R,R,20110119,Australian Open,R64,11:00 AM,,Hard,Louise Engzell,3,0,KleineBiere
+20110117-W-Australian_Open-R128-Caroline_Wozniacki-Gisela_Dulko,Caroline Wozniacki,Gisela Dulko,R,R,20110117,Australian Open,R128,12:45 PM,,Hard,Eva Asderaki,3,0,KleineBiere
+20100906-W-US_Open-R16-Caroline_Wozniacki-Maria_Sharapova,Caroline Wozniacki,Maria Sharapova,R,R,20100906,US Open,R16,,,Hard,,3,1,KleineBiere
+20100902-W-US_Open-R64-Kim_Clijsters-Sally_Peers,Kim Clijsters,Sally Peers,R,R,20100902,US Open,R64,,,Hard,,3,1,chsv
+20100902-W-US_Open-R64-Andrea_Petkovic-Bethanie_Mattek_Sands,Andrea Petkovic,Bethanie Mattek Sands,R,R,20100902,US Open,R64,17:45,Grandstand,Hard,Yvette Kahn,3,1,1HandBH
+20100130-W-Australian_Open-F-Serena_Williams-Justine_Henin,Serena Williams,Justine Henin,R,R,20100130,Australian Open,F,8:00 PM,Rod Laver Arena,Hard,Caroline Kramer,3,0,Edo
+20100128-W-Australian_Open-SF-Na_Li-Serena_Williams,Na Li,Serena Williams,R,R,20100128,Australian Open,SF,,,Hard,,3,0,Isaac
+20100127-W-Australian_Open-QF-Serena_Williams-Victoria_Azarenka,Serena Williams,Victoria Azarenka,R,R,20100127,Australian Open,QF,,Rod Laver Arena,Hard,Eva Asderaki,3,0,ojustino
+20100122-W-Australian_Open-R32-Nadia_Petrova-Kim_Clijsters,Nadia Petrova,Kim Clijsters,R,R,20100122,Australian Open,R32,,Hisense Arena,Hard,Lynn Welch,3,1,Isaac
+20100118-W-Australian_Open-R128-Maria_Kirilenko-Maria_Sharapova,Maria Kirilenko,Maria Sharapova,R,R,20100118,Australian Open,R128,,Rod Laver Arena,Hard,,3,0,Isaac
+20090912-W-US_Open-SF-Kim_Clijsters-Serena_Williams,Kim Clijsters,Serena Williams,R,R,20090912,US Open,SF,21:21,Arthur Ashe Stadium,Hard,Louise Engzell,3,1,1HandBH
+20090908-W-US_Open-QF-Na_Li-Kim_Clijsters,Na Li,Kim Clijsters,R,R,20090908,US Open,QF,,Arthur Ashe Stadium,Hard,Kader Nouni,3,0,chsv
+20090907-W-US_Open-R16-Svetlana_Kuznetsova-Caroline_Wozniacki,Svetlana Kuznetsova,Caroline Wozniacki,R,R,20090907,US Open,R16,7:15 PM,Arthur Ashe,Hard,Mariana Alves,3,1,KleineBiere
+20090906-W-US_Open-R16-Flavia_Pennetta-Vera_Zvonareva,Flavia Pennetta,Vera Zvonareva,R,R,20090906,US Open,R16,,Arthur Ashe Stadium,Hard,Lynn Welch,3,1,Salvo
+20090131-W-Australian_Open-F-Serena_Williams-Dinara_Safina,Serena Williams,Dinara Safina,R,R,20090131,Australian Open,F,8:00 PM,Centre,Hard,,3,0,Edo
+20090128-W-Australian_Open-QF-Carla_Suarez_Navarro-Elena_Dementieva,Carla Suarez Navarro,Elena Dementieva,R,R,20090128,Australian Open,QF,,,Hard,Kader Nouni,3,1,chsv
+20090126-W-Australian_Open-R16-Dominika_Cibulkova-Elena_Dementieva,Dominika Cibulkova,Elena Dementieva,R,R,20090126,Australian Open,R16,,,Hard,,3,0,chsv
+20090125-W-Australian_Open-R16-Jelena_Dokic-Alisa_Kleybanova,Jelena Dokic,Alisa Kleybanova,R,R,20090125,Australian Open,R16,,,Hard,,3,0,Isaac
+20090124-W-Australian_Open-R32-Samantha_Stosur-Elena_Dementieva,Samantha Stosur,Elena Dementieva,R,R,20090124,Australian Open,R32,,,Hard,,3,0,chsv
+20090119-W-Australian_Open-R128-Ana_Ivanovic-Julia_Goerges,Ana Ivanovic,Julia Goerges,R,R,20090119,Australian Open,R128,,Hisense Arena,Hard,,3,0,Isaac
+20080903-W-US_Open-QF-Serena_Williams-Venus_Williams,Serena Williams,Venus Williams,R,R,20080903,US Open,QF,,Arthur Ashe Stadium,Hard,Kader Nouni,3,1,ojustino
+20080806-W-US_Open-F-Serena_Williams-Jelena_Jankovic,Serena Williams,Jelena Jankovic,R,R,20080806,US Open,F,,Arthur Ashe Stadium,Hard,,3,1,Palaver
+20080126-W-Australian_Open-F-Ana_Ivanovic-Maria_Sharapova,Ana Ivanovic,Maria Sharapova,R,R,20080126,Australian Open,F,,Rod Laver Arena,Hard,,3,0,Palaver
+20080124-W-Australian_Open-SF-Maria_Sharapova-Jelena_Jankovic,Maria Sharapova,Jelena Jankovic,R,R,20080124,Australian Open,SF,,,Hard,Eva Asderaki,3,0,Isaac
+20080124-W-Australian_Open-SF-Ana_Ivanovic-Daniela_Hantuchova,Ana Ivanovic,Daniela Hantuchova,R,R,20080124,Australian Open,SF,,Rod Laver Arena,Hard,Alison Lang,3,0,MaGav
+20080123-W-Australian_Open-QF-Daniela_Hantuchova-Agnieszka_Radwanska,Daniela Hantuchova,Agnieszka Radwanska,R,R,20080123,Australian Open,QF,,,Hard,,3,0,chsv
+20080122-W-Australian_Open-QF-Maria_Sharapova-Justine_Henin,Maria Sharapova,Justine Henin,R,R,20080122,Australian Open,QF,,,Hard,,3,0,chsv
+20080120-W-Australian_Open-R16-Maria_Sharapova-Elena_Dementieva,Maria Sharapova,Elena Dementieva,R,R,20080120,Australian Open,R16,,,Hard,,3,0,chsv
+20080120-W-Australian_Open-R16-Caroline_Wozniacki-Ana_Ivanovic,Caroline Wozniacki,Ana Ivanovic,R,R,20080120,Australian Open,R16,,,Hard,,3,0,Isaac
+20080116-W-Australian_Open-R64-Olga_Puchkova-Justine_Henin,Olga Puchkova,Justine Henin,R,R,20080116,Australian Open,R64,,,Hard,,3,0,Isaac
+20070908-W-US_Open-F-Svetlana_Kuznetsova-Justine_Henin,Svetlana Kuznetsova,Justine Henin,R,R,20070908,US Open,F,,,Hard,,3,1,Amy
+20070907-W-US_Open-SF-Venus_Williams-Justine_Henin,Venus Williams,Justine Henin,R,R,20070907,US Open,SF,4:00pm,Arthur Ashe,Hard,,3,1,Rhian
+20070904-W-US_Open-QF-Serena_Williams-Justine_Henin,Serena Williams,Justine Henin,R,R,20070904,US Open,QF,,,Hard,,3,1,chsv
+20070902-W-US_Open-R16-Dinara_Safina-Justine_Henin,Dinara Safina,Justine Henin,R,R,20070902,US Open,R16,,,Hard,,3,1,Isaac
+20070901-W-US_Open-R32-Agnieszka_Radwanska-Maria_Sharapova,Agnieszka Radwanska,Maria Sharapova,R,R,20070901,US Open,R32,,Arthur Ashe,Hard,,3,1,Sumit
+20070831-W-US_Open-R32-Justine_Henin-Kate_Makarova,Justine Henin,Kate Makarova,R,L,20070831,US Open,R32,,,Hard,,3,1,Isaac
+20070829-W-US_Open-R64-Tsvetana_Pironkova-Justine_Henin,Tsvetana Pironkova,Justine Henin,R,R,20070829,US Open,R64,,Louis Armstrong Stadium,Hard,,3,1,Isaac
+20070127-W-Australian_Open-F-Serena_Williams-Maria_Sharapova,Serena Williams,Maria Sharapova,R,R,20070127,Australian Open,F,8:00 PM,Rod Laver Arena,Hard,,3,0,Edo
+20070124-W-Australian_Open-QF-Kim_Clijsters-Martina_Hingis,Kim Clijsters,Martina Hingis,R,R,20070124,Australian Open,QF,,,Hard,,3,0,chsv
+20070117-W-Australian_Open-R64-Martina_Hingis-Alla_Kudryavtseva,Martina Hingis,Alla Kudryavtseva,R,R,20070117,Australian Open,R64,,Vodafone Arena,Hard,,3,1,Isaac
+20070116-W-Australian_Open-R128-Martina_Hingis-Nathalie_Dechy,Martina Hingis,Nathalie Dechy,R,R,20070116,Australian Open,R128,,,Hard,,3,0,Isaac
+20060908-W-US_Open-SF-Amelie_Mauresmo-Maria_Sharapova,Amelie Mauresmo,Maria Sharapova,R,R,20060908,US Open,SF,,Ashe,Hard,Alison Lang,3,1,MaGav
+20060905-W-US_Open-QF-Tatiana_Golovin-Maria_Sharapova,Tatiana Golovin,Maria Sharapova,R,R,20060905,US Open,QF,,,Hard,,3,1,chsv
+20060903-W-US_Open-R16-Justine_Henin-Shahar_Peer,Justine Henin,Shahar Peer,R,R,20060903,US Open,R16,,,Hard,,3,1,Isaac
+20060828-W-US_Open-R128-Michaella_Krajicek-Maria_Sharapova,Michaella Krajicek,Maria Sharapova,R,R,20060828,US Open,R128,,,Hard,,3,1,chsv
+20060128-W-Australian_Open-F-Amelie_Mauresmo-Justine_Henin,Amelie Mauresmo,Justine Henin,R,R,20060128,Australian Open,F,8:00 PM,Rod Laver Arena,Hard,,3,0,Edo
+20060125-W-Australian_Open-QF-Kim_Clijsters-Martina_Hingis,Kim Clijsters,Martina Hingis,R,R,20060125,Australian Open,QF,,,Hard,,3,0,Isaac
+20060122-W-Australian_Open-R16-Daniela_Hantuchova-Maria_Sharapova,Daniela Hantuchova,Maria Sharapova,R,R,20060122,Australian Open,R16,,,Hard,Sandra De Jenkin,3,0,chsv
+20060120-W-Australian_Open-R32-Serena_Williams-Daniela_Hantuchova,Serena Williams,Daniela Hantuchova,R,R,20060120,Australian Open,R32,,,Hard,,3,1,chsv
+20050911-W-US_Open-F-Mary_Pierce-Kim_Clijsters,Mary Pierce,Kim Clijsters,R,R,20050911,US Open,F,8:00 PM,Ashe,Hard,Lynn Welch,3,1,Edo
+20050908-W-US_Open-SF-Mary_Pierce-Elena_Dementieva,Mary Pierce,Elena Dementieva,R,R,20050908,US Open,SF,,Arthur Ashe Stadium,Hard,,3,1,cefperry
+20050907-W-US_Open-QF-Venus_Williams-Kim_Clijsters,Venus Williams,Kim Clijsters,R,R,20050907,US Open,QF,,Ashe,Hard,Christina Olausson,3,1,chsv
+20050907-W-US_Open-QF-Mary_Pierce-Amelie_Mauresmo,Mary Pierce,Amelie Mauresmo,R,R,20050907,US Open,QF,,,Hard,,3,0,chsv
+20050907-W-US_Open-QF-Maria_Sharapova-Nadia_Petrova,Maria Sharapova,Nadia Petrova,R,R,20050907,US Open,QF,,,Hard,,3,1,chsv
+20050906-W-US_Open-QF-Lindsay_Davenport-Elena_Dementieva,Lindsay Davenport,Elena Dementieva,R,R,20050906,US Open,QF,,Ashe,Hard,Enric Molina,3,1,chsv
+20050905-W-US_Open-R16-Mary_Pierce-Justine_Henin,Mary Pierce,Justine Henin,R,R,20050905,US Open,R16,,,Hard,,3,1,chsv
+20050904-W-US_Open-R16-Serena_Williams-Venus_Williams,Serena Williams,Venus Williams,R,R,20050904,US Open,R16,,Arthur Ashe Stadium,Hard,Lynn Welch,3,1,ojustino
+20050904-W-US_Open-R16-Maria_Sharapova-Sania_Mirza,Maria Sharapova,Sania Mirza,R,R,20050904,US Open,R16,,,Hard,,3,0,chsv
+20050830-W-US_Open-R128-Maria_Sharapova-Eleni_Daniilidou,Maria Sharapova,Eleni Daniilidou,R,R,20050830,US Open,R128,,,Hard,,3,1,chsv
+20050129-W-Australian_Open-F-Serena_Williams-Lindsay_Davenport,Serena Williams,Lindsay Davenport,R,R,20050129,Australian Open,F,8:00 PM,Rod Laver Arena,Hard,Alison Lang,3,0,Edo
+20050127-W-Australian_Open-SF-Serena_Williams-Maria_Sharapova,Serena Williams,Maria Sharapova,R,R,20050127,Australian Open,SF,13:45,Rod Laver Arena,Hard,Sandra De Jenken,3,0,Palaver
+20050117-W-Australian_Open-R64-Tzipi_Obziler-Anastasia_Myskina,Tzipi Obziler,Anastasia Myskina,R,R,20050117,Australian Open,R64,,,Hard,,3,0,chsv
+20040907-W-US_Open-QF-Elena_Dementieva-Amelie_Mauresmo,Elena Dementieva,Amelie Mauresmo,R,R,20040907,US Open,QF,,,Hard,,3,1,chsv
+20040131-W-Australian_Open-F-Kim_Clijsters-Justine_Henin,Kim Clijsters,Justine Henin,R,R,20040131,Australian Open,F,,Rod Laver Arena,Hard,,3,0,Edo
+20030906-W-US_Open-SF-Kim_Clijsters-Lindsay_Davenport,Kim Clijsters,Lindsay Davenport,R,R,20030906,US Open,SF,,Ashe,Hard,,3,1,chsv
+20030906-W-US_Open-F-Kim_Clijsters-Justine_Henin,Kim Clijsters,Justine Henin,R,R,20030906,US Open,F,8:00 PM,Ashe,Hard,Lynn Welch,3,1,Edo
+20030826-W-US_Open-R128-Maria_Sharapova-Virginia_Ruano_Pascual,Maria Sharapova,Virginia Ruano Pascual,R,R,20030826,US Open,R128,,,Hard,,3,1,chsv
+20030825-W-US_Open-R128-Kim_Clijsters-Amber_Liu,Kim Clijsters,Amber Liu,R,R,20030825,US Open,R128,,,Hard,,3,1,chsv
+20030125-W-Australian_Open-F-Serena_Williams-Venus_Williams,Serena Williams,Venus Williams,R,R,20030125,Australian Open,F,8:00 PM,Rod Laver Arena,Hard,,3,0,Edo
+20030122-W-Australian_Open-QF-Anastasia_Myskina-Kim_Clijsters,Anastasia Myskina,Kim Clijsters,R,R,20030122,Australian Open,QF,,,Hard,,3,0,chsv
+20030119-W-Australian_Open-R16-Justine_Henin-Lindsay_Davenport,Justine Henin,Lindsay Davenport,R,R,20030119,Australian Open,R16,,,Hard,,3,0,chsv
+20020828-W-US_Open-R64-Elena_Bovina-Jelena_Dokic,Elena Bovina,Jelena Dokic,R,R,20020828,US Open,R64,,,Hard,,3,1,chsv
+20020126-W-Australian_Open-F-Martina_Hingis-Jennifer_Capriati,Martina Hingis,Jennifer Capriati,R,R,20020126,Australian Open,F,,Rod Laver Arena,Hard,,3,0,Lowell
+20010908-W-US_Open-F-Serena_Williams-Venus_Williams,Serena Williams,Venus Williams,R,R,20010908,US Open,F,8:00 PM,Ashe,Hard,Lassere-Ullrich,3,1,Edo
+20010127-W-Australian_Open-F-Martina_Hingis-Jennifer_Capriati,Martina Hingis,Jennifer Capriati,R,R,20010127,Australian Open,F,3:00 PM,Rod Laver Arena,Hard,,3,0,Edo
+20010124-W-Australian_Open-QF-Serena_Williams-Martina_Hingis,Serena Williams,Martina Hingis,R,R,20010124,Australian Open,QF,,Rod Laver Arena,Hard,Leanne White,3,0,ojustino
+20000906-W-US_Open-QF-Serena_Williams-Lindsay_Davenport,Serena Williams,Lindsay Davenport,R,R,20000906,US Open,QF,,Arthur Ashe Stadium,Hard,Dessie Samuels,3,1,ojustino
+20000905-W-US_Open-QF-Martina_Hingis-Monica_Seles,Martina Hingis,Monica Seles,R,L,20000905,US Open,QF,,,Hard,,3,1,Isaac
+20000902-W-US_Open-F-Venus_Williams-Lindsay_Davenport,Venus Williams,Lindsay Davenport,R,R,20000902,US Open,F,8:00 PM,Ashe,Hard,Lynne Welch,3,1,Edo
+20000129-W-Australian_Open-F-Martina_Hingis-Lindsay_Davenport,Martina Hingis,Lindsay Davenport,R,R,20000129,Australian Open,F,3:00 PM,Rod Laver Arena,Hard,,3,0,Edo
+20000117-W-Australian_Open-R64-Martina_Hingis-Justine_Henin,Martina Hingis,Justine Henin,R,R,20000117,Australian Open,R64,,,Hard,,3,1,Isaac
+19990909-W-US_Open-SF-Serena_Williams-Lindsay_Davenport,Serena Williams,Lindsay Davenport,R,R,19990909,US Open,SF,,Arthur Ashe Stadium,Hard,Lynn Welch,3,1,tsitsi
+19990130-W-Australian_Open-F-Amelie_Mauresmo-Martina_Hingis,Amelie Mauresmo,Martina Hingis,R,R,19990130,Australian Open,F,3:00 PM,Rod Laver Arena,Hard,,3,0,Edo
+19990128-W-Australian_Open-SF-Amelie_Mauresmo-Lindsay_Davenport,Amelie Mauresmo,Lindsay Davenport,R,R,19990128,Australian Open,SF,,Centre,Hard,Fiona Edwards,3,0,tsitsi
+19990127-W-Australian_Open-QF-Monica_Seles-Steffi_Graf,Monica Seles,Steffi Graf,L,R,19990127,Australian Open,QF,,,Hard,Laura Ceccarelli,3,1,Isaac
+19990127-W-Australian_Open-QF-Martina_Hingis-Mary_Pierce,Martina Hingis,Mary Pierce,R,R,19990127,Australian Open,QF,,,Hard,,3,1,Isaac
+19980912-W-US_Open-F-Martina_Hingis-Lindsay_Davenport,Martina Hingis,Lindsay Davenport,R,R,19980912,US Open,F,1pm,Ashe,Hard,Dessie Samuels,3,1,Edo
+19980910-W-US_Open-SF-Martina_Hingis-Jana_Novotna,Martina Hingis,Jana Novotna,R,R,19980910,US Open,SF,1pm,Ashe,Hard,Missy Maloot,3,1,Edo
+19980131-W-Australian_Open-F-Martina_Hingis-Conchita_Martinez,Martina Hingis,Conchita Martinez,R,R,19980131,Australian Open,F,3:00 PM,Rod Laver Arena,Hard,,3,0,Edo
+19980127-W-Australian_Open-QF-Venus_Williams-Lindsay_Davenport,Venus Williams,Lindsay Davenport,R,R,19980127,Australian Open,QF,,,Hard,,3,0,chsv
+19980121-W-Australian_Open-R64-Serena_Williams-Venus_Williams,Serena Williams,Venus Williams,R,R,19980121,Australian Open,R64,,Centre,Hard,Jane Harvey,3,0,ojustino
+19970906-W-US_Open-SF-Martina_Hingis-Lindsay_Davenport,Martina Hingis,Lindsay Davenport,R,R,19970906,US Open,SF,1pm,Ashe,Hard,,3,1,Edo
+19970906-W-US_Open-F-Venus_Williams-Martina_Hingis,Venus Williams,Martina Hingis,R,R,19970906,US Open,F,3:00 PM,Ashe,Hard,Alison Lang,3,1,Edo
+19970125-W-Australian_Open-F-Martina_Hingis-Mary_Pierce,Martina Hingis,Mary Pierce,R,R,19970125,Australian Open,F,,,Hard,,3,1,Isaac
+19970123-W-Australian_Open-SF-Mary_Pierce-Amanda_Coetzer,Mary Pierce,Amanda Coetzer,R,R,19970123,Australian Open,SF,,Centre,Hard,,3,0,ojustino
+19960907-W-US_Open-F-Monica_Seles-Steffi_Graf,Monica Seles,Steffi Graf,L,R,19960907,US Open,F,2:00 PM,Ashe,Hard,Missy Malool,3,1,Edo
+19960127-W-Australian_Open-F-Monica_Seles-Anke_Huber,Monica Seles,Anke Huber,L,R,19960127,Australian Open,F,,Rod Laver Arena,Hard,White,3,0,Edo
+19960125-W-Australian_Open-SF-Chanda_Rubin-Monica_Seles,Chanda Rubin,Monica Seles,R,L,19960125,Australian Open,SF,,Centre,Hard,,3,0,MaGav
+19950909-W-US_Open-F-Monica_Seles-Steffi_Graf,Monica Seles,Steffi Graf,L,R,19950909,US Open,F,,Center,Hard,Richard Kaufman,3,1,Isaac
+19950905-W-US_Open-QF-Monica_Seles-Jana_Novotna,Monica Seles,Jana Novotna,L,R,19950905,US Open,QF,,,Hard,,3,1,Isaac
+19950828-W-US_Open-R128-Monica_Seles-Ruxandra_Dragomir_Ilie,Monica Seles,Ruxandra Dragomir Ilie,L,R,19950828,US Open,R128,20:45,Stadium,Hard,,3,1,1HandBH
+19950828-W-US_Open-QF-Steffi_Graf-Amy_Frazier,Steffi Graf,Amy Frazier,R,R,19950828,US Open,QF,,,Hard,Joan Vormbaum,3,1,Isaac
+19950128-W-Australian_Open-F-Mary_Pierce-Arantxa_Sanchez_Vicario,Mary Pierce,Arantxa Sanchez Vicario,R,R,19950128,Australian Open,F,3:00 PM,Centre,Hard,,3,0,Edo
+19950126-W-Australian_Open-SF-Mary_Pierce-Conchita_Martinez,Mary Pierce,Conchita Martinez,R,R,19950126,Australian Open,SF,,Centre,Hard,,3,0,tsitsi
+19940910-W-US_Open-SF-Arantxa_Sanchez_Vicario-Gabriela_Sabatini,Arantxa Sanchez Vicario,Gabriela Sabatini,R,R,19940910,US Open,SF,3pm,Ashe,Hard,,3,1,Edo
+19940128-W-Australian_Open-F-Steffi_Graf-Arantxa_Sanchez_Vicario,Steffi Graf,Arantxa Sanchez Vicario,R,R,19940128,Australian Open,F,3:00 PM,Centre,Hard,,3,0,Edo
+19940127-W-Australian_Open-SF-Steffi_Graf-Kimiko_Date_Krumm,Steffi Graf,Kimiko Date Krumm,R,R,19940127,Australian Open,SF,,,Hard,Jane Tabor,3,0,Isaac
+19930911-W-US_Open-F-Steffi_Graf-Helena_Sukova,Steffi Graf,Helena Sukova,R,R,19930911,US Open,F,2:00 PM,Ashe,Hard,French,3,1,Edo
+19930130-W-Australian_Open-F-Steffi_Graf-Monica_Seles,Steffi Graf,Monica Seles,R,L,19930130,Australian Open,F,,,Hard,,3,1,Isaac
+19920912-W-US_Open-F-Monica_Seles-Arantxa_Sanchez_Vicario,Monica Seles,Arantxa Sanchez Vicario,L,R,19920912,US Open,F,2:00 PM,Ashe,Hard,Williams,3,1,Edo
+19920125-W-Australian_Open-F-Monica_Seles-Mary_Joe_Fernandez,Monica Seles,Mary Joe Fernandez,L,R,19920125,Australian Open,F,3:00 PM,Centre,Hard,,3,0,Edo
+19910908-W-US_Open-F-Monica_Seles-Martina_Navratilova,Monica Seles,Martina Navratilova,L,L,19910908,US Open,F,,,Hard,,3,1,Isaac
+19900908-W-US_Open-F-Steffi_Graf-Gabriela_Sabatini,Steffi Graf,Gabriela Sabatini,R,R,19900908,US Open,F,1pm,Ashe,Hard,Linda Hinshaw,3,1,Edo
+19900827-W-US_Open-R16-Steffi_Graf-Jennifer_Capriati,Steffi Graf,Jennifer Capriati,R,R,19900827,US Open,R16,,,Hard,,3,1,Isaac
+19900127-W-Australian_Open-F-Steffi_Graf-Mary_Joe_Fernandez,Steffi Graf,Mary Joe Fernandez,R,R,19900127,Australian Open,F,3:00 PM,Centre,Hard,Fran McDowell,3,0,Edo
+19890909-W-US_Open-F-Martina_Navratilova-Steffi_Graf,Martina Navratilova,Steffi Graf,L,R,19890909,US Open,F,2:00 PM,Ashe,Hard,,3,0,Edo
+19890128-W-Australian_Open-F-Helena_Sukova-Steffi_Graf,Helena Sukova,Steffi Graf,R,R,19890128,Australian Open,F,3:00 PM,Centre,Hard,,3,0,Edo
+19890126-W-Australian_Open-QF-Martina_Navratilova-Helena_Sukova,Martina Navratilova,Helena Sukova,L,R,19890126,Australian Open,QF,7pm,Centre,Hard,Chris O'Brien,3,0,Edo
+19880910-W-US_Open-F-Steffi_Graf-Gabriela_Sabatini,Steffi Graf,Gabriela Sabatini,R,R,19880910,US Open,F,1:30 PM,Ashe,Hard,,3,0,Edo
+19880908-W-US_Open-SF-Zina_Garrison-Gabriela_Sabatini,Zina Garrison,Gabriela Sabatini,R,R,19880908,US Open,SF,,Louis Armstrong Stadium,Hard,Fran McDowell,3,1,ojustino
+19880124-W-Australian_Open-F-Steffi_Graf-Chris_Evert,Steffi Graf,Chris Evert,R,R,19880124,Australian Open,F,,Centre,Hard,,3,0,Edo
+19870913-W-US_Open-F-Steffi_Graf-Martina_Navratilova,Steffi Graf,Martina Navratilova,R,L,19870913,US Open,F,6:00 PM,Ashe,Hard,,3,0,Edo
+19870124-W-Australian_Open-F-Hana_Mandlikova-Martina_Navratilova,Hana Mandlikova,Martina Navratilova,R,L,19870124,Australian Open,F,3:00 PM,Kooyong,Grass,,3,0,Edo
+19860906-W-US_Open-SF-Steffi_Graf-Martina_Navratilova,Steffi Graf,Martina Navratilova,R,L,19860906,US Open,SF,2pm,Ashe,Hard,,3,1,Edo
+19860905-W-US_Open-F-Martina_Navratilova-Helena_Sukova,Martina Navratilova,Helena Sukova,L,R,19860905,US Open,F,1pm,Ashe,Hard,Taylor,3,1,Edo
+19851207-W-Australian_Open-SF-Claudia_Kohde_Kilsch-Chris_Evert,Claudia Kohde Kilsch,Chris Evert,R,R,19851207,Australian Open,SF,2pm,Centre,Grass,,3,0,Edo
+19851207-W-Australian_Open-F-Martina_Navratilova-Chris_Evert,Martina Navratilova,Chris Evert,L,R,19851207,Australian Open,F,,Centre,Grass,,3,0,Edo
+19850907-W-US_Open-F-Hana_Mandlikova-Martina_Navratilova,Hana Mandlikova,Martina Navratilova,R,L,19850907,US Open,F,,Center,Hard,,3,1,Edo
+19841208-W-Australian_Open-F-Helena_Sukova-Chris_Evert,Helena Sukova,Chris Evert,R,R,19841208,Australian Open,F,,Kooyong,Grass,Joan Cairns,3,0,Edo
+19841207-W-Australian_Open-SF-Martina_Navratilova-Helena_Sukova,Martina Navratilova,Helena Sukova,L,R,19841207,Australian Open,SF,3pm,Centre,Grass,,3,0,Edo
+19840908-W-US_Open-SF-Carling_Bassett_Seguso-Chris_Evert,Carling Bassett Seguso,Chris Evert,R,R,19840908,US Open,SF,1pm,Centre,Hard,,3,1,Edo
+19840908-W-US_Open-F-Chris_Evert-Martina_Navratilova,Chris Evert,Martina Navratilova,R,L,19840908,US Open,F,,,Hard,Joan Vorbaum,3,1,Edo
+19830910-W-US_Open-F-Martina_Navratilova-Chris_Evert,Martina Navratilova,Chris Evert,L,R,19830910,US Open,F,3:00 PM,Centre,Hard,Sue Cain,3,1,Edo
+19821129-W-Australian_Open-F-Martina_Navratilova-Chris_Evert,Martina Navratilova,Chris Evert,L,R,19821129,Australian Open,F,,Center,Grass,,3,1,Isaac
+19820831-W-US_Open-F-Hana_Mandlikova-Chris_Evert,Hana Mandlikova,Chris Evert,R,R,19820831,US Open,F,,,Hard,,3,1,Isaac
+19811130-W-Australian_Open-F-Martina_Navratilova-Chris_Evert,Martina Navratilova,Chris Evert,L,R,19811130,Australian Open,F,,Center,Grass,,3,0,Palaver
+19800906-W-US_Open-F-Hana_Mandlikova-Chris_Evert,Hana Mandlikova,Chris Evert,R,R,19800906,US Open,F,,Centre,Hard,Flo Blanchard,3,1,Edo
+19790928-W-US_Open-F-Tracy_Austin-Chris_Evert,Tracy Austin,Chris Evert,R,R,19790928,US Open,F,1pm,Centre,Hard,,3,1,Edo

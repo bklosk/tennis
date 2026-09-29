@@ -1,7 +1,0 @@
-.cache/
-.DS_Store
-__pycache__/
-downloads/
-*.part
-outputs/
-pipeline/.venv/
