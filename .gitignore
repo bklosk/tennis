@@ -1,0 +1,11 @@
+.cache/
+.DS_Store
+__pycache__/
+*.egg-info/
+.venv/
+.pytest_cache/
+downloads/
+videos/
+runs/
+*.part
+.env
