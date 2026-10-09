@@ -102,6 +102,25 @@ bottom of the box), sampled at 4 fps and interpolated to the contact time.
   and the aligned MCP point and rally length.
 * `all_shots.csv`, `all_points.csv`: every evaluation match together.
 
+## Video archive (DigitalOcean Space)
+
+```bash
+uv run python scripts/archive_videos.py --parallel 3     # resumable; --dry-run shows what is left
+```
+
+Every US Open QF/SF/F from 2001–2025 that has a full-match upload in the video manifest (164 of
+the 350 targets, listed in `data/archive_targets.csv`) is downloaded, decode-verified, uploaded as
+a **private** object and deleted locally (the 14 evaluation videos stay in `downloads/`). Layout:
+
+* `s3://benklosky-data/tennis/usopen-video/YEAR/MATCH_ID__VIDEO_ID.mp4` (metadata: video id,
+  match id, sha256, source URL)
+* `s3://benklosky-data/tennis/usopen-video/manifest.csv`: what was archived, size, duration, sha256
+* `s3://benklosky-data/tennis/usopen-video/missing.csv`: targets with no archived full match and
+  why (highlights only, no video found, walkover)
+
+Credentials come from `~/.s3cfg`. Matches before 2011 are SD sources and are stored at 720p;
+later matches at 1080p (~1.9 GB per hour of video).
+
 ## Data, models and licences
 
 * MCP charting and the slam point-by-point data are CC BY-NC-SA 4.0 (attribution to Jeff

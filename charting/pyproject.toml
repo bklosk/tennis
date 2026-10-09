@@ -22,6 +22,7 @@ dependencies = [
   "av",
   "coremltools",
   "tabulate",
+  "boto3",
 ]
 
 [dependency-groups]

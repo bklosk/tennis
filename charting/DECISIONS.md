@@ -78,3 +78,16 @@ this departs from `claude_implementation.md`, the departure is noted.
 * **Handedness at test time comes through the MCP alignment.** Handedness is public (tour files);
   an uncharted match would take it from there, with near/far identity from the scoring state
   machine.
+
+## Video archive (2026-10-09)
+
+* **Scope**: the guide's target set, US Open men's and women's QF/SF/F 2001–2025. The video
+  manifest has a full-match upload for 164 of the 350 targets (161 from official channels, 3
+  from other uploaders); the rest have highlights only or nothing. The Australian Open rows in
+  `data/matches.csv` are not included.
+* **One upload per match**: official channel first, then the longest upload.
+* **Streamed, not staged**: ~550 GB does not fit on the 209 GB of free disk, so each video is
+  downloaded, verified, uploaded, size-checked and deleted before the next one needs the space.
+* **Private objects**: uploads set `ACL=private` explicitly (checked: an unauthenticated GET
+  returns 403). The Space holds other projects' data; everything here lives under
+  `tennis/usopen-video/`.
