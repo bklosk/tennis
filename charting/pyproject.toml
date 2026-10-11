@@ -23,6 +23,7 @@ dependencies = [
   "coremltools",
   "tabulate",
   "boto3",
+  "yt-dlp[default]",
 ]
 
 [dependency-groups]

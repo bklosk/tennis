@@ -20,10 +20,13 @@ import argparse
 import configparser
 import csv
 import hashlib
+import shutil
+import socket
 import subprocess
 import sys
 import threading
 import time
+import traceback
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
@@ -43,6 +46,33 @@ FIELDS = ["match_id", "year", "draw", "round", "video_id", "key", "bytes", "dura
 _lock = threading.Lock()
 
 
+HOSTS = ("www.youtube.com", "nyc3.digitaloceanspaces.com")
+MIN_FREE_GB = 25
+
+
+def wait_for_network(poll: float = 60.0) -> None:
+    """Block until DNS works for YouTube and the Space. Outages (a closed lid, a dropped Wi-Fi)
+    then cost waiting time instead of retries."""
+    said = False
+    while True:
+        try:
+            for h in HOSTS:
+                socket.getaddrinfo(h, 443)
+            if said:
+                print(f"[archive] network back at {time.strftime('%Y-%m-%d %H:%M:%S')}", flush=True)
+            return
+        except OSError:
+            if not said:
+                print(f"[archive] network down at {time.strftime('%Y-%m-%d %H:%M:%S')}; waiting", flush=True)
+                said = True
+            time.sleep(poll)
+
+
+def wait_for_disk(poll: float = 60.0) -> None:
+    while shutil.disk_usage(DOWNLOADS).free / 1e9 < MIN_FREE_GB:
+        time.sleep(poll)
+
+
 def s3_client():
     import boto3
     from botocore.config import Config
@@ -56,10 +86,17 @@ def s3_client():
 
 
 def remote_size(s3, key: str) -> int | None:
+    """Stored size, or None when the object does not exist. Other errors (network) propagate,
+    so an outage is never mistaken for "not archived yet"."""
+    from botocore.exceptions import ClientError
+
+    wait_for_network()
     try:
         return int(s3.head_object(Bucket=BUCKET, Key=key)["ContentLength"])
-    except Exception:
-        return None
+    except ClientError as e:
+        if e.response.get("Error", {}).get("Code") in ("404", "NoSuchKey", "NotFound"):
+            return None
+        raise
 
 
 def sha256(path: Path) -> str:
@@ -84,7 +121,9 @@ def download(vid: str, year: int, listed: float, attempts: int = 5) -> tuple[Pat
         for p in DOWNLOADS.glob(f"{vid}.*"):
             if p.name != out.name:
                 p.unlink(missing_ok=True)
-        r = subprocess.run(["uvx", "--from", "yt-dlp[default]", "yt-dlp", "--js-runtimes", "node", "--no-playlist",
+        wait_for_network()
+        wait_for_disk()
+        r = subprocess.run([sys.executable, "-m", "yt_dlp", "--js-runtimes", "node", "--no-playlist",
                             "--no-progress", "--no-continue", "-f",
                             f"bv*[height<={h}][vcodec^=avc1]+ba[ext=m4a]/bv*[height<={h}]+ba/b",
                             "--merge-output-format", "mp4", "-o", str(DOWNLOADS / "%(id)s.%(ext)s"), "--", vid],
@@ -110,6 +149,20 @@ def record(row: dict):
 
 
 def archive_one(s3, r, keep: set[str], dry_run: bool) -> dict:
+    """One match end to end; any failure is recorded and the run moves on."""
+    try:
+        return _archive_one(s3, r, keep, dry_run)
+    except Exception as e:
+        row = dict(match_id=r.match_id, year=int(r.year), draw=r.draw, round=r["round"], video_id=r.video_id,
+                   key="", bytes="", duration_s="", sha256="", status="failed",
+                   note=f"{type(e).__name__}: {str(e)[:200]}")
+        record(row)
+        print(f"[archive] FAILED {r.match_id}: {type(e).__name__}: {str(e)[:200]}\n{traceback.format_exc()[-800:]}",
+              flush=True)
+        return row
+
+
+def _archive_one(s3, r, keep: set[str], dry_run: bool) -> dict:
     key = f"{PREFIX}{int(r.year)}/{r.match_id}__{r.video_id}.mp4"
     base = dict(match_id=r.match_id, year=int(r.year), draw=r.draw, round=r["round"], video_id=r.video_id, key=key,
                 bytes="", duration_s="", sha256="", status="", note=r.match_status)
@@ -129,11 +182,19 @@ def archive_one(s3, r, keep: set[str], dry_run: bool) -> dict:
     digest = sha256(path)
     from boto3.s3.transfer import TransferConfig
 
-    s3.upload_file(str(path), BUCKET, key,
-                   ExtraArgs={"ACL": "private", "ContentType": "video/mp4",
-                              "Metadata": {"video-id": r.video_id, "match-id": r.match_id, "sha256": digest,
-                                           "source": f"https://www.youtube.com/watch?v={r.video_id}"}},
-                   Config=TransferConfig(multipart_threshold=64 << 20, multipart_chunksize=64 << 20, max_concurrency=8))
+    for k in range(8):
+        wait_for_network()
+        try:
+            s3.upload_file(str(path), BUCKET, key,
+                           ExtraArgs={"ACL": "private", "ContentType": "video/mp4",
+                                      "Metadata": {"video-id": r.video_id, "match-id": r.match_id, "sha256": digest,
+                                                   "source": f"https://www.youtube.com/watch?v={r.video_id}"}},
+                           Config=TransferConfig(multipart_threshold=64 << 20, multipart_chunksize=64 << 20,
+                                                 max_concurrency=8))
+            break
+        except Exception as e:  # dropped connections: wait for the network, then start the upload again
+            print(f"[archive] upload retry {k + 1} for {r.match_id}: {type(e).__name__}", flush=True)
+            time.sleep(min(300, 30 * 2 ** k))
     local = path.stat().st_size
     stored = remote_size(s3, key)
     if stored != local:
@@ -149,13 +210,29 @@ def archive_one(s3, r, keep: set[str], dry_run: bool) -> dict:
     return row
 
 
+def abort_stale_uploads(s3) -> int:
+    """Multipart uploads left behind by a dropped connection still store their parts; drop them."""
+    n = 0
+    resp = s3.list_multipart_uploads(Bucket=BUCKET, Prefix=PREFIX)
+    for u in resp.get("Uploads", []):
+        s3.abort_multipart_upload(Bucket=BUCKET, Key=u["Key"], UploadId=u["UploadId"])
+        n += 1
+    return n
+
+
+def latest_manifest() -> pd.DataFrame:
+    """The manifest log keeps every attempt; the copy in the Space has the latest row per match."""
+    m = pd.read_csv(MANIFEST)
+    return m.drop_duplicates(["match_id", "video_id"], keep="last").sort_values(["year", "match_id"])
+
+
 def write_missing(s3) -> int:
     """Every US Open QF/SF/F target 2001-2025 (data/matches.csv) without an archived full match,
     with the best video the manifest knows of (highlights only, nothing found, or a walkover)."""
     m = pd.read_csv(PROJECT.parent / "data" / "matches.csv")
     m = m[(m.tournament == "US Open") & m.year.between(2001, 2025)]
-    done = set(pd.read_csv(MANIFEST).query("status.str.startswith('archived') or status == 'already archived'",
-                                           engine="python").match_id) if MANIFEST.exists() else set()
+    done = set(latest_manifest().query("status.str.startswith('archived') or status == 'already archived'",
+                                       engine="python").match_id) if MANIFEST.exists() else set()
     v = pd.read_csv(PROJECT / "data" / "video_candidates.csv")
     best = v.groupby("match_id").match_status.agg(lambda s: sorted(set(s))[-1] if len(s) else None)
     miss = m[~m.match_id.isin(done)].copy()
@@ -182,13 +259,18 @@ def main():
     if a.limit:
         targets = targets.head(a.limit)
     keep = set(pd.read_csv(EVAL_MATCHES).video_id)
+    wait_for_network()
     s3 = s3_client()
+    if not a.dry_run:
+        print(f"[archive] aborted {abort_stale_uploads(s3)} stale multipart uploads", flush=True)
     with ThreadPoolExecutor(a.parallel) as ex:
         rows = list(ex.map(lambda r: archive_one(s3, r, keep, a.dry_run), [r for _, r in targets.iterrows()]))
     res = pd.DataFrame(rows)
     print(res.status.str.split(" in ").str[0].value_counts().to_string(), flush=True)
     if not a.dry_run and MANIFEST.exists():
-        s3.upload_file(str(MANIFEST), BUCKET, PREFIX + "manifest.csv", ExtraArgs={"ACL": "private", "ContentType": "text/csv"})
+        latest = OUTPUTS / "archive_manifest_latest.csv"
+        latest_manifest().to_csv(latest, index=False)
+        s3.upload_file(str(latest), BUCKET, PREFIX + "manifest.csv", ExtraArgs={"ACL": "private", "ContentType": "text/csv"})
         print("missing targets:", write_missing(s3), flush=True)
 
 
