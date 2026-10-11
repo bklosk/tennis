@@ -105,7 +105,7 @@ bottom of the box), sampled at 4 fps and interpolated to the contact time.
 ## Video archive (DigitalOcean Space)
 
 ```bash
-uv run python scripts/archive_videos.py --parallel 3     # resumable; --dry-run shows what is left
+uv run python scripts/archive_videos.py               # 8 workers, resumable; --dry-run shows what is left
 ```
 
 Every US Open QF/SF/F from 2001–2025 that has a full-match upload in the video manifest (164 of

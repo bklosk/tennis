@@ -4,7 +4,8 @@
 
 For each match in data/archive_targets.csv (one full-match upload per match, from the manifest):
 download it (yt-dlp, never resuming partial files; 720p for SD-era sources before 2011, 1080p
-after), verify it (duration within 1% of the listing and a clean full decode), upload it as a
+after), verify it (duration within 1% of the listing and every packet demuxes cleanly; a full
+decode with --full-verify), upload it as a
 private object, check the stored size, and delete the local copy, keeping only the evaluation
 videos that the pipeline reads from downloads/. Already-archived objects are skipped, so the run
 can be stopped and restarted at any time.
@@ -107,13 +108,16 @@ def sha256(path: Path) -> str:
     return h.hexdigest()
 
 
+FULL_VERIFY = False
+
+
 def download(vid: str, year: int, listed: float, attempts: int = 5) -> tuple[Path | None, str]:
     out = DOWNLOADS / f"{vid}.mp4"
     h = 720 if year <= 2010 else 1080
     last = ""
     for k in range(attempts):
         if out.exists():
-            res = check(vid, listed)
+            res = check(vid, listed, full=FULL_VERIFY)
             if res["status"] == "ok":
                 return out, ""
             last = f"verify failed: {res}"
@@ -133,7 +137,7 @@ def download(vid: str, year: int, listed: float, attempts: int = 5) -> tuple[Pat
             if "Video unavailable" in last or "Private video" in last or "removed" in last:
                 return None, last
             time.sleep(min(300, 30 * 2 ** k))
-    if out.exists() and check(vid, listed)["status"] == "ok":
+    if out.exists() and check(vid, listed, full=FULL_VERIFY)["status"] == "ok":
         return out, ""
     return None, last
 
@@ -168,6 +172,9 @@ def _archive_one(s3, r, keep: set[str], dry_run: bool) -> dict:
                 bytes="", duration_s="", sha256="", status="", note=r.match_status)
     size = remote_size(s3, key)
     if size:
+        stale = DOWNLOADS / f"{r.video_id}.mp4"  # left behind if an earlier run stopped right after uploading
+        if r.video_id not in keep and stale.exists() and stale.stat().st_size == size:
+            stale.unlink()
         return {**base, "bytes": size, "status": "already archived"}
     if dry_run:
         return {**base, "status": "would archive"}
@@ -247,11 +254,14 @@ def write_missing(s3) -> int:
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--parallel", type=int, default=3)
+    ap.add_argument("--parallel", type=int, default=8)
     ap.add_argument("--limit", type=int)
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--videos", nargs="*", help="only these video ids")
+    ap.add_argument("--full-verify", action="store_true", help="decode every frame before uploading (CPU-heavy)")
     a = ap.parse_args()
+    global FULL_VERIFY
+    FULL_VERIFY = a.full_verify
     DOWNLOADS.mkdir(parents=True, exist_ok=True)
     targets = pd.read_csv(TARGETS).sort_values(["year", "draw", "round"])
     if a.videos:

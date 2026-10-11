@@ -16,14 +16,17 @@ import pandas as pd
 from uso.paths import DOWNLOADS, EVAL_MATCHES, OUTPUTS
 
 
-def check(vid: str, listed: float) -> dict:
+def check(vid: str, listed: float, full: bool = True) -> dict:
+    """full=True decodes every frame (catches bitstream damage, ~1 min of CPU per hour of video);
+    full=False only demuxes every packet (catches truncation and container damage in ~1 s)."""
     path = DOWNLOADS / f"{vid}.mp4"
     if not path.exists():
         return dict(video_id=vid, status="missing")
     dur = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0",
                                 str(path)], capture_output=True, text=True).stdout.strip() or 0)
-    err = subprocess.run(["ffmpeg", "-v", "error", "-threads", "0", "-i", str(path), "-map", "0:v", "-f", "null", "-"],
-                         capture_output=True, text=True).stderr
+    cmd = (["ffmpeg", "-v", "error", "-threads", "0", "-i", str(path), "-map", "0:v", "-f", "null", "-"] if full else
+           ["ffmpeg", "-v", "error", "-i", str(path), "-map", "0", "-c", "copy", "-f", "null", "-"])
+    err = subprocess.run(cmd, capture_output=True, text=True).stderr
     n_err = len([line for line in err.splitlines() if line.strip()])
     ok = abs(dur - listed) / listed < 0.01 and n_err == 0
     return dict(video_id=vid, status="ok" if ok else "bad", duration=dur, listed=listed, decode_errors=n_err)
