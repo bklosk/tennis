@@ -1,0 +1,6 @@
+{"samples": 10116, "main": 3716, "segments": 334, "main_s": 3720.0, "stage": "scene", "video": "FgcirxnayKs", "seconds": 1053.0, "at": "2026-10-12 18:59:56"}
+{"onsets": 61646, "stage": "audio", "video": "FgcirxnayKs", "seconds": 35.4, "at": "2026-10-12 19:00:32"}
+{"detections": 214599, "stage": "people", "video": "FgcirxnayKs", "seconds": 1633.2, "at": "2026-10-12 19:27:45"}
+{"rows": 30001, "stage": "tracks", "video": "FgcirxnayKs", "seconds": 7.9, "at": "2026-10-12 19:27:53"}
+{"rows": 30001, "stage": "pose", "video": "FgcirxnayKs", "seconds": 519.5, "at": "2026-10-12 19:36:32"}
+{"rows": 22762, "stage": "candidates", "video": "FgcirxnayKs", "seconds": 23.7, "at": "2026-10-12 19:36:56"}
