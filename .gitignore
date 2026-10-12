@@ -1,0 +1,12 @@
+.env
+.cache/
+.DS_Store
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.venv/
+*.part
+downloads/
+outputs/
+pipeline/
+scripts/__pycache__/

@@ -1,0 +1,165 @@
+match_id,year,draw,round,player1,player2,video_id,duration_seconds,match_status,channel
+us-open-2001-men-f-lleyton-hewitt-pete-sampras,2001,men,F,Lleyton Hewitt,Pete Sampras,ITSvul7OnPk,6343.0,verified_official_full_match,US Open Tennis Championships
+us-open-2001-men-qf-andre-agassi-pete-sampras,2001,men,QF,Andre Agassi,Pete Sampras,pW47f3h6V4c,10802.0,verified_official_full_match,US Open Tennis Championships
+us-open-2001-men-qf-andy-roddick-lleyton-hewitt,2001,men,QF,Andy Roddick,Lleyton Hewitt,LBhEwMfqJGo,11151.0,verified_official_full_match,US Open Tennis Championships
+us-open-2001-men-sf-lleyton-hewitt-yevgeny-kafelnikov,2001,men,SF,Lleyton Hewitt,Yevgeny Kafelnikov,_mtjjZrGrXY,4189.0,verified_official_full_match,US Open Tennis Championships
+us-open-2001-women-f-serena-williams-venus-williams,2001,women,F,Serena Williams,Venus Williams,mkwlu1dmVXU,3759.0,verified_official_full_match,United States Tennis Association (USTA)
+us-open-2001-women-sf-jennifer-capriati-venus-williams,2001,women,SF,Jennifer Capriati,Venus Williams,LUn8KezDT4A,4251.0,verified_official_full_match,United States Tennis Association (USTA)
+us-open-2001-women-sf-martina-hingis-serena-williams,2001,women,SF,Martina Hingis,Serena Williams,bbPpcOT41x8,2391.0,verified_official_full_match,US Open Tennis Championships
+us-open-2002-men-qf-andy-roddick-pete-sampras,2002,men,QF,Andy Roddick,Pete Sampras,vLMXm2sgzPE,4934.0,verified_official_full_match,US Open Tennis Championships
+us-open-2002-men-sf-andre-agassi-lleyton-hewitt,2002,men,SF,Andre Agassi,Lleyton Hewitt,Kh4fDSfOPjI,10796.0,verified_official_full_match,US Open Tennis Championships
+us-open-2002-women-qf-amelie-mauresmo-jennifer-capriati,2002,women,QF,Amelie Mauresmo,Jennifer Capriati,heUsCAoLjWs,8260.0,verified_official_full_match,US Open Tennis Championships
+us-open-2002-women-sf-lindsay-davenport-serena-williams,2002,women,SF,Lindsay Davenport,Serena Williams,hrGgGa0YlhI,3997.0,verified_official_full_match,US Open Tennis Championships
+us-open-2003-men-f-andy-roddick-juan-carlos-ferrero,2003,men,F,Andy Roddick,Juan Carlos Ferrero,sXCOJR-oNNY,4668.0,verified_official_full_match,US Open Tennis Championships
+us-open-2003-women-f-justine-henin-kim-clijsters,2003,women,F,Justine Henin,Kim Clijsters,jtHq48FLa1s,3923.0,verified_official_full_match,US Open Tennis Championships
+us-open-2004-men-f-lleyton-hewitt-roger-federer,2004,men,F,Lleyton Hewitt,Roger Federer,nDusNa6zpGI,5419.0,verified_official_full_match,US Open Tennis Championships
+us-open-2004-women-f-elena-dementieva-svetlana-kuznetsova,2004,women,F,Elena Dementieva,Svetlana Kuznetsova,KSLoKKZnhSI,3415.0,verified_official_full_match,US Open Tennis Championships
+us-open-2004-women-qf-jennifer-capriati-serena-williams,2004,women,QF,Jennifer Capriati,Serena Williams,9o7am4j9Oig,6064.0,verified_official_full_match,United States Tennis Association (USTA)
+us-open-2005-men-f-andre-agassi-roger-federer,2005,men,F,Andre Agassi,Roger Federer,NZH2CvUL7_0,6937.0,verified_official_full_match,US Open Tennis Championships
+us-open-2005-men-qf-andre-agassi-james-blake,2005,men,QF,Andre Agassi,James Blake,zrp7aeYJrJw,8777.0,verified_official_full_match,United States Tennis Association (USTA)
+us-open-2005-men-qf-david-nalbandian-roger-federer,2005,men,QF,David Nalbandian,Roger Federer,99ak0zC1L-s,4875.0,verified_official_full_match,US Open Tennis Championships
+us-open-2005-men-sf-andre-agassi-robby-ginepri,2005,men,SF,Andre Agassi,Robby Ginepri,RNYJtYbUjbU,10494.0,verified_official_full_match,United States Tennis Association (USTA)
+us-open-2005-women-f-kim-clijsters-mary-pierce,2005,women,F,Kim Clijsters,Mary Pierce,5mIZttghS5M,3342.0,verified_official_full_match,US Open Tennis Championships
+us-open-2006-men-f-andy-roddick-roger-federer,2006,men,F,Andy Roddick,Roger Federer,yhFXsQcnXsE,8956.0,verified_official_full_match,US Open Tennis Championships
+us-open-2006-men-sf-andy-roddick-mikhail-youzhny,2006,men,SF,Andy Roddick,Mikhail Youzhny,A74Dq3snG4Q,8435.0,verified_official_full_match,US Open Tennis Championships
+us-open-2006-women-f-justine-henin-maria-sharapova,2006,women,F,Justine Henin,Maria Sharapova,OREJeSFkL40,5009.0,verified_official_full_match,US Open Tennis Championships
+us-open-2006-women-sf-amelie-mauresmo-maria-sharapova,2006,women,SF,Amelie Mauresmo,Maria Sharapova,1_dSvlaOaDE,4654.0,verified_official_full_match,US Open Tennis Championships
+us-open-2007-men-f-novak-djokovic-roger-federer,2007,men,F,Novak Djokovic,Roger Federer,9WGj0lA8XTQ,7020.0,verified_official_full_match,US Open Tennis Championships
+us-open-2007-men-qf-andy-roddick-roger-federer,2007,men,QF,Andy Roddick,Roger Federer,xUA01wmi4Sc,5944.0,verified_official_full_match,US Open Tennis Championships
+us-open-2007-women-f-justine-henin-svetlana-kuznetsova,2007,women,F,Justine Henin,Svetlana Kuznetsova,aguLrkK0DJU,4253.0,verified_official_full_match,US Open Tennis Championships
+us-open-2007-women-qf-justine-henin-serena-williams,2007,women,QF,Justine Henin,Serena Williams,aZ20YNdZ7Qc,5090.0,verified_official_full_match,US Open Tennis Championships
+us-open-2007-women-sf-justine-henin-venus-williams,2007,women,SF,Justine Henin,Venus Williams,iloRxwsPw8o,7050.0,verified_official_full_match,US Open Tennis Championships
+us-open-2008-men-f-andy-murray-roger-federer,2008,men,F,Andy Murray,Roger Federer,4y-5TWeS-mM,5447.0,verified_official_full_match,US Open Tennis Championships
+us-open-2008-men-qf-andy-murray-juan-martin-del-potro,2008,men,QF,Andy Murray,Juan Martin del Potro,erwKlAEX4XA,5899.0,verified_official_full_match,US Open Tennis Championships
+us-open-2008-men-sf-novak-djokovic-roger-federer,2008,men,SF,Novak Djokovic,Roger Federer,d1jiZT7oJDg,7705.0,verified_official_full_match,US Open Tennis Championships
+us-open-2008-women-f-jelena-jankovic-serena-williams,2008,women,F,Jelena Jankovic,Serena Williams,q5az07JCS30,7045.0,verified_official_full_match,US Open Tennis Championships
+us-open-2008-women-sf-dinara-safina-serena-williams,2008,women,SF,Dinara Safina,Serena Williams,mRbZwUfJUZ8,4553.0,verified_official_full_match,US Open Tennis Championships
+us-open-2009-men-f-juan-martin-del-potro-roger-federer,2009,men,F,Juan Martin del Potro,Roger Federer,AlJFsGQpsas,11918.0,verified_official_full_match,US Open Tennis Championships
+us-open-2009-men-sf-novak-djokovic-roger-federer,2009,men,SF,Novak Djokovic,Roger Federer,MhFjQ2Ydq8s,7460.0,verified_official_full_match,US Open Tennis Championships
+us-open-2009-women-f-caroline-wozniacki-kim-clijsters,2009,women,F,Caroline Wozniacki,Kim Clijsters,L1wFCWw_V0g,4831.0,verified_official_full_match,US Open Tennis Championships
+us-open-2010-men-f-novak-djokovic-rafael-nadal,2010,men,F,Novak Djokovic,Rafael Nadal,HoaffHqmulQ,14267.0,verified_official_full_match,US Open Tennis Championships
+us-open-2010-men-qf-gael-monfils-novak-djokovic,2010,men,QF,Gael Monfils,Novak Djokovic,u5_oXvNEeQU,7485.0,verified_official_full_match,US Open Tennis Championships
+us-open-2010-women-f-kim-clijsters-vera-zvonareva,2010,women,F,Kim Clijsters,Vera Zvonareva,efhBw9Ugonw,3602.0,verified_official_full_match,US Open Tennis Championships
+us-open-2011-men-f-novak-djokovic-rafael-nadal,2011,men,F,Novak Djokovic,Rafael Nadal,Oz17uwgNmYU,15747.0,verified_official_full_match,US Open Tennis Championships
+us-open-2011-men-qf-andy-roddick-rafael-nadal,2011,men,QF,Andy Roddick,Rafael Nadal,Q65HhhKJFgw,5540.0,verified_official_full_match,US Open Tennis Championships
+us-open-2011-men-sf-andy-murray-rafael-nadal,2011,men,SF,Andy Murray,Rafael Nadal,vS4-ETS-Zbc,10561.0,verified_official_full_match,US Open Tennis Championships
+us-open-2011-men-sf-novak-djokovic-roger-federer,2011,men,SF,Novak Djokovic,Roger Federer,0WSX4gQ5UGw,11916.0,verified_official_full_match,US Open Tennis Championships
+us-open-2011-women-f-samantha-stosur-serena-williams,2011,women,F,Samantha Stosur,Serena Williams,BlDh-9oRIhM,4457.0,verified_official_full_match,US Open Tennis Championships
+us-open-2011-women-sf-caroline-wozniacki-serena-williams,2011,women,SF,Caroline Wozniacki,Serena Williams,ymRq7AxyiTs,6578.0,candidate_full_match,Serena Williams Matches 16
+us-open-2012-men-f-andy-murray-novak-djokovic,2012,men,F,Andy Murray,Novak Djokovic,lLLbdnz9m64,15524.0,verified_official_full_match,US Open Tennis Championships
+us-open-2012-men-qf-roger-federer-tomas-berdych,2012,men,QF,Roger Federer,Tomas Berdych,jTmACT3OsjA,7780.0,verified_official_full_match,US Open Tennis Championships
+us-open-2012-men-sf-andy-murray-tomas-berdych,2012,men,SF,Andy Murray,Tomas Berdych,z1g8C_gxNhA,12844.0,verified_official_full_match,US Open Tennis Championships
+us-open-2012-women-f-serena-williams-victoria-azarenka,2012,women,F,Serena Williams,Victoria Azarenka,g-OcyLc5OcI,7755.0,verified_official_full_match,US Open Tennis Championships
+us-open-2012-women-sf-maria-sharapova-victoria-azarenka,2012,women,SF,Maria Sharapova,Victoria Azarenka,DCzT_AmY0HY,7920.0,verified_official_full_match,US Open Tennis Championships
+us-open-2013-men-f-novak-djokovic-rafael-nadal,2013,men,F,Novak Djokovic,Rafael Nadal,qg4wqo02gfc,10094.0,verified_official_full_match,US Open Tennis Championships
+us-open-2013-men-sf-novak-djokovic-stan-wawrinka,2013,men,SF,Novak Djokovic,Stan Wawrinka,OEDvHMdsq0A,12673.0,verified_official_full_match,US Open Tennis Championships
+us-open-2013-women-f-serena-williams-victoria-azarenka,2013,women,F,Serena Williams,Victoria Azarenka,K6YsWSUw3Uc,8803.0,verified_official_full_match,US Open Tennis Championships
+us-open-2013-women-sf-flavia-pennetta-victoria-azarenka,2013,women,SF,Flavia Pennetta,Victoria Azarenka,334wGSc0rQQ,4897.0,verified_official_full_match,US Open Tennis Championships
+us-open-2013-women-sf-na-li-serena-williams,2013,women,SF,Na Li,Serena Williams,C_AynGzv0GE,4635.0,verified_official_full_match,US Open Tennis Championships
+us-open-2014-men-f-kei-nishikori-marin-cilic,2014,men,F,Kei Nishikori,Marin Cilic,94NzWYO2y0I,6659.0,verified_official_full_match,US Open Tennis Championships
+us-open-2014-men-qf-andy-murray-novak-djokovic,2014,men,QF,Andy Murray,Novak Djokovic,iXkYjyIUiBc,10588.0,verified_official_full_match,US Open Tennis Championships
+us-open-2014-women-f-caroline-wozniacki-serena-williams,2014,women,F,Caroline Wozniacki,Serena Williams,W7fCn_Y4yEk,3738.0,verified_official_full_match,US Open Tennis Championships
+us-open-2015-men-f-novak-djokovic-roger-federer,2015,men,F,Novak Djokovic,Roger Federer,634UMLDrVzc,9669.0,verified_official_full_match,US Open Tennis Championships
+us-open-2015-men-sf-marin-cilic-novak-djokovic,2015,men,SF,Marin Cilic,Novak Djokovic,j0Q8C3YOqkY,4244.0,verified_official_full_match,US Open Tennis Championships
+us-open-2015-men-sf-roger-federer-stan-wawrinka,2015,men,SF,Roger Federer,Stan Wawrinka,Qa14hLnC-B4,4443.0,verified_official_full_match,US Open Tennis Championships
+us-open-2015-women-f-flavia-pennetta-roberta-vinci,2015,women,F,Flavia Pennetta,Roberta Vinci,chmYM8w7flQ,4769.0,verified_official_full_match,US Open Tennis Championships
+us-open-2016-men-f-novak-djokovic-stan-wawrinka,2016,men,F,Novak Djokovic,Stan Wawrinka,KfhlYB6eL4c,11048.0,verified_official_full_match,US Open Tennis Championships
+us-open-2016-men-qf-andy-murray-kei-nishikori,2016,men,QF,Andy Murray,Kei Nishikori,QG3ShqVbGC8,11745.0,verified_official_full_match,US Open Tennis Championships
+us-open-2016-men-sf-gael-monfils-novak-djokovic,2016,men,SF,Gael Monfils,Novak Djokovic,MiDVsPSn9gw,7621.0,verified_official_full_match,US Open Tennis Championships
+us-open-2016-women-f-angelique-kerber-karolina-pliskova,2016,women,F,Angelique Kerber,Karolina Pliskova,xtNxwb056-8,6128.0,verified_official_full_match,US Open Tennis Championships
+us-open-2016-women-qf-serena-williams-simona-halep,2016,women,QF,Serena Williams,Simona Halep,ijq8WK3ting,7052.0,verified_official_full_match,US Open Tennis Championships
+us-open-2016-women-sf-angelique-kerber-caroline-wozniacki,2016,women,SF,Angelique Kerber,Caroline Wozniacki,4DcrtLzmPeQ,4407.0,verified_official_full_match,US Open Tennis Championships
+us-open-2017-men-f-kevin-anderson-rafael-nadal,2017,men,F,Kevin Anderson,Rafael Nadal,wYNT3W0aYnw,8788.0,verified_official_full_match,US Open Tennis Championships
+us-open-2017-men-qf-kevin-anderson-sam-querrey,2017,men,QF,Kevin Anderson,Sam Querrey,YgYkagdB8Vs,9647.0,verified_official_full_match,US Open Tennis Championships
+us-open-2017-men-sf-juan-martin-del-potro-rafael-nadal,2017,men,SF,Juan Martin del Potro,Rafael Nadal,pU-h7TkHK6w,6764.0,verified_official_full_match,US Open Tennis Championships
+us-open-2017-women-f-madison-keys-sloane-stephens,2017,women,F,Madison Keys,Sloane Stephens,9wlCLqJYwYQ,3767.0,verified_official_full_match,United States Tennis Association (USTA)
+us-open-2017-women-qf-petra-kvitova-venus-williams,2017,women,QF,Petra Kvitova,Venus Williams,7GBtSonqJ4A,7541.0,verified_official_full_match,US Open Tennis Championships
+us-open-2017-women-sf-coco-vandeweghe-madison-keys,2017,women,SF,Coco Vandeweghe,Madison Keys,qRhbIgMY11o,4614.0,verified_official_full_match,United States Tennis Association (USTA)
+us-open-2017-women-sf-sloane-stephens-venus-williams,2017,women,SF,Sloane Stephens,Venus Williams,udmq2mBIGo4,7314.0,verified_official_full_match,United States Tennis Association (USTA)
+us-open-2018-men-f-juan-martin-del-potro-novak-djokovic,2018,men,F,Juan Martin del Potro,Novak Djokovic,YsN1Wl290fs,9712.0,verified_official_full_match,US Open Tennis Championships
+us-open-2018-men-qf-dominic-thiem-rafael-nadal,2018,men,QF,Dominic Thiem,Rafael Nadal,uEFccUWLZEg,14618.0,verified_official_full_match,US Open Tennis Championships
+us-open-2018-men-qf-kei-nishikori-marin-cilic,2018,men,QF,Kei Nishikori,Marin Cilic,PhI-TcHFPqw,11510.0,verified_official_full_match,US Open Tennis Championships
+us-open-2018-men-sf-juan-martin-del-potro-rafael-nadal,2018,men,SF,Juan Martin del Potro,Rafael Nadal,mYJKP6UzEnE,1563.0,candidate_full_match,FOGgaming2k
+us-open-2018-women-sf-anastasija-sevastova-serena-williams,2018,women,SF,Anastasija Sevastova,Serena Williams,1vZlmZoa08s,3562.0,candidate_full_match,Serena Williams Matches 16
+us-open-2019-men-f-daniil-medvedev-rafael-nadal,2019,men,F,Daniil Medvedev,Rafael Nadal,ROaqNQ-12Js,17252.0,verified_official_full_match,US Open Tennis Championships
+us-open-2019-men-qf-daniil-medvedev-stan-wawrinka,2019,men,QF,Daniil Medvedev,Stan Wawrinka,e3Wdzdc8Jn8,7412.0,verified_official_full_match,US Open Tennis Championships
+us-open-2019-men-qf-diego-schwartzman-rafael-nadal,2019,men,QF,Diego Schwartzman,Rafael Nadal,R9nK-7GOzdk,8107.0,verified_official_full_match,US Open Tennis Championships
+us-open-2019-men-qf-gael-monfils-matteo-berrettini,2019,men,QF,Gael Monfils,Matteo Berrettini,qMfShsMAVgc,14135.0,verified_official_full_match,US Open Tennis Championships
+us-open-2019-men-qf-grigor-dimitrov-roger-federer,2019,men,QF,Grigor Dimitrov,Roger Federer,VKUWE65LVu0,9235.0,verified_official_full_match,US Open Tennis Championships
+us-open-2019-men-sf-daniil-medvedev-grigor-dimitrov,2019,men,SF,Daniil Medvedev,Grigor Dimitrov,mLGcEqse4H4,9566.0,verified_official_full_match,US Open Tennis Championships
+us-open-2019-men-sf-matteo-berrettini-rafael-nadal,2019,men,SF,Matteo Berrettini,Rafael Nadal,3UE8YEvh3AE,9367.0,verified_official_full_match,US Open Tennis Championships
+us-open-2019-women-f-bianca-andreescu-serena-williams,2019,women,F,Bianca Andreescu,Serena Williams,GCzsODijnqw,6055.0,verified_official_full_match,US Open Tennis Championships
+us-open-2019-women-sf-belinda-bencic-bianca-andreescu,2019,women,SF,Belinda Bencic,Bianca Andreescu,Yjk4dBMgkQM,8049.0,verified_official_full_match,US Open Tennis Championships
+us-open-2020-men-f-alexander-zverev-dominic-thiem,2020,men,F,Alexander Zverev,Dominic Thiem,Mac4XI3ka5I,11955.0,verified_official_full_match,US Open Tennis Championships
+us-open-2020-men-qf-alexander-zverev-borna-coric,2020,men,QF,Alexander Zverev,Borna Coric,bEr_zEOqb4w,10101.0,verified_official_full_match,US Open Tennis Championships
+us-open-2020-men-qf-andrey-rublev-daniil-medvedev,2020,men,QF,Andrey Rublev,Daniil Medvedev,kIP2NAeTaDQ,6645.0,verified_official_full_match,US Open Tennis Championships
+us-open-2020-men-sf-daniil-medvedev-dominic-thiem,2020,men,SF,Daniil Medvedev,Dominic Thiem,vf5edF2BUpg,8577.0,verified_official_full_match,US Open Tennis Championships
+us-open-2020-women-f-naomi-osaka-victoria-azarenka,2020,women,F,Naomi Osaka,Victoria Azarenka,LVjO-dH0P6c,5735.0,verified_official_full_match,US Open Tennis Championships
+us-open-2020-women-qf-naomi-osaka-shelby-rogers,2020,women,QF,Naomi Osaka,Shelby Rogers,6NCDNdB43qU,4016.0,verified_official_full_match,US Open Tennis Championships
+us-open-2020-women-qf-serena-williams-tsvetana-pironkova,2020,women,QF,Serena Williams,Tsvetana Pironkova,kk-tUHeQLcA,6393.0,verified_official_full_match,US Open Tennis Championships
+us-open-2020-women-sf-serena-williams-victoria-azarenka,2020,women,SF,Serena Williams,Victoria Azarenka,bUwdsaGW7yg,5582.0,verified_official_full_match,US Open Tennis Championships
+us-open-2021-men-f-daniil-medvedev-novak-djokovic,2021,men,F,Daniil Medvedev,Novak Djokovic,yACtNdJaBso,6939.0,verified_official_full_match,US Open Tennis Championships
+us-open-2021-men-qf-matteo-berrettini-novak-djokovic,2021,men,QF,Matteo Berrettini,Novak Djokovic,LWBMqafBEoE,10237.0,verified_official_full_match,US Open Tennis Championships
+us-open-2021-men-sf-alexander-zverev-novak-djokovic,2021,men,SF,Alexander Zverev,Novak Djokovic,_g1lEtQXtxE,10774.0,verified_official_full_match,US Open Tennis Championships
+us-open-2021-men-sf-daniil-medvedev-felix-auger-aliassime,2021,men,SF,Daniil Medvedev,Felix Auger Aliassime,D2I3RakqjsQ,6088.0,verified_official_full_match,US Open Tennis Championships
+us-open-2021-women-f-emma-raducanu-leylah-fernandez,2021,women,F,Emma Raducanu,Leylah Fernandez,AIxgS5FV-48,6614.0,verified_official_full_match,US Open Tennis Championships
+us-open-2021-women-qf-belinda-bencic-emma-raducanu,2021,women,QF,Belinda Bencic,Emma Raducanu,4zesQM7qmfc,4233.0,verified_official_full_match,US Open Tennis Championships
+us-open-2021-women-qf-elina-svitolina-leylah-fernandez,2021,women,QF,Elina Svitolina,Leylah Fernandez,WsBvZFKeT-8,7448.0,verified_official_full_match,US Open Tennis Championships
+us-open-2021-women-qf-karolina-pliskova-maria-sakkari,2021,women,QF,Karolina Pliskova,Maria Sakkari,ZvYo86KAhgE,4048.0,verified_official_full_match,US Open Tennis Championships
+us-open-2021-women-sf-aryna-sabalenka-leylah-fernandez,2021,women,SF,Aryna Sabalenka,Leylah Fernandez,l-q5_tmOkqg,6957.0,verified_official_full_match,US Open Tennis Championships
+us-open-2021-women-sf-emma-raducanu-maria-sakkari,2021,women,SF,Emma Raducanu,Maria Sakkari,Lg2_-XjjvyY,4498.0,verified_official_full_match,US Open Tennis Championships
+us-open-2022-men-f-carlos-alcaraz-casper-ruud,2022,men,F,Carlos Alcaraz,Casper Ruud,HCIhFyeQxu0,12029.0,verified_official_full_match,US Open Tennis Championships
+us-open-2022-men-qf-andrey-rublev-frances-tiafoe,2022,men,QF,Andrey Rublev,Frances Tiafoe,OsQzOCVrSzk,7928.0,verified_official_full_match,US Open Tennis Championships
+us-open-2022-men-qf-carlos-alcaraz-jannik-sinner,2022,men,QF,Carlos Alcaraz,Jannik Sinner,yatZSt9iMGw,16925.0,verified_official_full_match,US Open Tennis Championships
+us-open-2022-men-qf-casper-ruud-matteo-berrettini,2022,men,QF,Casper Ruud,Matteo Berrettini,G7T5Z3WwE1M,7846.0,verified_official_full_match,US Open Tennis Championships
+us-open-2022-men-qf-karen-khachanov-nick-kyrgios,2022,men,QF,Karen Khachanov,Nick Kyrgios,mvbdH85TLV4,9951.0,verified_official_full_match,US Open Tennis Championships
+us-open-2022-men-sf-carlos-alcaraz-frances-tiafoe,2022,men,SF,Carlos Alcaraz,Frances Tiafoe,monj8eP5LQM,12925.0,verified_official_full_match,US Open Tennis Championships
+us-open-2022-men-sf-casper-ruud-karen-khachanov,2022,men,SF,Casper Ruud,Karen Khachanov,RzForrdfhbI,8550.0,verified_official_full_match,US Open Tennis Championships
+us-open-2022-women-f-iga-swiatek-ons-jabeur,2022,women,F,Iga Swiatek,Ons Jabeur,4LKEnBAmhSU,6767.0,verified_official_full_match,US Open Tennis Championships
+us-open-2022-women-qf-ajla-tomljanovic-ons-jabeur,2022,women,QF,Ajla Tomljanovic,Ons Jabeur,rEeWPxtV1PQ,5197.0,verified_official_full_match,US Open Tennis Championships
+us-open-2022-women-qf-aryna-sabalenka-karolina-pliskova,2022,women,QF,Aryna Sabalenka,Karolina Pliskova,EOMFFpJxNR0,4164.0,verified_official_full_match,US Open Tennis Championships
+us-open-2022-women-qf-caroline-garcia-coco-gauff,2022,women,QF,Caroline Garcia,Coco Gauff,p8pvUWEgN_A,4880.0,verified_official_full_match,US Open Tennis Championships
+us-open-2022-women-qf-iga-swiatek-jessica-pegula,2022,women,QF,Iga Swiatek,Jessica Pegula,dEBO7DcYhtQ,5931.0,verified_official_full_match,US Open Tennis Championships
+us-open-2022-women-sf-aryna-sabalenka-iga-swiatek,2022,women,SF,Aryna Sabalenka,Iga Swiatek,inUPKBQKUHE,7956.0,verified_official_full_match,US Open Tennis Championships
+us-open-2022-women-sf-caroline-garcia-ons-jabeur,2022,women,SF,Caroline Garcia,Ons Jabeur,-2NddXRxW04,3452.0,verified_official_full_match,US Open Tennis Championships
+us-open-2023-men-f-daniil-medvedev-novak-djokovic,2023,men,F,Daniil Medvedev,Novak Djokovic,1R4qtc1H4wM,9409.0,verified_official_full_match,US Open Tennis Championships
+us-open-2023-men-qf-alexander-zverev-carlos-alcaraz,2023,men,QF,Alexander Zverev,Carlos Alcaraz,p53X66_NVEg,6896.0,verified_official_full_match,US Open Tennis Championships
+us-open-2023-men-qf-andrey-rublev-daniil-medvedev,2023,men,QF,Andrey Rublev,Daniil Medvedev,Yc-0Zc8jUQs,7708.0,verified_official_full_match,US Open Tennis Championships
+us-open-2023-men-qf-ben-shelton-frances-tiafoe,2023,men,QF,Ben Shelton,Frances Tiafoe,qwg_pIJlNtI,8367.0,verified_official_full_match,US Open Tennis Championships
+us-open-2023-men-qf-novak-djokovic-taylor-fritz,2023,men,QF,Novak Djokovic,Taylor Fritz,B9iBZKUAxD8,7148.0,verified_official_full_match,US Open Tennis Championships
+us-open-2023-men-sf-ben-shelton-novak-djokovic,2023,men,SF,Ben Shelton,Novak Djokovic,47mFjMai8H0,7389.0,verified_official_full_match,US Open Tennis Championships
+us-open-2023-men-sf-carlos-alcaraz-daniil-medvedev,2023,men,SF,Carlos Alcaraz,Daniil Medvedev,0mqK08e4K6U,9244.0,verified_official_full_match,US Open Tennis Championships
+us-open-2023-women-f-aryna-sabalenka-coco-gauff,2023,women,F,Aryna Sabalenka,Coco Gauff,LyUH71a3bIw,7274.0,verified_official_full_match,US Open Tennis Championships
+us-open-2023-women-qf-aryna-sabalenka-qinwen-zheng,2023,women,QF,Aryna Sabalenka,Qinwen Zheng,7IqnqJXJ2OE,3657.0,verified_official_full_match,US Open Tennis Championships
+us-open-2023-women-qf-coco-gauff-jelena-ostapenko,2023,women,QF,Coco Gauff,Jelena Ostapenko,8gP591_wx_k,3375.0,verified_official_full_match,US Open Tennis Championships
+us-open-2023-women-qf-karolina-muchova-sorana-cirstea,2023,women,QF,Karolina Muchova,Sorana Cirstea,ngiFC1N3k-Y,4743.0,verified_official_full_match,US Open Tennis Championships
+us-open-2023-women-qf-madison-keys-marketa-vondrousova,2023,women,QF,Madison Keys,Marketa Vondrousova,4Q1wS7QHrDE,3921.0,verified_official_full_match,US Open Tennis Championships
+us-open-2023-women-sf-aryna-sabalenka-madison-keys,2023,women,SF,Aryna Sabalenka,Madison Keys,ED2pOxll9E0,7260.0,verified_official_full_match,US Open Tennis Championships
+us-open-2023-women-sf-coco-gauff-karolina-muchova,2023,women,SF,Coco Gauff,Karolina Muchova,B3ilnvULS00,5544.0,verified_official_full_match,US Open Tennis Championships
+us-open-2024-men-f-jannik-sinner-taylor-fritz,2024,men,F,Jannik Sinner,Taylor Fritz,Ce3dRYHWIBI,7658.0,verified_official_full_match,US Open Tennis Championships
+us-open-2024-men-qf-alex-de-minaur-jack-draper,2024,men,QF,Alex De Minaur,Jack Draper,Fl33UXv6jKI,6245.0,verified_official_full_match,US Open Tennis Championships
+us-open-2024-men-qf-alexander-zverev-taylor-fritz,2024,men,QF,Alexander Zverev,Taylor Fritz,FgcirxnayKs,10117.0,verified_official_full_match,US Open Tennis Championships
+us-open-2024-men-qf-daniil-medvedev-jannik-sinner,2024,men,QF,Daniil Medvedev,Jannik Sinner,YlgomlN0FlU,7641.0,verified_official_full_match,US Open Tennis Championships
+us-open-2024-men-qf-frances-tiafoe-grigor-dimitrov,2024,men,QF,Frances Tiafoe,Grigor Dimitrov,fBBnCKcOMK4,8718.0,verified_official_full_match,US Open Tennis Championships
+us-open-2024-men-sf-frances-tiafoe-taylor-fritz,2024,men,SF,Frances Tiafoe,Taylor Fritz,4AV40TOmfe0,8744.0,verified_official_full_match,US Open Tennis Championships
+us-open-2024-men-sf-jack-draper-jannik-sinner,2024,men,SF,Jack Draper,Jannik Sinner,KU984ab2OWc,9838.0,verified_official_full_match,US Open Tennis Championships
+us-open-2024-women-f-aryna-sabalenka-jessica-pegula,2024,women,F,Aryna Sabalenka,Jessica Pegula,aCp88QfrcUc,5701.0,verified_official_full_match,US Open Tennis Championships
+us-open-2024-women-qf-aryna-sabalenka-qinwen-zheng,2024,women,QF,Aryna Sabalenka,Qinwen Zheng,Q4UB3yY_C2k,3656.0,verified_official_full_match,US Open Tennis Championships
+us-open-2024-women-qf-beatriz-haddad-maia-karolina-muchova,2024,women,QF,Beatriz Haddad Maia,Karolina Muchova,AMjUeB01BVk,4070.0,verified_official_full_match,US Open Tennis Championships
+us-open-2024-women-qf-emma-navarro-paula-badosa,2024,women,QF,Emma Navarro,Paula Badosa,KCcKkUnjbzA,3597.0,verified_official_full_match,US Open Tennis Championships
+us-open-2024-women-qf-iga-swiatek-jessica-pegula,2024,women,QF,Iga Swiatek,Jessica Pegula,QyxEAD2rQeE,4196.0,verified_official_full_match,US Open Tennis Championships
+us-open-2024-women-sf-aryna-sabalenka-emma-navarro,2024,women,SF,Aryna Sabalenka,Emma Navarro,EVVqtQBW9Ps,4536.0,verified_official_full_match,US Open Tennis Championships
+us-open-2024-women-sf-jessica-pegula-karolina-muchova,2024,women,SF,Jessica Pegula,Karolina Muchova,bCWWeTBnoL4,6521.0,verified_official_full_match,US Open Tennis Championships
+us-open-2025-men-f-carlos-alcaraz-jannik-sinner,2025,men,F,Carlos Alcaraz,Jannik Sinner,TDdEVBgDqK4,8185.0,verified_official_full_match,US Open Tennis Championships
+us-open-2025-men-qf-alex-de-minaur-felix-auger-aliassime,2025,men,QF,Alex De Minaur,Felix Auger Aliassime,oiJwOvdZXNU,11933.0,verified_official_full_match,US Open Tennis Championships
+us-open-2025-men-qf-carlos-alcaraz-jiri-lehecka,2025,men,QF,Carlos Alcaraz,Jiri Lehecka,1--9o0zP528,5157.0,verified_official_full_match,US Open Tennis Championships
+us-open-2025-men-qf-jannik-sinner-lorenzo-musetti,2025,men,QF,Jannik Sinner,Lorenzo Musetti,oTBFPSvDqaM,5876.0,verified_official_full_match,US Open Tennis Championships
+us-open-2025-men-qf-novak-djokovic-taylor-fritz,2025,men,QF,Novak Djokovic,Taylor Fritz,hyO8CDocx-4,9880.0,verified_official_full_match,US Open Tennis Championships
+us-open-2025-men-sf-carlos-alcaraz-novak-djokovic,2025,men,SF,Carlos Alcaraz,Novak Djokovic,S9QT05BsKrU,7207.0,verified_official_full_match,US Open Tennis Championships
+us-open-2025-men-sf-felix-auger-aliassime-jannik-sinner,2025,men,SF,Felix Auger Aliassime,Jannik Sinner,cC3chBkNryo,9710.0,verified_official_full_match,US Open Tennis Championships
+us-open-2025-women-f-amanda-anisimova-aryna-sabalenka,2025,women,F,Amanda Anisimova,Aryna Sabalenka,UGXmi38qktI,4960.0,verified_official_full_match,US Open Tennis Championships
+us-open-2025-women-qf-amanda-anisimova-iga-swiatek,2025,women,QF,Amanda Anisimova,Iga Swiatek,-SOzaxFo0hI,4762.0,verified_official_full_match,US Open Tennis Championships
+us-open-2025-women-qf-barbora-krejcikova-jessica-pegula,2025,women,QF,Barbora Krejcikova,Jessica Pegula,49T76EteBEA,4402.0,verified_official_full_match,US Open Tennis Championships
+us-open-2025-women-qf-karolina-muchova-naomi-osaka,2025,women,QF,Karolina Muchova,Naomi Osaka,rEPOrGzRWsc,5142.0,verified_official_full_match,US Open Tennis Championships
+us-open-2025-women-sf-amanda-anisimova-naomi-osaka,2025,women,SF,Amanda Anisimova,Naomi Osaka,CW4vy-VeYuc,8520.0,verified_official_full_match,US Open Tennis Championships
+us-open-2025-women-sf-aryna-sabalenka-jessica-pegula,2025,women,SF,Aryna Sabalenka,Jessica Pegula,jqbVi8sAWbs,6346.0,verified_official_full_match,US Open Tennis Championships

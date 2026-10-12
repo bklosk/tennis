@@ -1,0 +1,15 @@
+role,video_id,mcp_match_id,year,gender,round,player1,player2,hand1,hand2,best_of,duration_s
+dev,Q4UB3yY_C2k,20240903-W-US_Open-QF-Aryna_Sabalenka-Qinwen_Zheng,2024,w,QF,Aryna Sabalenka,Qinwen Zheng,R,R,3,3656
+dev,yZEFoOsYXxY,20170907-W-US_Open-SF-Madison_Keys-Coco_Vandeweghe,2017,w,SF,Madison Keys,Coco Vandeweghe,R,R,3,3315
+dev,5mIZttghS5M,20050911-W-US_Open-F-Mary_Pierce-Kim_Clijsters,2005,w,F,Mary Pierce,Kim Clijsters,R,R,3,3342
+dev,j0Q8C3YOqkY,20150911-M-US_Open-SF-Novak_Djokovic-Marin_Cilic,2015,m,SF,Novak Djokovic,Marin Cilic,R,R,5,4244
+test,sXCOJR-oNNY,20030907-M-US_Open-F-Andy_Roddick-Juan_Carlos_Ferrero,2003,m,F,Andy Roddick,Juan Carlos Ferrero,R,R,5,4668
+test,mkwlu1dmVXU,20010908-W-US_Open-F-Serena_Williams-Venus_Williams,2001,w,F,Serena Williams,Venus Williams,R,R,3,3759
+test,aguLrkK0DJU,20070908-W-US_Open-F-Svetlana_Kuznetsova-Justine_Henin,2007,w,F,Svetlana Kuznetsova,Justine Henin,R,R,3,4253
+test,4y-5TWeS-mM,20080908-M-US_Open-F-Roger_Federer-Andy_Murray,2008,m,F,Roger Federer,Andy Murray,R,R,5,5447
+test,W7fCn_Y4yEk,20140907-W-US_Open-F-Serena_Williams-Caroline_Wozniacki,2014,w,F,Serena Williams,Caroline Wozniacki,R,R,3,3738
+test,Qa14hLnC-B4,20150911-M-US_Open-SF-Stan_Wawrinka-Roger_Federer,2015,m,SF,Stan Wawrinka,Roger Federer,R,R,5,4443
+test,pU-h7TkHK6w,20170908-M-US_Open-SF-Rafael_Nadal-Juan_Martin_Del_Potro,2017,m,SF,Rafael Nadal,Juan Martin Del Potro,L,R,5,6764
+test,LVjO-dH0P6c,20200912-W-US_Open-F-Naomi_Osaka-Victoria_Azarenka,2020,w,F,Naomi Osaka,Victoria Azarenka,R,R,3,5735
+test,8gP591_wx_k,20230905-W-US_Open-QF-Jelena_Ostapenko-Coco_Gauff,2023,w,QF,Jelena Ostapenko,Coco Gauff,R,R,3,3375
+test,1--9o0zP528,20250902-M-US_Open-QF-Jiri_Lehecka-Carlos_Alcaraz,2025,m,QF,Jiri Lehecka,Carlos Alcaraz,R,R,5,5157
