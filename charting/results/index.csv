@@ -1,4 +1,5 @@
 match_id,video_id,year,draw,round,duration_s,scene_s,audio_s,people_s,tracks_s,pose_s,candidates_s,space_prefix
+us-open-2025-men-f-carlos-alcaraz-jannik-sinner,TDdEVBgDqK4,2025,men,F,8184.2,1232.3,33.6,1401.8,7.2,452.7,18.1,s3://benklosky-data/tennis/charting-outputs/2025/us-open-2025-men-f-carlos-alcaraz-jannik-sinner__TDdEVBgDqK4/
 us-open-2025-men-qf-carlos-alcaraz-jiri-lehecka,1--9o0zP528,2025,men,QF,5156.7,609.5,17.9,937.9,6.5,355.3,,s3://benklosky-data/tennis/charting-outputs/2025/us-open-2025-men-qf-carlos-alcaraz-jiri-lehecka__1--9o0zP528/
 us-open-2024-women-qf-aryna-sabalenka-qinwen-zheng,Q4UB3yY_C2k,2024,women,QF,3655.3,331.8,14.2,534.4,3.0,205.6,9.0,s3://benklosky-data/tennis/charting-outputs/2024/us-open-2024-women-qf-aryna-sabalenka-qinwen-zheng__Q4UB3yY_C2k/
 us-open-2023-women-qf-coco-gauff-jelena-ostapenko,8gP591_wx_k,2023,women,QF,3374.6,476.7,13.4,521.1,2.8,292.4,,s3://benklosky-data/tennis/charting-outputs/2023/us-open-2023-women-qf-coco-gauff-jelena-ostapenko__8gP591_wx_k/
