@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>US Open charting · Mac batch</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --page: #f9f9f7; --surface: #fcfcfb; --ink: #0b0b0b; --ink-2: #52514e; --muted: #898781;
+    --grid: #e1e0d9; --axis: #c3c2b7; --series: #2a78d6; --series-soft: #cde2fb; --track: #ecebe6;
+    --good: #0ca30c; --warning: #fab219; --serious: #ec835a; --critical: #d03b3b; --good-text: #006300;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --page: #0d0d0d; --surface: #1a1a19; --ink: #f0efec; --ink-2: #c3c2b7; --muted: #898781;
+      --grid: #2c2c2a; --axis: #383835; --series: #3987e5; --series-soft: #184f95; --track: #2c2c2a;
+      --good-text: #0ca30c;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--page); color: var(--ink); font: 14px/1.45 -apple-system, BlinkMacSystemFont, "Inter", sans-serif; }
+  main { max-width: 1180px; margin: 0 auto; padding: 24px 20px 48px; }
+  header { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 18px; }
+  h1 { font-size: 20px; margin: 0; font-weight: 650; }
+  h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-2); margin: 0 0 10px; font-weight: 600; }
+  .sub { color: var(--ink-2); }
+  .num { font-variant-numeric: tabular-nums; }
+  .card { background: var(--surface); border: 1px solid var(--grid); border-radius: 10px; padding: 16px; }
+  .grid { display: grid; gap: 14px; }
+  .tiles { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); margin-bottom: 14px; }
+  .tile .k { color: var(--ink-2); font-size: 12px; }
+  .tile .v { font-size: 26px; font-weight: 650; margin-top: 2px; }
+  .tile .d { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  .two { grid-template-columns: 1.4fr 1fr; margin-bottom: 14px; }
+  @media (max-width: 860px) { .two { grid-template-columns: 1fr; } }
+  .pill { display: inline-flex; align-items: center; gap: 6px; padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; border: 1px solid var(--grid); color: var(--ink); }
+  .pill i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .bar { height: 10px; background: var(--track); border-radius: 5px; overflow: hidden; display: flex; gap: 2px; }
+  .bar > span { display: block; height: 100%; background: var(--series); border-radius: 4px; }
+  .bar > span.soft { background: var(--series-soft); }
+  .slot { padding: 12px 0; border-top: 1px solid var(--grid); }
+  .slot:first-of-type { border-top: 0; padding-top: 0; }
+  .slot .t { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+  .stages { display: grid; grid-template-columns: 3fr .6fr 4fr .4fr 2fr .5fr; gap: 2px; }
+  .stage { position: relative; height: 22px; background: var(--track); border-radius: 4px; overflow: hidden; }
+  .stage > b { position: absolute; inset: 0 auto 0 0; background: var(--series); border-radius: 4px; }
+  .stage.cur > b { background: var(--series-soft); }
+  .stage > span { position: relative; font-size: 11px; padding: 0 6px; line-height: 22px; white-space: nowrap; color: var(--ink); }
+  .stage.done > span { color: #fff; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; color: var(--ink-2); font-weight: 600; font-size: 12px; border-bottom: 1px solid var(--axis); padding: 6px 8px; }
+  td { padding: 6px 8px; border-bottom: 1px solid var(--grid); }
+  td.r, th.r { text-align: right; }
+  .ok { color: var(--good-text); font-weight: 600; }
+  .muted { color: var(--muted); }
+  .log { font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--ink-2); max-height: 260px; overflow: auto; white-space: pre-wrap; }
+  .chart { position: relative; }
+  .chart svg { display: block; width: 100%; height: 220px; }
+  .tip { position: absolute; pointer-events: none; background: var(--surface); border: 1px solid var(--axis); border-radius: 6px; padding: 6px 8px; font-size: 12px; box-shadow: 0 2px 8px rgba(0,0,0,.12); display: none; white-space: nowrap; }
+  .sys { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; font-size: 13px; }
+  .sys dt { color: var(--ink-2); }
+  .sys dd { margin: 0; }
+  details summary { cursor: pointer; color: var(--ink-2); }
+  .err { color: var(--critical); font: 12px ui-monospace, Menlo, monospace; white-space: pre-wrap; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>US Open charting · Mac batch</h1>
+    <span id="status"></span>
+    <span class="sub num" id="clock"></span>
+  </header>
+
+  <section class="grid tiles" id="tiles"></section>
+
+  <section class="card" style="margin-bottom:14px">
+    <h2>Archive coverage</h2>
+    <div class="bar" id="coverBar" title=""></div>
+    <div class="sub num" id="coverText" style="margin-top:6px"></div>
+  </section>
+
+  <section class="grid two">
+    <div class="card">
+      <h2>Processing now</h2>
+      <div id="slots"></div>
+      <h2 style="margin-top:16px">Downloads</h2>
+      <div id="downloads"></div>
+    </div>
+    <div class="card">
+      <h2>Video-hours processed this run</h2>
+      <div class="chart" id="chart"><svg></svg><div class="tip"></div></div>
+      <dl class="sys" id="sys" style="margin-top:12px"></dl>
+    </div>
+  </section>
+
+  <section class="card" style="margin-bottom:14px">
+    <h2>Completed this run</h2>
+    <table id="doneTable"></table>
+  </section>
+
+  <section class="card" style="margin-bottom:14px" id="failCard" hidden>
+    <h2>Failed</h2>
+    <div id="fails"></div>
+  </section>
+
+  <section class="card">
+    <h2>Events</h2>
+    <div class="log" id="log"></div>
+    <p class="muted" style="margin:10px 0 0;font-size:12px">Stop gracefully (no new matches start; running ones finish and are stored):
+      <code>touch outputs/batch/STOP</code></p>
+  </section>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+const fmtH = s => { s = Math.max(0, Math.round(s)); const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60); return h ? `${h}h ${String(m).padStart(2, "0")}m` : `${m}m`; };
+const fmtS = s => s == null ? "" : s >= 60 ? `${(s / 60).toFixed(1)}m` : `${Math.round(s)}s`;
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const name = m => m.match_id.replace(/^us-open-/, "").replace(/-/g, " ");
+const STATUS = { running: ["var(--good)", "Running"], stopping: ["var(--warning)", "Stopping — finishing current matches"], finished: ["var(--muted)", "Finished — Mac may sleep"], stale: ["var(--critical)", "Runner not responding"] };
+
+function pill(kind) { const [c, t] = STATUS[kind]; return `<span class="pill"><i style="background:${c}"></i>${t}</span>`; }
+
+function tiles(s) {
+  const t = s.totals, now = s.now;
+  const left = s.deadline - now, el = (now - s.t0) / 3600;
+  const proj = t.rate ? t.video_h + t.rate * Math.max(0, left) / 3600 : null;
+  const arch = t.rate ? t.left_h / t.rate : null;
+  const items = [
+    ["Matches done", t.done, `${t.failed} failed · ${t.prior} done before this run`],
+    ["Video processed", `${t.video_h.toFixed(1)} h`, `in ${fmtH(now - s.t0)} of wall clock`],
+    ["Throughput", t.rate ? `${t.rate.toFixed(2)}×` : "—", t.rate ? "video-hours per hour" : "after the first 15 min"],
+    ["Time left", s.finished ? "—" : fmtH(left), `deadline ${new Date(s.deadline * 1000).toLocaleString([], { weekday: "short", hour: "2-digit", minute: "2-digit" })}`],
+    ["Projected by deadline", proj ? `${proj.toFixed(0)} h` : "—", arch ? `rest of archive at this pace: ${fmtH(arch * 3600)}` : `${t.left_h} video-h queued`],
+  ];
+  $("tiles").innerHTML = items.map(([k, v, d]) => `<div class="card tile"><div class="k">${k}</div><div class="v num">${v}</div><div class="d">${d}</div></div>`).join("");
+}
+
+function coverage(s) {
+  const ms = s.matches, tot = ms.reduce((a, m) => a + m.duration, 0);
+  const prior = ms.filter(m => m.status === "prior").reduce((a, m) => a + m.duration, 0);
+  const done = ms.filter(m => m.status === "done").reduce((a, m) => a + m.duration, 0);
+  $("coverBar").innerHTML = `<span class="soft" style="width:${prior / tot * 100}%" title="before this run"></span><span style="width:${done / tot * 100}%" title="this run"></span>`;
+  $("coverText").innerHTML = `${((prior + done) / 3600).toFixed(1)} of ${(tot / 3600).toFixed(1)} video-hours charted (${((prior + done) / tot * 100).toFixed(0)}%) — light: before this run, dark: this run · ${ms.length} matches in the archive`;
+}
+
+function slots(s) {
+  const run = s.matches.filter(m => m.status === "processing" || m.status === "storing");
+  if (!run.length) { $("slots").innerHTML = `<p class="muted">${s.finished ? "Nothing running — batch finished." : "Waiting for a download…"}</p>`; }
+  else $("slots").innerHTML = run.map(m => {
+    const segs = s.stages.map(st => {
+      if (m.stages[st] != null) return `<div class="stage done" title="${st}: ${fmtS(m.stages[st])}"><b style="width:100%"></b><span>${st} ${fmtS(m.stages[st])}</span></div>`;
+      if (st === m.current) {
+        const p = Math.min(0.97, m.current_elapsed / Math.max(1, m.current_expected));
+        return `<div class="stage cur" title="${st}: ${fmtS(m.current_elapsed)} elapsed, ~${fmtS(m.current_expected)} expected"><b style="width:${p * 100}%"></b><span>${st} ${fmtS(m.current_elapsed)}</span></div>`;
+      }
+      return `<div class="stage" title="${st}: pending"><span class="muted">${st}</span></div>`;
+    }).join("");
+    const el = s.now - m.started;
+    return `<div class="slot"><div class="t"><span><b>${esc(name(m))}</b> <span class="muted">${m.year} ${m.draw} ${m.round}</span></span>
+      <span class="num sub">${m.status === "storing" ? "uploading…" : fmtH(el)} · ${(m.duration / 3600).toFixed(2)} h video${m.attempts > 1 ? " · retry" : ""}</span></div>
+      <div class="stages">${segs}</div></div>`;
+  }).join("");
+  const dl = s.matches.filter(m => m.status === "downloading" || m.status === "ready");
+  $("downloads").innerHTML = dl.length ? dl.map(m => {
+    const p = m.bytes ? m.got / m.bytes : 0;
+    return `<div style="margin-bottom:8px"><div class="t" style="display:flex;justify-content:space-between"><span>${esc(name(m))}</span>
+      <span class="num sub">${m.status === "ready" ? "ready" : `${(m.got / 1e9).toFixed(2)} / ${(m.bytes / 1e9).toFixed(2)} GB`}</span></div>
+      <div class="bar"><span style="width:${(m.status === "ready" ? 1 : p) * 100}%"></span></div></div>`;
+  }).join("") : `<p class="muted">${s.stopping ? "No more downloads — past the deadline." : "Idle (prefetch is full)."}</p>`;
+}
+
+function chart(s) {
+  const done = s.matches.filter(m => m.status === "done" && m.finished).sort((a, b) => a.finished - b.finished);
+  const pts = [[s.t0, 0]]; let acc = 0;
+  for (const m of done) { acc += m.duration / 3600; pts.push([m.finished, acc, m]); }
+  const end = Math.max(s.deadline, s.now), svg = $("chart").querySelector("svg"), W = svg.clientWidth || 600, H = 220;
+  const L = 36, R = 12, T = 12, B = 24, ymax = Math.max(4, Math.ceil((s.totals.rate ? s.totals.rate * (s.deadline - s.t0) / 3600 : acc) * 1.1));
+  const x = t => L + (t - s.t0) / (end - s.t0) * (W - L - R), y = v => T + (1 - v / ymax) * (H - T - B);
+  let g = "";
+  const step = ymax > 60 ? 20 : ymax > 24 ? 10 : ymax > 10 ? 5 : 2;
+  for (let v = 0; v <= ymax; v += step) g += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--grid)"/><text x="${L - 6}" y="${y(v) + 4}" text-anchor="end" font-size="11" fill="var(--muted)">${v}</text>`;
+  for (let h = 0; h <= (end - s.t0) / 3600 + 1e-6; h += 4) g += `<text x="${x(s.t0 + h * 3600)}" y="${H - 6}" text-anchor="middle" font-size="11" fill="var(--muted)">${h}h</text>`;
+  g += `<line x1="${L}" x2="${W - R}" y1="${y(0)}" y2="${y(0)}" stroke="var(--axis)"/>`;
+  g += `<line x1="${x(s.deadline)}" x2="${x(s.deadline)}" y1="${T}" y2="${y(0)}" stroke="var(--axis)" stroke-dasharray="3 3"/><text x="${x(s.deadline) - 4}" y="${T + 10}" text-anchor="end" font-size="11" fill="var(--muted)">deadline</text>`;
+  const path = pts.map((p, i) => `${i ? "L" : "M"}${x(p[0]).toFixed(1)},${y(p[1]).toFixed(1)}`).join("") + `L${x(s.now).toFixed(1)},${y(acc).toFixed(1)}`;
+  g += `<path d="${path}" fill="none" stroke="var(--series)" stroke-width="2" stroke-linejoin="round"/>`;
+  g += pts.slice(1).map(p => `<circle cx="${x(p[0])}" cy="${y(p[1])}" r="4" fill="var(--series)" stroke="var(--surface)" stroke-width="2"/>`).join("");
+  g += `<line class="xh" y1="${T}" y2="${y(0)}" stroke="var(--axis)" visibility="hidden"/><rect x="${L}" y="${T}" width="${W - L - R}" height="${H - T - B}" fill="transparent"/>`;
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`); svg.innerHTML = g;
+  const tip = $("chart").querySelector(".tip"), xh = svg.querySelector(".xh");
+  svg.onmousemove = e => {
+    const r = svg.getBoundingClientRect(), mx = (e.clientX - r.left) * W / r.width;
+    let best = null; for (const p of pts.slice(1)) if (!best || Math.abs(x(p[0]) - mx) < Math.abs(x(best[0]) - mx)) best = p;
+    if (!best || Math.abs(x(best[0]) - mx) > 40) { tip.style.display = "none"; xh.setAttribute("visibility", "hidden"); return; }
+    xh.setAttribute("x1", x(best[0])); xh.setAttribute("x2", x(best[0])); xh.setAttribute("visibility", "visible");
+    tip.innerHTML = `<b>${esc(name(best[2]))}</b><br>${new Date(best[0] * 1000).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })} · ${best[1].toFixed(1)} video-h total`;
+    tip.style.display = "block"; tip.style.left = `${Math.min(r.width - 220, x(best[0]) * r.width / W + 10)}px`; tip.style.top = `${y(best[1]) * r.height / H - 10}px`;
+  };
+  svg.onmouseleave = () => { tip.style.display = "none"; xh.setAttribute("visibility", "hidden"); };
+}
+
+function sys(s) {
+  const y = s.system || {};
+  const rows = [
+    ["Power", y.ac ? `AC · ${y.battery}%` : `<span style="color:var(--critical)">⚠ battery · ${y.battery}%</span>`],
+    ["caffeinate", y.caffeinate ? `<span class="ok">✓ keeping the Mac awake</span>` : `<span class="muted">off</span>`],
+    ["Load", `${y.load} on ${y.cpus} cores`],
+    ["Free disk", `${y.free_gb} GB`],
+    ["GitHub", `${s.git.pushed}/${s.git.commits} commits pushed to <code>charting-results</code>${s.git.last_error ? ` <span style="color:var(--critical)">⚠ ${esc(s.git.last_error.slice(0, 80))}</span>` : ""}`],
+  ];
+  $("sys").innerHTML = rows.map(([k, v]) => `<dt>${k}</dt><dd class="num">${v}</dd>`).join("");
+}
+
+function table(s) {
+  const done = s.matches.filter(m => m.status === "done").sort((a, b) => b.finished - a.finished);
+  if (!done.length) { $("doneTable").innerHTML = `<tr><td class="muted">None yet — the first match takes ~25–45 min.</td></tr>`; return; }
+  $("doneTable").innerHTML = `<tr><th>Match</th><th>Round</th><th class="r">Video</th>${s.stages.map(st => `<th class="r">${st}</th>`).join("")}<th class="r">Total</th><th class="r">× real time</th><th>Space</th><th>GitHub</th></tr>` +
+    done.map(m => {
+      const tot = (m.finished - m.started);
+      return `<tr><td>${esc(name(m))}</td><td>${m.year} ${m.round}</td><td class="r num">${(m.duration / 3600).toFixed(2)} h</td>
+        ${s.stages.map(st => `<td class="r num">${fmtS(m.stages[st])}</td>`).join("")}
+        <td class="r num">${fmtS(tot)}</td><td class="r num">${(tot / m.duration).toFixed(2)}</td>
+        <td>${m.uploaded ? '<span class="ok">✓ stored</span>' : '<span style="color:var(--critical)">✗ ' + esc(m.error || "pending") + "</span>"}</td>
+        <td>${m.committed ? '<span class="ok">✓</span>' : '<span class="muted">—</span>'}</td></tr>`;
+    }).join("");
+}
+
+function fails(s) {
+  const f = s.matches.filter(m => m.status === "failed" || (m.error && m.status !== "done"));
+  $("failCard").hidden = !f.length;
+  $("fails").innerHTML = f.map(m => `<details><summary>${m.status === "failed" ? "✗" : "↻"} ${esc(name(m))} (${m.vid}) — ${m.status === "failed" ? "gave up" : "will retry"}</summary><div class="err">${esc(m.error)}</div></details>`).join("");
+}
+
+let last = 0;
+async function tick() {
+  try {
+    const s = await (await fetch("/state.json", { cache: "no-store" })).json();
+    last = Date.now();
+    $("status").innerHTML = pill(s.finished ? "finished" : s.stopping ? "stopping" : "running");
+    $("clock").textContent = `started ${new Date(s.t0 * 1000).toLocaleString([], { weekday: "short", hour: "2-digit", minute: "2-digit" })} · ${s.slots} at a time`;
+    tiles(s); coverage(s); slots(s); chart(s); sys(s); table(s); fails(s);
+    $("log").textContent = s.events.slice().reverse().join("\n");
+  } catch (e) {
+    if (Date.now() - last > 20000) $("status").innerHTML = pill("stale");
+  }
+}
+tick(); setInterval(tick, 5000); addEventListener("resize", tick);
+</script>
+</body>
+</html>
