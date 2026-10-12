@@ -9,6 +9,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
+from uso.court import default_device
 from uso.crops import cut, square
 from uso.paths import WEIGHTS, match_dir
 from uso.video import Meta, ff_frames, video_path
@@ -24,7 +25,7 @@ class PoseModel:
 
     def __call__(self, crops: list[np.ndarray]) -> list[np.ndarray]:
         """17x3 keypoints in crop pixels for the most central confident person per crop."""
-        res = self.model.predict(crops, imgsz=CROP, conf=0.1, verbose=False, device="mps")
+        res = self.model.predict(crops, imgsz=CROP, conf=0.1, verbose=False, device=default_device())
         out = []
         for r in res:
             if r.boxes is None or len(r.boxes) == 0:

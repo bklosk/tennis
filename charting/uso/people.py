@@ -15,6 +15,7 @@ import numpy as np
 import pandas as pd
 
 from uso import scene as scene_mod
+from uso.court import default_device
 from uso.paths import WEIGHTS, match_dir
 from uso.video import Meta, ff_frames, video_path
 
@@ -80,7 +81,7 @@ class BoxDetector:
                 keep = np.isin(p.class_id, list(self.person_ids)) if len(p) else np.zeros(0, bool)
                 out.append((np.asarray(p.xyxy, float)[keep], np.asarray(p.confidence, float)[keep]))
             return out
-        res = self.model.predict(images_bgr, imgsz=640, conf=self.conf, classes=[0], verbose=False, device="mps")
+        res = self.model.predict(images_bgr, imgsz=640, conf=self.conf, classes=[0], verbose=False, device=default_device())
         return [(r.boxes.xyxy.cpu().numpy(), r.boxes.conf.cpu().numpy()) for r in res]
 
 
