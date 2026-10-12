@@ -1,0 +1,5 @@
+{"samples": 3738, "main": 1858, "segments": 143, "main_s": 1860.0, "stage": "scene", "video": "W7fCn_Y4yEk", "seconds": 451.2}
+{"onsets": 22638, "stage": "audio", "video": "W7fCn_Y4yEk", "seconds": 22.0}
+{"detections": 107543, "stage": "people", "video": "W7fCn_Y4yEk", "seconds": 990.4}
+{"rows": 14951, "stage": "tracks", "video": "W7fCn_Y4yEk", "seconds": 5.2}
+{"rows": 14951, "stage": "pose", "video": "W7fCn_Y4yEk", "seconds": 296.3}

@@ -1,0 +1,5 @@
+{"samples": 5447, "main": 2695, "segments": 174, "main_s": 2689.0, "stage": "scene", "video": "4y-5TWeS-mM", "seconds": 655.4}
+{"onsets": 35800, "stage": "audio", "video": "4y-5TWeS-mM", "seconds": 18.4}
+{"detections": 179809, "stage": "people", "video": "4y-5TWeS-mM", "seconds": 1014.5}
+{"rows": 21634, "stage": "tracks", "video": "4y-5TWeS-mM", "seconds": 5.9}
+{"rows": 21634, "stage": "pose", "video": "4y-5TWeS-mM", "seconds": 339.8}

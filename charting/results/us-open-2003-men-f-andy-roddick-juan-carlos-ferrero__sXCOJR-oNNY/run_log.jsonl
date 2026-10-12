@@ -1,0 +1,5 @@
+{"samples": 4668, "main": 2469, "segments": 195, "main_s": 2466.0, "stage": "scene", "video": "sXCOJR-oNNY", "seconds": 739.4}
+{"onsets": 27956, "stage": "audio", "video": "sXCOJR-oNNY", "seconds": 15.3}
+{"detections": 122249, "stage": "people", "video": "sXCOJR-oNNY", "seconds": 732.1}
+{"rows": 20064, "stage": "tracks", "video": "sXCOJR-oNNY", "seconds": 5.2}
+{"rows": 20064, "stage": "pose", "video": "sXCOJR-oNNY", "seconds": 259.4}

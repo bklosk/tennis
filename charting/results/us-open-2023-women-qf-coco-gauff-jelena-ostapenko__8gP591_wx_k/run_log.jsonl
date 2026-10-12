@@ -1,0 +1,5 @@
+{"samples": 3375, "main": 1278, "segments": 135, "main_s": 1282.0, "stage": "scene", "video": "8gP591_wx_k", "seconds": 476.7}
+{"onsets": 18097, "stage": "audio", "video": "8gP591_wx_k", "seconds": 13.4}
+{"detections": 54400, "stage": "people", "video": "8gP591_wx_k", "seconds": 521.1}
+{"rows": 10306, "stage": "tracks", "video": "8gP591_wx_k", "seconds": 2.8}
+{"rows": 10306, "stage": "pose", "video": "8gP591_wx_k", "seconds": 292.4}
