@@ -65,6 +65,24 @@ request goes through `uso/decisions.py`, which caches responses by input hash, r
 `outputs/decisions/ledger.jsonl`, checks an estimate before each batch, and refuses to send a
 request that could take total spend past **$14** (the user's limit is $15).
 
+## Analytics
+
+`uv run python scripts/analytics.py [--sync] [--refit]` turns every processed match into court
+heatmaps and charts (PNG) plus CSV tables in [`reports/analytics/`](reports/analytics/README.md):
+where forehands and backhands are struck, where players stand during rallies, a pressure map of
+point-win rate by contact position, the serve standoff, returner depth on 1st vs 2nd serves, rally
+length, the run-around-the-backhand curve, court position by era, distance run, and per-player and
+per-match fingerprints. Matches that have only been through the vision stages get rally time from
+`uso/rallytime.py`.
+
+To decode the archive matches that have been through the vision stages (paid Decisions API calls,
+~$0.8 per match; check `--dry-run` and the cap in `uso/decisions.py` first):
+
+```bash
+uv run python scripts/decode_batch.py --dry-run
+uv run python scripts/decode_batch.py --slots 2
+```
+
 ## Pipeline
 
 | Stage | Module | What it does |

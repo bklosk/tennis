@@ -91,3 +91,41 @@ this departs from `claude_implementation.md`, the departure is noted.
 * **Private objects**: uploads set `ACL=private` explicitly (checked: an unauthenticated GET
   returns 403). The Space holds other projects' data; everything here lives under
   `tennis/usopen-video/`.
+
+## Analytics (2026-10-13)
+
+* **Images, not a web page**: the user asked for the analytics as images. `scripts/analytics.py`
+  writes PNGs and CSV tables to `reports/analytics/` with a README that embeds them; colors are the
+  validated light palette from the dataviz method (blue/orange categorical, one-hue blue density,
+  blue-red around gray for win rates).
+* **Rally time for matches that are not decoded** (`uso/rallytime.py`): a gradient-boosted classifier
+  on player speed, position and audio-onset density, trained on decoded points. Leave one match out
+  on the 14 decoded matches: 89% of samples right, precision 0.83, recall 0.82, predicted rally share
+  0.33 vs 0.33 true; median depth from predicted rally time is within 0.06 m of the true value per
+  match on average (all tracked time: 0.15 m). Every match uses the classifier, decoded ones
+  out-of-fold, so position charts compare like with like.
+* **Returns are split from rally shots** in the forehand-share chart: a returner's stance is set by
+  the serve box (a deuce-court returner 2 m to the forehand side mostly hits a backhand off a T
+  serve), which MCP's own labels confirm.
+* **Known measurement issue, not fixed here**: depth reads ~0.8 m deeper at the near end than the far
+  end behind the baseline (servers agree at the baseline), and the near player leaves the frame past
+  ~4.5 m. Players change ends, so group comparisons are fair; absolute depths are ±0.4 m.
+
+## Decoding the batch matches (2026-10-13, pending a budget decision)
+
+* **Match table**: `data/batch_matches.csv` lists the 44 tracked-only matches; 32 have an MCP record
+  (decoded and aligned like the evaluation set through `truth.match_row`), 12 do not (decoded with
+  `uso.uncharted`, hitters by court end; two have a left-hander, so their forehand/backhand is not used).
+  Handedness comes from MCP's match files. MCP's "Best of" column has slips (a 2023 men's QF listed as
+  best of 3), so best-of follows the draw.
+* **Cost**: measured on the 14 evaluation matches (1.505 onset requests per z >= 8 candidate at
+  $0.000067, 0.099 rally contacts per candidate at $0.000177 for the two stroke questions), the 44
+  matches come to ~$35.8. The run needs the cap in `uso/decisions.py` raised above the user's $15; it
+  stays at $14 until the user confirms the new cap.
+* **Ledger tally**: `DecisionClient.spent()` used to re-read the whole ledger on every request under a
+  lock (0.13 s at 112k lines, growing linearly), which would have throttled a 500k-request run to a
+  few requests per second. It now keeps running totals and reads only appended lines (safe across
+  processes; a half-written line waits).
+* **Runner**: `scripts/decode_batch.py` fetches each video from the Space (sha256 against the archive
+  manifest), decodes it in its own process (two at a time), uploads the new outputs next to the vision
+  outputs in the Space and deletes the video. A match that hits the cap stops the batch.

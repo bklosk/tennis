@@ -24,6 +24,7 @@ dependencies = [
   "tabulate",
   "boto3",
   "yt-dlp[default]",
+  "matplotlib>=3.11.2",
 ]
 
 [dependency-groups]
