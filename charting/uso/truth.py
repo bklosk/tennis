@@ -1,4 +1,5 @@
-"""Charted (MCP) truth for the evaluation matches, in the shape the aligner needs."""
+"""Charted (MCP) truth for the evaluation matches (and MCP-charted batch matches), in the shape the
+aligner needs."""
 
 from __future__ import annotations
 
@@ -7,7 +8,7 @@ from functools import lru_cache
 import pandas as pd
 
 from uso import mcp, scoring
-from uso.paths import EVAL_MATCHES
+from uso.paths import BATCH_MATCHES, EVAL_MATCHES
 
 
 @lru_cache(maxsize=1)
@@ -15,9 +16,21 @@ def eval_matches() -> pd.DataFrame:
     return pd.read_csv(EVAL_MATCHES, dtype={"year": int})
 
 
+@lru_cache(maxsize=1)
+def batch_matches() -> pd.DataFrame:
+    """Archive matches decoded for analytics. role is 'charted' (has an MCP record) or 'uncharted'."""
+    if not BATCH_MATCHES.exists():
+        return eval_matches().iloc[0:0]
+    return pd.read_csv(BATCH_MATCHES, dtype={"year": int, "mcp_match_id": str})
+
+
 def match_row(video_id: str) -> pd.Series:
-    em = eval_matches()
-    return em[em.video_id == video_id].iloc[0]
+    """Evaluation matches first, then MCP-charted batch matches (same columns)."""
+    for t in (eval_matches(), batch_matches()):
+        r = t[(t.video_id == video_id) & t.mcp_match_id.notna()]
+        if len(r):
+            return r.iloc[0]
+    raise KeyError(f"{video_id} has no MCP record in eval_matches.csv or batch_matches.csv")
 
 
 @lru_cache(maxsize=32)

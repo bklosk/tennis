@@ -11,6 +11,7 @@ DOWNLOADS = REPO / "downloads"
 OUTPUTS = REPO / "outputs"
 WEIGHTS = REPO / ".cache" / "weights"
 EVAL_MATCHES = PROJECT / "data" / "eval_matches.csv"
+BATCH_MATCHES = PROJECT / "data" / "batch_matches.csv"  # archive matches decoded for analytics, not evaluation
 
 
 def match_dir(video_id: str) -> Path:

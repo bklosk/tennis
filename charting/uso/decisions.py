@@ -34,6 +34,28 @@ class BudgetExceeded(RuntimeError):
     pass
 
 
+_TALLY = {"offset": 0, "usd": 0.0, "tokens": 0}
+_TALLY_LOCK = threading.Lock()
+
+
+def _tally() -> dict:
+    """Running ledger totals. Reads only the lines appended since the last call (other processes
+    append too), so the per-request budget check stays cheap as the ledger grows."""
+    with _TALLY_LOCK:
+        if LEDGER.exists():
+            with LEDGER.open("rb") as f:
+                f.seek(_TALLY["offset"])
+                data = f.read()
+            end = data.rfind(b"\n") + 1  # a half-written last line waits for the next call
+            for line in data[:end].splitlines():
+                if line.strip():
+                    r = json.loads(line)
+                    _TALLY["usd"] += r["usd"]
+                    _TALLY["tokens"] += r["input_tokens"]
+            _TALLY["offset"] += end
+        return dict(_TALLY)
+
+
 def _load_key() -> str:
     if os.environ.get("OPENAI_API_KEY"):
         return os.environ["OPENAI_API_KEY"]
@@ -78,15 +100,11 @@ class DecisionClient:
     # -- spend accounting -------------------------------------------------------------
     @staticmethod
     def spent() -> float:
-        if not LEDGER.exists():
-            return 0.0
-        return sum(json.loads(line)["usd"] for line in LEDGER.read_text().splitlines() if line.strip())
+        return _tally()["usd"]
 
     @staticmethod
     def tokens_spent() -> int:
-        if not LEDGER.exists():
-            return 0
-        return sum(json.loads(line)["input_tokens"] for line in LEDGER.read_text().splitlines() if line.strip())
+        return _tally()["tokens"]
 
     def check_estimate(self, n_requests: int, tokens_per_request: float, label: str = "") -> float:
         """Raise before a bulk run whose estimated cost would cross the cap."""

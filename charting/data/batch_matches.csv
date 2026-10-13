@@ -1,0 +1,45 @@
+role,video_id,mcp_match_id,year,gender,round,player1,player2,hand1,hand2,best_of,duration_s,match_id
+charted,HCIhFyeQxu0,20220911-M-US_Open-F-Casper_Ruud-Carlos_Alcaraz,2022,m,F,Casper Ruud,Carlos Alcaraz,R,R,5,12029,us-open-2022-men-f-carlos-alcaraz-casper-ruud
+charted,G7T5Z3WwE1M,20220906-M-US_Open-QF-Casper_Ruud-Matteo_Berrettini,2022,m,QF,Casper Ruud,Matteo Berrettini,R,R,5,7846,us-open-2022-men-qf-casper-ruud-matteo-berrettini
+charted,OsQzOCVrSzk,20220907-M-US_Open-QF-Andrey_Rublev-Frances_Tiafoe,2022,m,QF,Andrey Rublev,Frances Tiafoe,R,R,5,7928,us-open-2022-men-qf-andrey-rublev-frances-tiafoe
+charted,yatZSt9iMGw,20220907-M-US_Open-QF-Jannik_Sinner-Carlos_Alcaraz,2022,m,QF,Jannik Sinner,Carlos Alcaraz,R,R,5,16925,us-open-2022-men-qf-carlos-alcaraz-jannik-sinner
+charted,monj8eP5LQM,20220909-M-US_Open-SF-Frances_Tiafoe-Carlos_Alcaraz,2022,m,SF,Frances Tiafoe,Carlos Alcaraz,R,R,5,12925,us-open-2022-men-sf-carlos-alcaraz-frances-tiafoe
+charted,4LKEnBAmhSU,20220910-W-US_Open-F-Iga_Swiatek-Ons_Jabeur,2022,w,F,Iga Swiatek,Ons Jabeur,R,R,3,6767,us-open-2022-women-f-iga-swiatek-ons-jabeur
+charted,1R4qtc1H4wM,20230910-M-US_Open-F-Novak_Djokovic-Daniil_Medvedev,2023,m,F,Novak Djokovic,Daniil Medvedev,R,R,5,9409,us-open-2023-men-f-daniil-medvedev-novak-djokovic
+charted,B9iBZKUAxD8,20230905-M-US_Open-QF-Novak_Djokovic-Taylor_Fritz,2023,m,QF,Novak Djokovic,Taylor Fritz,R,R,5,7148,us-open-2023-men-qf-novak-djokovic-taylor-fritz
+charted,Yc-0Zc8jUQs,20230906-M-US_Open-QF-Andrey_Rublev-Daniil_Medvedev,2023,m,QF,Andrey Rublev,Daniil Medvedev,R,R,5,7708,us-open-2023-men-qf-andrey-rublev-daniil-medvedev
+charted,p53X66_NVEg,20230906-M-US_Open-QF-Carlos_Alcaraz-Alexander_Zverev,2023,m,QF,Carlos Alcaraz,Alexander Zverev,R,R,5,6896,us-open-2023-men-qf-alexander-zverev-carlos-alcaraz
+charted,qwg_pIJlNtI,20230905-M-US_Open-QF-Frances_Tiafoe-Ben_Shelton,2023,m,QF,Frances Tiafoe,Ben Shelton,R,L,5,8367,us-open-2023-men-qf-ben-shelton-frances-tiafoe
+charted,0mqK08e4K6U,20230909-M-US_Open-SF-Carlos_Alcaraz-Daniil_Medvedev,2023,m,SF,Carlos Alcaraz,Daniil Medvedev,R,R,5,9244,us-open-2023-men-sf-carlos-alcaraz-daniil-medvedev
+charted,47mFjMai8H0,20230908-M-US_Open-SF-Novak_Djokovic-Ben_Shelton,2023,m,SF,Novak Djokovic,Ben Shelton,R,L,5,7389,us-open-2023-men-sf-ben-shelton-novak-djokovic
+charted,4Q1wS7QHrDE,20230906-W-US_Open-QF-Madison_Keys-Marketa_Vondrousova,2023,w,QF,Madison Keys,Marketa Vondrousova,R,L,3,3921,us-open-2023-women-qf-madison-keys-marketa-vondrousova
+charted,ngiFC1N3k-Y,20230905-W-US_Open-QF-Sorana_Cirstea-Karolina_Muchova,2023,w,QF,Sorana Cirstea,Karolina Muchova,R,R,3,4743,us-open-2023-women-qf-karolina-muchova-sorana-cirstea
+charted,Ce3dRYHWIBI,20240908-M-US_Open-F-Taylor_Fritz-Jannik_Sinner,2024,m,F,Taylor Fritz,Jannik Sinner,R,R,5,7658,us-open-2024-men-f-jannik-sinner-taylor-fritz
+charted,YlgomlN0FlU,20240904-M-US_Open-QF-Daniil_Medvedev-Jannik_Sinner,2024,m,QF,Daniil Medvedev,Jannik Sinner,R,R,5,7641,us-open-2024-men-qf-daniil-medvedev-jannik-sinner
+charted,fBBnCKcOMK4,20240903-M-US_Open-QF-Grigor_Dimitrov-Frances_Tiafoe,2024,m,QF,Grigor Dimitrov,Frances Tiafoe,R,R,5,8718,us-open-2024-men-qf-frances-tiafoe-grigor-dimitrov
+charted,4AV40TOmfe0,20240906-M-US_Open-SF-Taylor_Fritz-Frances_Tiafoe,2024,m,SF,Taylor Fritz,Frances Tiafoe,R,R,5,8744,us-open-2024-men-sf-frances-tiafoe-taylor-fritz
+charted,KU984ab2OWc,20240906-M-US_Open-SF-Jack_Draper-Jannik_Sinner,2024,m,SF,Jack Draper,Jannik Sinner,L,R,5,9838,us-open-2024-men-sf-jack-draper-jannik-sinner
+charted,aCp88QfrcUc,20240907-W-US_Open-F-Aryna_Sabalenka-Jessica_Pegula,2024,w,F,Aryna Sabalenka,Jessica Pegula,R,R,3,5701,us-open-2024-women-f-aryna-sabalenka-jessica-pegula
+charted,QyxEAD2rQeE,20240904-W-US_Open-QF-Iga_Swiatek-Jessica_Pegula,2024,w,QF,Iga Swiatek,Jessica Pegula,R,R,3,4196,us-open-2024-women-qf-iga-swiatek-jessica-pegula
+charted,EVVqtQBW9Ps,20240905-W-US_Open-SF-Aryna_Sabalenka-Emma_Navarro,2024,w,SF,Aryna Sabalenka,Emma Navarro,R,R,3,4536,us-open-2024-women-sf-aryna-sabalenka-emma-navarro
+charted,bCWWeTBnoL4,20240905-W-US_Open-SF-Karolina_Muchova-Jessica_Pegula,2024,w,SF,Karolina Muchova,Jessica Pegula,R,R,3,6521,us-open-2024-women-sf-jessica-pegula-karolina-muchova
+charted,TDdEVBgDqK4,20250907-M-US_Open-F-Jannik_Sinner-Carlos_Alcaraz,2025,m,F,Jannik Sinner,Carlos Alcaraz,R,R,5,8185,us-open-2025-men-f-carlos-alcaraz-jannik-sinner
+charted,hyO8CDocx-4,20250902-M-US_Open-QF-Novak_Djokovic-Taylor_Fritz,2025,m,QF,Novak Djokovic,Taylor Fritz,R,R,5,9880,us-open-2025-men-qf-novak-djokovic-taylor-fritz
+charted,oTBFPSvDqaM,20250903-M-US_Open-QF-Jannik_Sinner-Lorenzo_Musetti,2025,m,QF,Jannik Sinner,Lorenzo Musetti,R,R,5,5876,us-open-2025-men-qf-jannik-sinner-lorenzo-musetti
+charted,oiJwOvdZXNU,20250903-M-US_Open-QF-Felix_Auger_Aliassime-Alex_De_Minaur,2025,m,QF,Felix Auger Aliassime,Alex De Minaur,R,R,5,11933,us-open-2025-men-qf-alex-de-minaur-felix-auger-aliassime
+charted,S9QT05BsKrU,20250905-M-US_Open-SF-Novak_Djokovic-Carlos_Alcaraz,2025,m,SF,Novak Djokovic,Carlos Alcaraz,R,R,5,7207,us-open-2025-men-sf-carlos-alcaraz-novak-djokovic
+charted,cC3chBkNryo,20250906-M-US_Open-SF-Jannik_Sinner-Felix_Auger_Aliassime,2025,m,SF,Jannik Sinner,Felix Auger Aliassime,R,R,5,9710,us-open-2025-men-sf-felix-auger-aliassime-jannik-sinner
+charted,UGXmi38qktI,20250906-W-US_Open-F-Aryna_Sabalenka-Amanda_Anisimova,2025,w,F,Aryna Sabalenka,Amanda Anisimova,R,R,3,4960,us-open-2025-women-f-amanda-anisimova-aryna-sabalenka
+charted,49T76EteBEA,20250902-W-US_Open-QF-Jessica_Pegula-Barbora_Krejcikova,2025,w,QF,Jessica Pegula,Barbora Krejcikova,R,R,3,4402,us-open-2025-women-qf-barbora-krejcikova-jessica-pegula
+uncharted,mvbdH85TLV4,,2022,m,QF,Karen Khachanov,Nick Kyrgios,R,R,5,9951,us-open-2022-men-qf-karen-khachanov-nick-kyrgios
+uncharted,RzForrdfhbI,,2022,m,SF,Casper Ruud,Karen Khachanov,R,R,5,8550,us-open-2022-men-sf-casper-ruud-karen-khachanov
+uncharted,rEeWPxtV1PQ,,2022,w,QF,Ajla Tomljanovic,Ons Jabeur,R,R,3,5197,us-open-2022-women-qf-ajla-tomljanovic-ons-jabeur
+uncharted,LyUH71a3bIw,,2023,w,F,Aryna Sabalenka,Coco Gauff,R,R,3,7274,us-open-2023-women-f-aryna-sabalenka-coco-gauff
+uncharted,7IqnqJXJ2OE,,2023,w,QF,Aryna Sabalenka,Qinwen Zheng,R,R,3,3657,us-open-2023-women-qf-aryna-sabalenka-qinwen-zheng
+uncharted,B3ilnvULS00,,2023,w,SF,Coco Gauff,Karolina Muchova,R,R,3,5544,us-open-2023-women-sf-coco-gauff-karolina-muchova
+uncharted,ED2pOxll9E0,,2023,w,SF,Aryna Sabalenka,Madison Keys,R,R,3,7260,us-open-2023-women-sf-aryna-sabalenka-madison-keys
+uncharted,FgcirxnayKs,,2024,m,QF,Alexander Zverev,Taylor Fritz,R,R,5,10117,us-open-2024-men-qf-alexander-zverev-taylor-fritz
+uncharted,Fl33UXv6jKI,,2024,m,QF,Alex De Minaur,Jack Draper,R,L,5,6245,us-open-2024-men-qf-alex-de-minaur-jack-draper
+uncharted,AMjUeB01BVk,,2024,w,QF,Beatriz Haddad Maia,Karolina Muchova,L,R,3,4070,us-open-2024-women-qf-beatriz-haddad-maia-karolina-muchova
+uncharted,KCcKkUnjbzA,,2024,w,QF,Emma Navarro,Paula Badosa,R,R,3,3597,us-open-2024-women-qf-emma-navarro-paula-badosa
+uncharted,rEPOrGzRWsc,,2025,w,QF,Karolina Muchova,Naomi Osaka,R,R,3,5142,us-open-2025-women-qf-karolina-muchova-naomi-osaka
