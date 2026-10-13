@@ -1,0 +1,6 @@
+{"samples": 4535, "main": 1869, "segments": 157, "main_s": 1875.0, "stage": "scene", "video": "EVVqtQBW9Ps", "seconds": 682.5, "at": "2026-10-12 22:01:01"}
+{"onsets": 22300, "stage": "audio", "video": "EVVqtQBW9Ps", "seconds": 15.9, "at": "2026-10-12 22:01:17"}
+{"detections": 93949, "stage": "people", "video": "EVVqtQBW9Ps", "seconds": 689.0, "at": "2026-10-12 22:12:46"}
+{"rows": 15061, "stage": "tracks", "video": "EVVqtQBW9Ps", "seconds": 4.5, "at": "2026-10-12 22:12:50"}
+{"rows": 15061, "stage": "pose", "video": "EVVqtQBW9Ps", "seconds": 295.5, "at": "2026-10-12 22:17:46"}
+{"rows": 8922, "stage": "candidates", "video": "EVVqtQBW9Ps", "seconds": 9.5, "at": "2026-10-12 22:17:55"}
