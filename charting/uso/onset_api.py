@@ -11,6 +11,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
+from uso import labeler as labeler_mod
 from uso.crops import _box_at, cut, save_jpeg, square
 from uso.decisions import DecisionClient, Request, choice_probs
 from uso.paths import match_dir
@@ -61,33 +62,59 @@ def build_images(video_id: str, onsets: pd.DataFrame, trk: pd.DataFrame) -> dict
     return out
 
 
-def label(video_id: str, onsets: pd.DataFrame, trk: pd.DataFrame, client: DecisionClient | None = None,
-          chunk: int = 200) -> pd.DataFrame:
-    """API action probabilities per onset. Cached per request, so re-runs are free."""
-    client = client or DecisionClient()
+def _requests(video_id: str, part: pd.DataFrame, trk: pd.DataFrame, labeler: str) -> list:
+    """The same contact sheet, text and questions for either labeler."""
+    imgs = build_images(video_id, part, trk)
+    if labeler == "jev":
+        from uso import jev
+
+        qs = jev.questions_from_decisions(QUESTIONS)
+        reqs = []
+        for o in part.oid:
+            ref = jev.image_ref(imgs[o])
+            reqs.append(jev.Request(state={"description": TEXT, "image": ref}, questions=qs, images={ref: imgs[o]}))
+        return reqs
+    return [Request(text=TEXT, images=[imgs[o]], questions=QUESTIONS) for o in part.oid]
+
+
+def _answer(a: dict, labeler: str) -> tuple[int | None, dict]:
+    """(input tokens, {question name: {action: probability}})."""
+    if labeler == "jev":
+        from uso import jev
+
+        return (a.get("usage") or {}).get("input_tokens"), {f"{w}_action": jev.choice_probs(a, f"{w}_action")
+                                                          for w in ("near", "far")}
+    return (a.get("_usage") or {}).get("input_tokens"), {f"{w}_action": choice_probs(a.get(f"{w}_action"))
+                                                        for w in ("near", "far")}
+
+
+def label(video_id: str, onsets: pd.DataFrame, trk: pd.DataFrame, client=None, chunk: int = 200,
+          labeler: str = "luna") -> pd.DataFrame:
+    """Action probabilities per onset. Cached per request, so re-runs are free."""
+    client = client or labeler_mod.client(labeler)
     rows = []
     for i in range(0, len(onsets), chunk):
         part = onsets.iloc[i:i + chunk]
-        imgs = build_images(video_id, part, trk)
-        reqs = [Request(text=TEXT, images=[imgs[o]], questions=QUESTIONS) for o in part.oid]
-        ans = client.ask_many(reqs, label=f"onsets:{video_id}", workers=16)
+        ans = client.ask_many(_requests(video_id, part, trk, labeler), label=f"onsets:{video_id}", workers=16)
         for oid, a in zip(part.oid, ans):
             if a is None:
                 continue
-            row = {"oid": oid, "tokens": (a.get("_usage") or {}).get("input_tokens")}
+            tokens, probs = _answer(a, labeler)
+            row = {"oid": oid, "tokens": tokens}
             for who in ("near", "far"):
-                pr = choice_probs(a.get(f"{who}_action"))
+                pr = probs[f"{who}_action"]
                 for act in ("serve", "hit", "bounce", "none"):
                     row[f"{who}_{act}"] = pr.get(act, np.nan)
             rows.append(row)
     return pd.DataFrame(rows)
 
 
-def run(video_id: str, z_min: float = 10.0, client: DecisionClient | None = None, max_onsets: int | None = None,
-        dry_run: bool = False) -> pd.DataFrame:
-    """Label every candidate onset (inside live segments, z >= z_min). Cached as onset_api.parquet."""
+def run(video_id: str, z_min: float = 10.0, client=None, max_onsets: int | None = None,
+        dry_run: bool = False, labeler: str = "luna") -> pd.DataFrame:
+    """Label every candidate onset (inside live segments, z >= z_min). Cached in the labeler's file
+    (onset_api.parquet for luna, onset_jev.parquet for Jev)."""
     d = match_dir(video_id)
-    out = d / "onset_api.parquet"
+    out = labeler_mod.labels_path(video_id, labeler)
     c = pd.read_parquet(d / "candidates.parquet")
     trk = pd.read_parquet(d / "tracks.parquet")
     on = c[c.z >= z_min][["seg", "t"]].copy()
@@ -99,22 +126,22 @@ def run(video_id: str, z_min: float = 10.0, client: DecisionClient | None = None
         on = on[~on.oid.isin(prev.oid)]
     else:
         prev = pd.DataFrame()
-    client = client or DecisionClient()
-    client.check_estimate(len(on), 700, label=f"onset labels {video_id}")
+    client = client or labeler_mod.client(labeler)
+    client.check_estimate(len(on), labeler_mod.TOKENS_PER_ONSET[labeler], label=f"onset labels {video_id}")
     if dry_run or on.empty:
         return prev
-    lab = label(video_id, on, trk, client)
+    lab = label(video_id, on, trk, client, labeler=labeler)
     res = pd.concat([prev, lab], ignore_index=True)
     res.to_parquet(out)
     return res
 
 
 def run_soft(video_id: str, z_lo: float = 5.0, z_hi: float = 8.0, after: float = 3.0, p_ctx: float = 0.4,
-             client: DecisionClient | None = None) -> pd.DataFrame:
+             client=None, labeler: str = "luna") -> pd.DataFrame:
     """Second pass: soft onsets (volleys, touch shots) inside rally context, i.e. within `after`
-    seconds after an already-labelled likely contact. Appends to onset_api.parquet."""
+    seconds after an already-labelled likely contact. Appends to the labeler's file."""
     d = match_dir(video_id)
-    out = d / "onset_api.parquet"
+    out = labeler_mod.labels_path(video_id, labeler)
     c = pd.read_parquet(d / "candidates.parquet")
     trk = pd.read_parquet(d / "tracks.parquet")
     lab = pd.read_parquet(out)
@@ -127,11 +154,11 @@ def run_soft(video_id: str, z_lo: float = 5.0, z_hi: float = 8.0, after: float =
     near_ctx = (i >= 0) & (soft.t.to_numpy() - ctx_t[np.clip(i, 0, None)] <= after)
     on = soft[near_ctx][["seg", "t"]].copy()
     on["oid"] = on.index
-    client = client or DecisionClient()
-    client.check_estimate(len(on), 700, label=f"soft onsets {video_id}")
+    client = client or labeler_mod.client(labeler)
+    client.check_estimate(len(on), labeler_mod.TOKENS_PER_ONSET[labeler], label=f"soft onsets {video_id}")
     if on.empty:
         return lab
-    new = label(video_id, on, trk, client)
+    new = label(video_id, on, trk, client, labeler=labeler)
     res = pd.concat([lab, new], ignore_index=True)
     res.to_parquet(out)
     return res

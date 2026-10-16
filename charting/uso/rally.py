@@ -268,13 +268,17 @@ def with_api(c: pd.DataFrame, lab: pd.DataFrame, params: dict | None = None) -> 
     return c
 
 
-def pick_serves_api(c: pd.DataFrame, p_min: float = 0.5, quiet: float = 2.5, nms: float = 2.0) -> pd.DataFrame:
+def pick_serves_api(c: pd.DataFrame, p_min: float = 0.5, quiet: float = 2.5, nms: float = 2.0,
+                    p_min_near: float | None = None, p_min_far: float | None = None) -> pd.DataFrame:
+    """Serves from the API's serve answers. Per-end thresholds (p_min_near/p_min_far, default p_min)
+    exist because Jev reads the near player's pre-serve routine as a serve far more often than luna."""
+    thr = {"near": p_min if p_min_near is None else p_min_near, "far": p_min if p_min_far is None else p_min_far}
     rows = []
     for who, p, o in (("near", "n", "f"), ("far", "f", "n")):
         ps = c[f"{who}_serve"].fillna(0)
         y, x = c[f"{p}_y"].abs(), c[f"{p}_x"].abs()
         oy = c[f"{o}_y"].abs()
-        ok = (ps >= p_min) & (y >= 10.0) & (x <= 5.0) & (oy.fillna(12) >= 6.0)
+        ok = (ps >= thr[who]) & (y >= 10.0) & (x <= 5.0) & (oy.fillna(12) >= 6.0)
         for i in c.index[ok]:
             rows.append(dict(i=i, t=c.at[i, "t"], seg=c.at[i, "seg"], server=who, p=ps[i],
                              sx=c.at[i, f"{p}_x"], sy=c.at[i, f"{p}_y"], z=c.at[i, "z"]))
@@ -294,6 +298,12 @@ def pick_serves_api(c: pd.DataFrame, p_min: float = 0.5, quiet: float = 2.5, nms
         taken.append(r.t)
         keep.append(dict(t=r.t, seg=r.seg, server=r.server, serve_score=r.p, z=r.z, sx=r.sx, sy=r.sy))
     return pd.DataFrame(keep).sort_values("t").reset_index(drop=True)
+
+
+def serves(c: pd.DataFrame, p: dict) -> pd.DataFrame:
+    """pick_serves_api with a decoder parameter dict (serve_p, optional serve_p_near/serve_p_far, quiet)."""
+    return pick_serves_api(c, p_min=p["serve_p"], quiet=p["quiet"], p_min_near=p.get("serve_p_near"),
+                           p_min_far=p.get("serve_p_far"))
 
 
 def apply_v2(c: pd.DataFrame, lab2: pd.DataFrame, params: dict | None = None, w_contact: float = 0.5) -> pd.DataFrame:

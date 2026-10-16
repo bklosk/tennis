@@ -65,6 +65,25 @@ request goes through `uso/decisions.py`, which caches responses by input hash, r
 `outputs/decisions/ledger.jsonl`, checks an estimate before each batch, and refuses to send a
 request that could take total spend past **$14** (the user's limit is $15).
 
+## Charting the rest of the archive (Jev onset labels)
+
+From 2026-10-15, new matches are decoded with TypeSafe Jev labelling the onsets instead of the
+Decisions API: same contact sheets, Jev's own decoder settings and contact model, and the pose-only
+stroke model, with no stroke questions. Why, and how it compares, is in `DECISIONS.md` and
+[`reports/jev/README.md`](reports/jev/README.md). The Jev key is read from `TYPESAFE_API_KEY` (or
+`JEV_KEY`) or the repo-root `.env`. Spend is capped in `uso/jev.py` and logged in
+`outputs/jev/ledger.jsonl`.
+
+1. **Vision stages** (free, about 5 video-hours per hour on an M3 Pro at two slots), for archived
+   matches without `pose.parquet`: `scripts/batch_mac.py`, on the `charting-results` branch.
+2. **Decode** (paid, about $0.24 per video-hour):
+
+```bash
+uv run python scripts/decode_batch.py --write-table         # pick up every match with vision outputs
+uv run python scripts/decode_batch.py --dry-run              # what would run, estimated spend vs the cap
+uv run python scripts/decode_batch.py --slots 2              # --labeler luna for the old route
+```
+
 ## Analytics
 
 `uv run python scripts/analytics.py [--sync] [--refit]` turns every processed match into court

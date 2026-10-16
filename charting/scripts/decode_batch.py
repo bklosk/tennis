@@ -1,17 +1,21 @@
-"""Decode archive matches that have been through the vision stages: Decisions API onset labels,
-rally decoding, stroke features and stroke predictions.
+"""Decode archive matches that have been through the vision stages: API onset labels, rally
+decoding, stroke features and stroke predictions.
 
     uv run python scripts/decode_batch.py --write-table          # (re)build data/batch_matches.csv
     uv run python scripts/decode_batch.py --dry-run              # what would run, and the estimated spend
-    uv run python scripts/decode_batch.py [--slots 2] [--only VIDEO_ID ...]
+    uv run python scripts/decode_batch.py [--slots 2] [--only VIDEO_ID ...] [--labeler jev|luna]
+
+The onset labeler defaults to Jev (uso.labeler): onsets are labelled by Jev, decoded with Jev's
+decoder parameters and contact models, and strokes come from the pose-only model with no stroke
+questions. `--labeler luna` is the original Decisions API route.
 
 Matches with an MCP record ('charted') are decoded and aligned like the evaluation set and get
 outputs/VIDEO_ID/shots.csv and points.csv; the rest ('uncharted') go through `uso.uncharted` and
 get uncharted_shots.csv / uncharted_points.csv (hitters by court end only). Each video is fetched
 from the Space and sha256-checked against the archive manifest, decoded in its own process, its new
 outputs uploaded next to the vision outputs in s3://benklosky-data/tennis/charting-outputs/, and the
-local video deleted. Paid requests go through `uso.decisions` and stop at its cap; a match that hits
-the cap stops the batch. Resumable (finished matches are skipped, API answers are cached); a STOP file
+local video deleted. Paid requests go through `uso.jev` (or `uso.decisions` for luna) and stop at its
+cap; a match that hits the cap stops the batch. Resumable (finished matches are skipped, API answers are cached); a STOP file
 in outputs/decode/ ends it after the running matches. The Mac is kept awake with caffeinate.
 """
 
@@ -35,6 +39,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 from archive_videos import BUCKET, s3_client  # noqa: E402
 
+from uso import labeler as labeler_mod  # noqa: E402
 from uso.paths import BATCH_MATCHES, DOWNLOADS, MCP_DIR, OUTPUTS, PROJECT, match_dir  # noqa: E402
 
 STATE = OUTPUTS / "decode"
@@ -43,7 +48,10 @@ SKIP_UPLOAD = {"audio.wav", "rally_p.parquet"}
 BUDGET_EXIT = 3
 # Measured on the 14 evaluation matches: onset requests per candidate with z >= 8, dollars per onset
 # request, rally contacts per candidate, and dollars per rally contact for the two stroke questions.
-ONSETS_PER_Z8, USD_PER_ONSET, RALLY_PER_Z8, USD_PER_RALLY = 1.505, 0.000067, 0.099, 0.000177
+# Jev: 1,163 tokens per onset request at $0.042/M, and no stroke questions.
+ONSETS_PER_Z8, RALLY_PER_Z8 = 1.505, 0.099
+USD_PER_ONSET = {"luna": 0.000067, "jev": 0.0000489}
+USD_PER_RALLY = {"luna": 0.000177, "jev": 0.0}
 
 
 # ---------------------------------------------------------------- match table
@@ -97,41 +105,58 @@ def done(r) -> bool:
     return (d / ("shots.csv" if r.role == "charted" else "uncharted_shots.csv")).exists()
 
 
-def estimate(vid: str) -> float:
+def estimate(vid: str, labeler: str = labeler_mod.BATCH_DEFAULT) -> float:
     c = pd.read_parquet(match_dir(vid) / "candidates.parquet", columns=["z"])
     z8 = int((c.z >= 8).sum())
-    return z8 * (ONSETS_PER_Z8 * USD_PER_ONSET + RALLY_PER_Z8 * USD_PER_RALLY)
+    return z8 * (ONSETS_PER_Z8 * USD_PER_ONSET[labeler] + RALLY_PER_Z8 * USD_PER_RALLY[labeler])
+
+
+def _budget_errors() -> tuple:
+    from uso.decisions import BudgetExceeded as LunaBudget
+    from uso.jev import BudgetExceeded as JevBudget
+
+    return LunaBudget, JevBudget
+
+
+def _client_class(labeler: str):
+    if labeler == "jev":
+        from uso.jev import HARD_CAP_USD, JevClient
+
+        return JevClient, HARD_CAP_USD
+    from uso.decisions import HARD_CAP_USD, DecisionClient
+
+    return DecisionClient, HARD_CAP_USD
 
 
 # ---------------------------------------------------------------- one match (child process)
 
-def decode_one(vid: str) -> dict:
+def decode_one(vid: str, labeler: str = labeler_mod.BATCH_DEFAULT) -> dict:
     from uso import report
     from uso import stroke_model as sm
-    from uso.decisions import BudgetExceeded, DecisionClient
 
+    Client, _ = _client_class(labeler)
     r = pd.read_csv(BATCH_MATCHES).set_index("video_id").loc[vid]
-    t0, spent0 = time.time(), DecisionClient.spent()
+    t0, spent0 = time.time(), Client.spent()
     try:
         if r.role == "charted":
             import post
 
-            post.run(vid, ["onsets", "shots", "strokefeats", "strokeapi"])
+            post.run(vid, ["onsets", "shots", "strokefeats", "strokeapi"], labeler)  # strokeapi: luna only
             tab = sm.match_table(vid)
-            pred = sm.load().predict(tab)
+            pred = sm.load(labeler_mod.stroke_model_name(labeler)).predict(tab)
             keep = ["hit_id", "p_forehand", "side", "family"] + [c for c in pred.columns
                                                                  if c.startswith("p_") and c != "p_forehand"]
-            report.export(vid, pred[keep])
+            report.export(vid, pred[keep], source=labeler_mod.SOURCE[labeler])
         else:
             from uso import uncharted
 
             # one hand per court end: right/right is exact unless a left-hander plays (flagged in the table)
-            uncharted.chart(vid, {"near": "R", "far": "R"})
-    except BudgetExceeded as e:
+            uncharted.chart(vid, {"near": "R", "far": "R"}, labeler)
+    except _budget_errors() as e:
         print(f"[decode] {vid}: budget cap reached: {e}", flush=True)
         sys.exit(BUDGET_EXIT)
-    info = dict(video_id=vid, role=r.role, seconds=round(time.time() - t0, 1),
-                usd=round(DecisionClient.spent() - spent0, 3), spent_total=round(DecisionClient.spent(), 3))
+    info = dict(video_id=vid, role=r.role, labeler=labeler, seconds=round(time.time() - t0, 1),
+                usd=round(Client.spent() - spent0, 3), spent_total=round(Client.spent(), 3))
     print("[decode] " + json.dumps(info), flush=True)
     return info
 
@@ -139,7 +164,8 @@ def decode_one(vid: str) -> dict:
 # ---------------------------------------------------------------- batch (parent process)
 
 class Batch:
-    def __init__(self, todo: pd.DataFrame, slots: int, keep_video: bool):
+    def __init__(self, todo: pd.DataFrame, slots: int, keep_video: bool, labeler: str = labeler_mod.BATCH_DEFAULT):
+        self.labeler = labeler
         self.s3 = s3_client()
         self.todo = todo
         self.slots = slots
@@ -248,7 +274,8 @@ class Batch:
                     if self.stopping():
                         continue
                     log = (STATE / f"{vid}.log").open("a")
-                    p = subprocess.Popen([sys.executable, str(Path(__file__).resolve()), "--one", vid],
+                    p = subprocess.Popen([sys.executable, str(Path(__file__).resolve()), "--one", vid,
+                                          "--labeler", self.labeler],
                                          stdout=log, stderr=subprocess.STDOUT, cwd=PROJECT)
                     running[vid] = (p, None)
                     self.state[vid].update(status="running", started=time.strftime("%H:%M:%S"))
@@ -260,10 +287,9 @@ class Batch:
                 time.sleep(5)
         finally:
             caff.terminate()
-        from uso.decisions import DecisionClient
-
+        Client, _ = _client_class(self.labeler)
         n = sum(s["status"] == "done" for s in self.state.values())
-        self.log(f"batch finished: {n} of {len(self.todo)} decoded; total API spend ${DecisionClient.spent():.2f}")
+        self.log(f"batch finished: {n} of {len(self.todo)} decoded; total {self.labeler} spend ${Client.spent():.2f}")
 
 
 def main():
@@ -273,34 +299,36 @@ def main():
     ap.add_argument("--only", nargs="*", help="video ids to decode (default: every undecoded batch match)")
     ap.add_argument("--slots", type=int, default=2, help="matches decoded at once")
     ap.add_argument("--keep-video", action="store_true", help="keep downloaded videos after decoding")
+    ap.add_argument("--labeler", default=labeler_mod.BATCH_DEFAULT, choices=list(labeler_mod.NAMES))
     ap.add_argument("--one", help=argparse.SUPPRESS)
     a = ap.parse_args()
     if a.one:
-        decode_one(a.one)
+        decode_one(a.one, a.labeler)
         return
     if a.write_table or not BATCH_MATCHES.exists():
         t = write_table()
         print(f"[decode] {BATCH_MATCHES.name}: {len(t)} matches ({(t.role == 'charted').sum()} with an MCP record)")
         if a.write_table:
             return
-    from uso.decisions import HARD_CAP_USD, DecisionClient
+    Client, HARD_CAP_USD = _client_class(a.labeler)
 
     t = pd.read_csv(BATCH_MATCHES)
     t = t[[not done(r) for r in t.itertuples()]]
     if a.only:
         t = t[t.video_id.isin(a.only)]
-    est = sum(estimate(v) for v in t.video_id)
-    spent = DecisionClient.spent()
-    print(f"[decode] {len(t)} matches to decode ({(t.role == 'charted').sum()} charted); estimated ${est:.2f}; "
-          f"spent ${spent:.2f}; cap ${HARD_CAP_USD:.2f}")
+    est = sum(estimate(v, a.labeler) for v in t.video_id)
+    spent = Client.spent()
+    print(f"[decode] {len(t)} matches to decode with {a.labeler} ({(t.role == 'charted').sum()} charted); "
+          f"estimated ${est:.2f}; spent ${spent:.2f}; cap ${HARD_CAP_USD:.2f}")
     if a.dry_run:
         for r in t.itertuples():
-            print(f"  {r.video_id}  {r.role:9s}  {r.year} {r.gender} {r.round:2s}  {r.player1} – {r.player2}  ~${estimate(r.video_id):.2f}")
+            print(f"  {r.video_id}  {r.role:9s}  {r.year} {r.gender} {r.round:2s}  {r.player1} – {r.player2}  "
+                  f"~${estimate(r.video_id, a.labeler):.2f}")
         return
     if spent + est > HARD_CAP_USD:
         print(f"[decode] the estimate would cross the cap (${spent + est:.2f} > ${HARD_CAP_USD:.2f}); "
               "matches run in order until the cap stops them")
-    Batch(t, a.slots, a.keep_video).run()
+    Batch(t, a.slots, a.keep_video, a.labeler).run()
 
 
 if __name__ == "__main__":

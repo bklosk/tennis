@@ -1,0 +1,462 @@
+{
+ "video_id": "8gP591_wx_k",
+ "match": "2023 US Open women's QF, Ostapenko v Gauff (held-out test match)",
+ "jev_onset_labels": "8gP591_wx_k/onset_jev.parquet",
+ "onsets": {
+  "labelled_pairs": 4994,
+  "positives": 279,
+  "luna": {
+   "contact_auc_near": 0.8693,
+   "contact_auc_far": 0.8553,
+   "contact_auc_all": 0.8414
+  },
+  "jev": {
+   "contact_auc_near": 0.9028,
+   "contact_auc_far": 0.8837,
+   "contact_auc_all": 0.8912
+  },
+  "top_action_agreement": {
+   "near": 0.8169,
+   "far": 0.7337
+  },
+  "jev_answered": 4374,
+  "luna_answered": 4434
+ },
+ "rally_length": {
+  "luna_production (API + learned contact model)": {
+   "points": 87,
+   "rally_exact": 0.5517,
+   "rally_within1": 0.8736,
+   "rally_bias": -0.023,
+   "rally_mae": 0.6207,
+   "video_points": 95,
+   "mcp_points": 93,
+   "aligned": 88,
+   "coverage": 0.9462,
+   "server_agree": 0.9886,
+   "serves_agree": 0.7841
+  },
+  "luna_api_only": {
+   "points": 87,
+   "rally_exact": 0.5172,
+   "rally_within1": 0.8391,
+   "rally_bias": -0.2299,
+   "rally_mae": 0.7126,
+   "video_points": 95,
+   "mcp_points": 93,
+   "aligned": 88,
+   "coverage": 0.9462,
+   "server_agree": 0.9886,
+   "serves_agree": 0.7841
+  },
+  "jev_api_only": {
+   "points": 90,
+   "rally_exact": 0.6333,
+   "rally_within1": 0.8444,
+   "rally_bias": -0.5222,
+   "rally_mae": 0.7889,
+   "video_points": 122,
+   "mcp_points": 93,
+   "aligned": 90,
+   "coverage": 0.9677,
+   "server_agree": 1.0,
+   "serves_agree": 0.8333
+  },
+  "jev + learned contact model (trained on luna answers)": {
+   "points": 90,
+   "rally_exact": 0.6333,
+   "rally_within1": 0.8556,
+   "rally_bias": -0.3556,
+   "rally_mae": 0.7556,
+   "video_points": 122,
+   "mcp_points": 93,
+   "aligned": 90,
+   "coverage": 0.9677,
+   "server_agree": 1.0,
+   "serves_agree": 0.8333
+  },
+  "retuned_on_this_match_api_only": {
+   "luna": {
+    "bias": -0.5,
+    "serve_p": 0.4,
+    "points": 87,
+    "rally_exact": 0.5172,
+    "rally_within1": 0.8391,
+    "rally_bias": -0.2299,
+    "rally_mae": 0.7126,
+    "video_points": 95,
+    "mcp_points": 93,
+    "aligned": 88,
+    "coverage": 0.9462,
+    "server_agree": 0.9886,
+    "serves_agree": 0.7841
+   },
+   "jev": {
+    "bias": -0.5,
+    "serve_p": 0.5,
+    "points": 90,
+    "rally_exact": 0.6444,
+    "rally_within1": 0.8667,
+    "rally_bias": -0.3444,
+    "rally_mae": 0.6333,
+    "video_points": 113,
+    "mcp_points": 93,
+    "aligned": 90,
+    "coverage": 0.9677,
+    "server_agree": 1.0,
+    "serves_agree": 0.8333
+   }
+  },
+  "paired_api_only": {
+   "common_points": 86,
+   "luna_exact": 0.5233,
+   "jev_exact": 0.6395,
+   "only_jev_exact": 21,
+   "only_luna_exact": 11,
+   "luna_within1": 0.8488,
+   "jev_within1": 0.8605,
+   "luna_off_by_2plus": 13,
+   "jev_off_by_2plus": 12
+  },
+  "jev_tuned_api_only": {
+   "points": 84,
+   "rally_exact": 0.5357,
+   "rally_within1": 0.8333,
+   "rally_bias": -0.0119,
+   "rally_mae": 0.8214,
+   "video_points": 89,
+   "mcp_points": 93,
+   "aligned": 84,
+   "coverage": 0.9032,
+   "server_agree": 1.0,
+   "serves_agree": 0.7857
+  },
+  "jev_tuned + jev contact model (production jev)": {
+   "points": 84,
+   "rally_exact": 0.6071,
+   "rally_within1": 0.8452,
+   "rally_bias": -0.2381,
+   "rally_mae": 0.7381,
+   "video_points": 89,
+   "mcp_points": 93,
+   "aligned": 84,
+   "coverage": 0.9032,
+   "server_agree": 1.0,
+   "serves_agree": 0.7857
+  },
+  "paired_production": {
+   "common_points": 82,
+   "luna_exact": 0.5488,
+   "jev_exact": 0.6098,
+   "only_jev_exact": 9,
+   "only_luna_exact": 4,
+   "luna_within1": 0.8659,
+   "jev_within1": 0.8537,
+   "luna_off_by_2plus": 11,
+   "jev_off_by_2plus": 12
+  },
+  "jev_params": {
+   "audio_w": 0.5,
+   "z0": 25.0,
+   "bias": 0.0,
+   "unlabeled": -4.0,
+   "w_prior": 0.2,
+   "serve_p": 0.4,
+   "quiet": 2.5,
+   "phantom": -2.0,
+   "learned_bias": -1.0,
+   "serve_p_near": 0.8,
+   "serve_p_far": 0.6,
+   "learned_w": 0.7
+  }
+ },
+ "strokes": {
+  "n_contacts_with_mcp_side": 260,
+  "pose_model_production_side_acc": 0.9731,
+  "luna": {
+   "n": 260,
+   "side_acc": 0.4962,
+   "side_auc": 0.6094,
+   "unclear_mean": 0.0296,
+   "imgside_acc": 0.5654,
+   "imgside_auc": 0.6788,
+   "side_acc_near": 0.5271,
+   "side_acc_far": 0.4656,
+   "family_acc": 0.9038,
+   "family_confusion_mcp_to_pred": {
+    "drop_shot": {
+     "groundstroke": 2,
+     "overhead": 0,
+     "slice": 1
+    },
+    "groundstroke": {
+     "groundstroke": 233,
+     "overhead": 1,
+     "slice": 9
+    },
+    "lob": {
+     "groundstroke": 2,
+     "overhead": 0,
+     "slice": 0
+    },
+    "slice": {
+     "groundstroke": 8,
+     "overhead": 0,
+     "slice": 2
+    },
+    "volley": {
+     "groundstroke": 2,
+     "overhead": 0,
+     "slice": 0
+    }
+   },
+   "slice_auc": 0.6422,
+   "two_hands_auc_vs_backhand": 0.5786
+  },
+  "jev": {
+   "n": 260,
+   "side_acc": 0.5731,
+   "side_auc": 0.6634,
+   "unclear_mean": 0.0178,
+   "imgside_acc": 0.7077,
+   "imgside_auc": 0.7844,
+   "side_acc_near": 0.6822,
+   "side_acc_far": 0.4656,
+   "family_acc": 0.9,
+   "family_confusion_mcp_to_pred": {
+    "drop_shot": {
+     "groundstroke": 2,
+     "overhead": 0,
+     "slice": 0,
+     "volley": 1
+    },
+    "groundstroke": {
+     "groundstroke": 232,
+     "overhead": 0,
+     "slice": 2,
+     "volley": 9
+    },
+    "lob": {
+     "groundstroke": 2,
+     "overhead": 0,
+     "slice": 0,
+     "volley": 0
+    },
+    "slice": {
+     "groundstroke": 7,
+     "overhead": 0,
+     "slice": 2,
+     "volley": 1
+    },
+    "volley": {
+     "groundstroke": 1,
+     "overhead": 1,
+     "slice": 0,
+     "volley": 0
+    }
+   },
+   "slice_auc": 0.7644,
+   "two_hands_auc_vs_backhand": 0.7174
+  }
+ },
+ "box": {
+  "frames": 416,
+  "near": {
+   "iou_median": 0.607,
+   "iou_ge_0_5": 0.731,
+   "iou_ge_0_7": 0.298,
+   "wrong_person": 0.007,
+   "foot_px_median": 22.6,
+   "court_err_m_median": 0.283,
+   "court_err_m_p90": 0.588,
+   "height_ratio_median": 1.033,
+   "conf_median": 0.81,
+   "conf_vs_iou_spearman": 0.018
+  },
+  "far": {
+   "iou_median": 0.375,
+   "iou_ge_0_5": 0.269,
+   "iou_ge_0_7": 0.043,
+   "wrong_person": 0.067,
+   "foot_px_median": 23.8,
+   "court_err_m_median": 0.809,
+   "court_err_m_p90": 1.481,
+   "height_ratio_median": 1.076,
+   "conf_median": 0.715,
+   "conf_vs_iou_spearman": 0.19
+  },
+  "position_checks": {
+   "production (RF-DETR, interpolated at contact)": {
+    "server_behind_baseline": 1.0,
+    "serve_wide_vs_T_auc": 0.9368421052631578,
+    "shot_dir_1_vs_3_auc": 0.9982510687912942,
+    "net_shot_auc": 0.8994322789943228
+   },
+   "rfdetr_at_snapped_frame": {
+    "server_behind_baseline": 1.0,
+    "return_outward_median_m": {
+     "4": 3.82,
+     "5": 3.27,
+     "6": 1.98
+    },
+    "serve_wide_vs_T_auc": 0.9316,
+    "recv_right_x_median_by_dir": {
+     "1": 2.07,
+     "2": -0.48,
+     "3": -2.4
+    },
+    "shot_dir_1_vs_3_auc": 0.9986,
+    "net_shot_auc": 0.8917,
+    "dnet_median_net_shots": 8.4134,
+    "dnet_median_other": 12.9836
+   },
+   "jev_box_at_snapped_frame": {
+    "server_behind_baseline": 0.8675,
+    "return_outward_median_m": {
+     "4": 3.46,
+     "5": 2.95,
+     "6": 1.82
+    },
+    "serve_wide_vs_T_auc": 0.9211,
+    "recv_right_x_median_by_dir": {
+     "1": 1.82,
+     "2": -0.22,
+     "3": -1.92
+    },
+    "shot_dir_1_vs_3_auc": 0.9928,
+    "net_shot_auc": 0.884,
+    "dnet_median_net_shots": 8.7146,
+    "dnet_median_other": 12.9304
+   }
+  }
+ },
+ "ball": {
+  "frames": 416,
+  "ball_visible_median": 0.52,
+  "ball_box_px_median": [
+   38.4,
+   54.0
+  ],
+  "ball_conf_median": 0.44,
+  "frames_within_0_05s_of_contact": 156,
+  "ball_at_hitter_rate": 0.5
+ },
+ "box_person_only": {
+  "frames": 416,
+  "near": {
+   "iou_median": 0.619,
+   "iou_ge_0_5": 0.752,
+   "iou_ge_0_7": 0.349,
+   "wrong_person": 0.007,
+   "foot_px_median": 20.8,
+   "court_err_m_median": 0.266,
+   "court_err_m_p90": 0.534,
+   "height_ratio_median": 0.985,
+   "conf_median": 0.81,
+   "conf_vs_iou_spearman": -0.01
+  },
+  "far": {
+   "iou_median": 0.44,
+   "iou_ge_0_5": 0.385,
+   "iou_ge_0_7": 0.082,
+   "wrong_person": 0.046,
+   "foot_px_median": 19.6,
+   "court_err_m_median": 0.648,
+   "court_err_m_p90": 1.362,
+   "height_ratio_median": 0.972,
+   "conf_median": 0.74,
+   "conf_vs_iou_spearman": 0.182
+  },
+  "position_checks": {
+   "production (RF-DETR, interpolated at contact)": {
+    "server_behind_baseline": 1.0,
+    "serve_wide_vs_T_auc": 0.9368421052631578,
+    "shot_dir_1_vs_3_auc": 0.9982510687912942,
+    "net_shot_auc": 0.8994322789943228
+   },
+   "rfdetr_at_snapped_frame": {
+    "server_behind_baseline": 1.0,
+    "return_outward_median_m": {
+     "4": 3.82,
+     "5": 3.27,
+     "6": 1.98
+    },
+    "serve_wide_vs_T_auc": 0.9316,
+    "recv_right_x_median_by_dir": {
+     "1": 2.07,
+     "2": -0.48,
+     "3": -2.4
+    },
+    "shot_dir_1_vs_3_auc": 0.9986,
+    "net_shot_auc": 0.8917,
+    "dnet_median_net_shots": 8.4134,
+    "dnet_median_other": 12.9836
+   },
+   "jev_box_at_snapped_frame": {
+    "server_behind_baseline": 0.9518,
+    "return_outward_median_m": {
+     "4": 3.64,
+     "5": 3.1,
+     "6": 1.99
+    },
+    "serve_wide_vs_T_auc": 0.9079,
+    "recv_right_x_median_by_dir": {
+     "1": 1.85,
+     "2": -0.28,
+     "3": -1.96
+    },
+    "shot_dir_1_vs_3_auc": 0.993,
+    "net_shot_auc": 0.8929,
+    "dnet_median_net_shots": 8.5304,
+    "dnet_median_other": 13.2264
+   }
+  }
+ },
+ "cost": {
+  "jev": {
+   "box": {
+    "requests": 416.0,
+    "tokens_per_request": 4013.35817,
+    "usd": 0.07012
+   },
+   "box_person": {
+    "requests": 416.0,
+    "tokens_per_request": 3993.35817,
+    "usd": 0.06977
+   },
+   "imgside": {
+    "requests": 286.0,
+    "tokens_per_request": 1126.96154,
+    "usd": 0.01354
+   },
+   "onsets": {
+    "requests": 21241.0,
+    "tokens_per_request": 1163.47531,
+    "usd": 1.03796
+   },
+   "strokes": {
+    "requests": 286.0,
+    "tokens_per_request": 1784.47552,
+    "usd": 0.02144
+   }
+  },
+  "jev_total_usd": 1.2128,
+  "luna_same_requests": {
+   "onsets": {
+    "requests": 4434,
+    "tokens_per_request": 669.0,
+    "usd": 0.29663
+   },
+   "strokes": {
+    "requests": 286,
+    "tokens_per_request": 997.5,
+    "usd": 0.02853
+   },
+   "imgside": {
+    "requests": 286,
+    "tokens_per_request": 639,
+    "usd": 0.01828
+   }
+  }
+ }
+}

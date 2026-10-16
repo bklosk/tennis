@@ -11,23 +11,23 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
+from uso import labeler as labeler_mod
 from uso import points as points_mod
 from uso import rally, truth
 from uso.paths import match_dir
 
 
-def blend_learned(video_id: str, c: pd.DataFrame, p: dict) -> pd.DataFrame:
+def blend_learned(video_id: str, c: pd.DataFrame, p: dict, labeler: str = "luna") -> pd.DataFrame:
     """Mix the learned contact model into the API-based hit scores (weight learned_w). Dev matches
-    use the model trained without them, so their metrics stay out-of-sample."""
+    use the model trained without them, so their metrics stay out-of-sample. Each labeler has its
+    own models, trained on its own answers."""
     import pickle
-
-    from uso.paths import OUTPUTS
 
     w = float(p.get("learned_w") or 0.0)
     if w <= 0:
         return c
-    loo = OUTPUTS / f"hitmodel_loo_{video_id}.pkl"
-    path = loo if loo.exists() else OUTPUTS / "hitmodel.pkl"
+    loo = labeler_mod.hitmodel_path(labeler, video_id)
+    path = loo if loo.exists() else labeler_mod.hitmodel_path(labeler)
     if not path.exists():
         return c
     with open(path, "rb") as f:
@@ -39,12 +39,12 @@ def blend_learned(video_id: str, c: pd.DataFrame, p: dict) -> pd.DataFrame:
     return c
 
 
-def build(video_id: str, params: dict | None = None) -> dict:
+def build(video_id: str, params: dict | None = None, labeler: str = "luna") -> dict:
     d = match_dir(video_id)
     p = {**rally.DECODER, **(params or {})}
-    c = rally.with_api(rally.features(video_id), pd.read_parquet(d / "onset_api.parquet"), p)
-    c = blend_learned(video_id, c, p)
-    sv = rally.pick_serves_api(c, p_min=p["serve_p"], quiet=p["quiet"])
+    c = rally.with_api(rally.features(video_id), pd.read_parquet(labeler_mod.labels_path(video_id, labeler)), p)
+    c = blend_learned(video_id, c, p, labeler)
+    sv = rally.serves(c, p)
     vp, contacts = points_mod.assemble(c, sv, w_prior=p["w_prior"], phantom=p.get("phantom"))
     m = truth.mcp_points(video_id)
     pairs, info = points_mod.evaluate(vp, m)

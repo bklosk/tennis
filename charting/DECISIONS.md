@@ -129,3 +129,38 @@ this departs from `claude_implementation.md`, the departure is noted.
 * **Runner**: `scripts/decode_batch.py` fetches each video from the Space (sha256 against the archive
   manifest), decodes it in its own process (two at a time), uploads the new outputs next to the vision
   outputs in the Space and deletes the video. A match that hits the cap stops the batch.
+
+## Jev onset labels (2026-10-15)
+
+* **Benchmark first** (`reports/jev/README.md`): TypeSafe Jev 1.14 got the same contact sheets and
+  questions as gpt-6-luna on the held-out match 8gP591_wx_k. Its onset answers separate contacts
+  from other sounds better (AUC 0.889 vs 0.840 on ~5,000 MCP-derived labels). Its stroke answers are
+  better than luna's but far below pose (forehand/backhand 57–71% vs 97%). Box for players lost to
+  RF-DETR, and Box for the ball was unusable. Only the onset labels moved to Jev.
+* **Serve over-firing**: with luna's decoder settings, Jev's answers opened 122 points for 93 charted
+  ones. Jev labels the near player's pre-serve routine (bounce, toss, between points) "serve" far
+  more often: 498 onsets at p ≥ 0.4 against luna's 200. Fixed with a serve threshold per court end
+  (`rally.pick_serves_api`: near 0.8, far 0.6), tuned on dev. A serve-specific question was not
+  needed.
+* **Objective now penalises invented points**: `tune_decoder.py` scores exact × coverage ×
+  precision (aligned / detected points). Alignment hides extra points on a charted match, but an
+  uncharted match has no alignment. luna's parameters predate this term and were not retuned.
+* **Each labeler keeps its own artifacts** (`uso/labeler.py`): label file (`onset_api.parquet` /
+  `onset_jev.parquet`), decoder parameters (`decoder_params[_jev].json`) and contact models
+  (`hitmodel[_jev]*.pkl`). Every function defaults to luna, so the published evaluation reproduces
+  unchanged. `decode_batch.py` and `uso.uncharted` default to Jev. Exported rows say
+  `source=model:uso-0.2-jev`.
+* **Jev's contact model**: retrained on Jev's answers (`fit_hitmodel.py --labeler jev`). It blends at
+  weight 0.7, bias −1.0 (dev leave-one-out; luna uses 0.3 / −0.5).
+* **Result**:
+  * Dev (decoder settings in-sample, contact models leave-one-out): Jev 65.0% exact / 88.0% within
+    one / 95.4% point precision, against luna's 66.3% / 86.7% / 89.4%.
+  * Held-out 8gP591_wx_k: Jev 60.7% / 84.5%, 89 points found for 93, against luna's 55.2% / 87.4%,
+    95 points.
+  * Rally length is a wash; Jev invents fewer points and costs less.
+* **No stroke questions with Jev**: the fused stroke model is no better than pose alone on the 10
+  test matches (side 91.3% vs 91.6%, family macro-F1 0.372 vs 0.361), so Jev-charted matches use
+  `stroke_model_pose.pkl` (`fit_stroke_pose.py`).
+* **Cost**: Jev reads ~1,163 tokens per onset sheet at $0.042/M, about $0.24 per video-hour. luna
+  was ~$0.37 per video-hour with the stroke questions.
+* **Jev spend so far**: $1.21 of the user's $1.50. The cap is in `uso/jev.py`.

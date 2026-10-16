@@ -26,7 +26,7 @@ def load(vid, p):
 
 def decode(c, p, scores=None):
     cc = c if scores is None else c.drop(columns=["hit_n", "hit_f"]).join(scores)
-    sv = rally.pick_serves_api(cc, p_min=p["serve_p"], quiet=p["quiet"])
+    sv = rally.serves(cc, p)
     vp, ct = points.assemble(cc, sv, w_prior=p["w_prior"], phantom=p.get("phantom"))
     return cc, vp, ct
 

@@ -3,6 +3,10 @@
 Trained on dev matches with MCP labels (paired shots), evaluated on held-out matches. Both models
 are gradient-boosted trees; probabilities are calibrated with isotonic regression on
 leave-one-match-out predictions so they can be thresholded honestly.
+
+`StrokeModel(pose_only=True)` ignores the API stroke answers. On the 10 test matches it scores the
+same as the fused model (side 91.6% vs 91.3%, family macro-F1 0.361 vs 0.372), so matches charted
+with Jev onset labels use it and skip the stroke questions (outputs/stroke_model_pose.pkl).
 """
 
 from __future__ import annotations
@@ -41,15 +45,22 @@ def match_table(video_id: str) -> pd.DataFrame:
     return out
 
 
-def feature_cols(df: pd.DataFrame) -> list[str]:
+API_COLS = {"p_fh_img", "p_overhead_img", "two_hands"}  # plus every api_* column
+
+
+def feature_cols(df: pd.DataFrame, pose_only: bool = False) -> list[str]:
     skip = {"hit_id", "pid", "t", "seg", "kind", "serve_no", "hitter_end", "in_play", "shot_no", "hx", "hy", "ox", "oy",
             "hvx", "hvy", "mcp_pt", "hitter", "hitter_name", "hitter_hand", "mcp_letter", "mcp_side", "mcp_family",
             "mcp_hitter", "point_count_exact", "half", "video_id", "mcp_fam", "api_tokens"}
-    return [c for c in df.columns if c not in skip and df[c].dtype.kind in "fiub"]
+    cols = [c for c in df.columns if c not in skip and df[c].dtype.kind in "fiub"]
+    if pose_only:
+        cols = [c for c in cols if not c.startswith("api_") and c not in API_COLS]
+    return cols
 
 
 class StrokeModel:
-    def __init__(self):
+    def __init__(self, pose_only: bool = False):
+        self.pose_only = pose_only
         self.side = HistGradientBoostingClassifier(max_iter=250, learning_rate=0.05, max_leaf_nodes=15,
                                                    l2_regularization=1.0, random_state=0)
         self.fam = HistGradientBoostingClassifier(max_iter=250, learning_rate=0.05, max_leaf_nodes=15,
@@ -58,7 +69,7 @@ class StrokeModel:
         self.calib: IsotonicRegression | None = None
 
     def fit(self, df: pd.DataFrame, calib_scores: np.ndarray | None = None, calib_y: np.ndarray | None = None):
-        self.cols = feature_cols(df)
+        self.cols = feature_cols(df, getattr(self, "pose_only", False))
         s = df[df.mcp_side.isin(["F", "B"])]
         self.side.fit(s[self.cols], (s.mcp_side == "F").astype(int))
         f = df[df.mcp_fam.isin(FAM_CLASSES)]
@@ -81,12 +92,12 @@ class StrokeModel:
         return out
 
 
-def loo(df: pd.DataFrame) -> pd.DataFrame:
+def loo(df: pd.DataFrame, pose_only: bool = False) -> pd.DataFrame:
     """Leave-one-match-out predictions (for model selection and calibration)."""
     preds = []
     for v in df.video_id.unique():
         tr, te = df[df.video_id != v], df[df.video_id == v]
-        m = StrokeModel().fit(tr)
+        m = StrokeModel(pose_only).fit(tr)
         preds.append(m.predict(te).assign(video_id=v))
     return pd.concat(preds, ignore_index=True)
 

@@ -103,7 +103,8 @@ def match_summary(video_id: str) -> dict:
 SOURCE = "model:uso-0.1"
 
 
-def export(video_id: str, stroke_pred: pd.DataFrame | None = None) -> tuple[pd.DataFrame, pd.DataFrame]:
+def export(video_id: str, stroke_pred: pd.DataFrame | None = None,
+           source: str = SOURCE) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Deliverable tables for one match. Every value is machine-generated (source column), match ids
     carry a '-machine' suffix, and MCP fields are kept only as clearly prefixed truth columns."""
     d = match_dir(video_id)
@@ -131,7 +132,7 @@ def export(video_id: str, stroke_pred: pd.DataFrame | None = None) -> tuple[pd.D
             keep.append(f"stroke_{c}")
     out.insert(0, "match_id", mid)
     out.insert(1, "video_id", video_id)
-    out["source"] = SOURCE
+    out["source"] = source
     truth_cols = [c for c in ("mcp_letter", "mcp_side", "mcp_family") if c in out]
     out = out[["match_id", "video_id"] + keep + ["source"] + truth_cols]
     vp = pd.read_parquet(d / "video_points.parquet")
@@ -142,7 +143,7 @@ def export(video_id: str, stroke_pred: pd.DataFrame | None = None) -> tuple[pd.D
     pts["mcp_rally_length"] = pd.array(pts.mcp_point.map(mp.rally), dtype="Int64")
     pts.insert(0, "match_id", mid)
     pts.insert(1, "video_id", video_id)
-    pts["source"] = SOURCE
+    pts["source"] = source
     out.to_csv(d / "shots.csv", index=False)
     pts.to_csv(d / "points.csv", index=False)
     return out, pts

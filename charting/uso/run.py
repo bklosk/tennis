@@ -15,7 +15,7 @@ from uso.paths import match_dir
 STAGES = ["scene", "audio", "people", "tracks", "pose", "candidates", "onsets"]
 
 
-def run_stage(stage: str, vid: str, force: bool):
+def run_stage(stage: str, vid: str, force: bool, labeler: str = "luna"):
     if stage == "scene":
         from uso import scene
         df = scene.run(vid, force=force)
@@ -41,11 +41,11 @@ def run_stage(stage: str, vid: str, force: bool):
         from uso import rally
         df = rally.features(vid, force=force)
         return dict(rows=len(df))
-    if stage == "onsets":  # paid: Decisions API labels for strong onsets (cached, budget-capped)
+    if stage == "onsets":  # paid: API labels for strong onsets (cached, budget-capped)
+        from uso import labeler as labeler_mod
         from uso import onset_api
-        from uso.decisions import DecisionClient
-        cl = DecisionClient()
-        df = onset_api.run(vid, z_min=8.0, client=cl)
+        cl = labeler_mod.client(labeler)
+        df = onset_api.run(vid, z_min=8.0, client=cl, labeler=labeler)
         return dict(rows=len(df), spent_total_usd=round(cl.spent(), 3))
     raise ValueError(stage)
 
