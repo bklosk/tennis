@@ -74,6 +74,10 @@ stroke model, with no stroke questions. Why, and how it compares, is in `DECISIO
 `JEV_KEY`) or the repo-root `.env`. Spend is capped in `uso/jev.py` and logged in
 `outputs/jev/ledger.jsonl`.
 
+To run all of this on another machine (the Mac mini), follow [`MAC_MINI_SETUP.md`](MAC_MINI_SETUP.md):
+tools, credentials, the one weights file that has to be copied by hand, and `scripts/space_state.py
+pull` for the models, ledger and vision outputs that `outputs/` (gitignored) does not carry.
+
 1. **Vision stages** (free, about 5 video-hours per hour on an M3 Pro at two slots), for archived
    matches without `pose.parquet`: `scripts/batch_mac.py`, on the `charting-results` branch.
 2. **Decode** (paid, about $0.24 per video-hour):
